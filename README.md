@@ -14,7 +14,7 @@ La aplicación pretende agilizar las labores de administración, admisión, gest
 -   Titulación: Repositorio en donde los alumnos podrán consultar, e inscribirse a todas las asignaturas de su titulación.
 -   Asignatura/Clase: Asignatura x de una titulación y. La clase la dara un profesor para un grupo de alumnos, en una fecha establecida.
 -   Tutoria:  Clase personalizada, que previamente será solicitada por un alumno, y validada por un profesor.
--   Apuntes: 
+-   Apuntes. 
 
 # Servicio Interno
 -   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios referidos al planning de la academía que se produzcan en la página web.
