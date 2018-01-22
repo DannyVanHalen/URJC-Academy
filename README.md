@@ -17,7 +17,7 @@ La aplicación pretende agilizar las labores de administración, admisión, gest
 -   Apuntes. 
 
 # Servicio Interno
--   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios referidos al planning de la academía que se produzcan en la página web.
+-   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
 
 # Integrantes
 
