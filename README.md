@@ -22,6 +22,6 @@ La aplicación pretende agilizar las labores de administración, admisión, gest
 # Integrantes
 
 -   Andrés Casado García: a.casadoga@alumnos.urjc.es
--   Daniel Fuerte Alvarez: d.fuerte@alumnos.urjc.es
+-   Daniel Fuerte Álvarez: d.fuerte@alumnos.urjc.es
 
     
