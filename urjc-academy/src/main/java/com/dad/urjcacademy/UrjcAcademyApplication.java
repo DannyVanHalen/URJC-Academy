@@ -2,9 +2,7 @@ package com.dad.urjcacademy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
-import com.dad.urjcacademy.controller.URJCAcademyController;
 
 @SpringBootApplication
 public class UrjcAcademyApplication {
