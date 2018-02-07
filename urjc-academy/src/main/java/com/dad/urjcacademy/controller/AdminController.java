@@ -69,7 +69,12 @@ public class AdminController extends UsuarioController{
 			@RequestParam String nombre, @RequestParam String apellido, @RequestParam String tlf,
 			@RequestParam String maiLogin, @RequestParam String pass, @RequestParam String rol) {
 		
-		String login = (nombre.charAt(0))+apellido;
+		/** generamos automaticamente el login de usuario concatenando la primera inicial del nombre con el apellido del usuario **/
+		char initName = Character.toLowerCase(nombre.charAt(0));
+		char initLastName = Character.toLowerCase(apellido.charAt(0));
+		String lastName = apellido.substring(1);
+		String login = String.valueOf(initName)+String.valueOf(initLastName)+lastName;
+		
 		Usuario ok = null;
 		
 		if(rol.contains("profesor")) 
