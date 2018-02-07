@@ -2,6 +2,8 @@ package com.dad.urjcacademy.entity;
 
 import javax.persistence.Entity;
 
+import org.springframework.web.context.annotation.SessionScope;
+
 @Entity
 public class Admin extends Usuario {
 

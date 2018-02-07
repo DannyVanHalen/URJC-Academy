@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+
 @Entity
 public class Alumno extends Usuario {
 
@@ -27,7 +28,7 @@ public class Alumno extends Usuario {
 		super();
 	}
 	
-	public Alumno(String login, String maiLogin, String rol, String pass,
+	public Alumno(String login, String maiLogin, String pass, String rol,
 			String nombre, String apellido, String tlf,
 			List<Tutoria> tutorias, List<Asignatura> asignaturas) {
 		

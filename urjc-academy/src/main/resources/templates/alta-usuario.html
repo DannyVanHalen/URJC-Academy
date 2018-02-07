@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h2 style="color:red">Nuevo Usuario</h2>
+
+	<form action="/root/nuevo-usuario" method="post">
+		<p>Nombre:</p>
+		<input type="text" name="nombre">
+		<p>Apellido:</p>
+		<input type="text" name="apellido">
+		<p>Telefono:</p>
+		<input type="text" name="tlf">
+		<p>Correo:</p>
+		<input type="text" name="maiLogin">
+		<p>Contraseña:</p>
+		<input type="password" name="pass">
+		<p>Rol: 
+			<input type="radio" name="rol" value="profesor" checked>Profesor
+			<input type="radio" name="rol" value="alumno">Alumno
+		</p>
+		
+		<input type="submit" value="Ok">
+	</form>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Entity
 public class Profesor extends Usuario {
@@ -27,7 +28,7 @@ public class Profesor extends Usuario {
 		super();
 	}
 	
-	public Profesor(String login, String maiLogin, String rol, String pass,
+	public Profesor(String login, String maiLogin, String pass,  String rol,
 			String nombre, String apellido, String tlf
 			,List<Tutoria> tutorias, List<Asignatura> asignaturas) {
 		

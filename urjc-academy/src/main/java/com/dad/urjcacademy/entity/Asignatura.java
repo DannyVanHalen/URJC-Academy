@@ -1,6 +1,7 @@
 package com.dad.urjcacademy.entity;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ public class Asignatura {
 	private long id;
 	
 	private String nombre;
+	private AtomicInteger plazas;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Tutoria> tutorias;
@@ -43,10 +45,12 @@ public class Asignatura {
 		
 	}
 	
-	public Asignatura(String nombre, 
-			List<Tutoria> tutorias, Profesor profesor, Titulacion titulacion, List<Alumno> alumnos, List<Apuntes> apuntes) {
+	public Asignatura(String nombre,int plazas, 
+			 Profesor profesor, Titulacion titulacion, 
+			 List<Alumno> alumnos, List<Apuntes> apuntes, List<Tutoria> tutorias) {
 		
 		this.nombre = nombre;
+		this.plazas = new AtomicInteger(plazas);
 		
 		this.tutorias = tutorias;
 		this.profesor = profesor;
@@ -66,6 +70,10 @@ public class Asignatura {
 	
 	public String getNombre() {
 		return nombre;
+	}
+	
+	public int getPlazas() {
+		return plazas.get();
 	}
 	
 	public List<Tutoria> getTutorias() {
@@ -95,6 +103,10 @@ public class Asignatura {
 		this.nombre = nombre;
 	}
 	
+	public void setPlazas(int plazas) {
+		this.plazas.set(plazas);
+	}
+	
 	public void setTutorias(List<Tutoria> tutorias) {
 		this.tutorias = tutorias;
 	}
@@ -115,5 +127,13 @@ public class Asignatura {
 		this.apuntes = apuntes;
 	}
 	
+	/** Metodos Funcionales **/
+	public int incrementPlaza() {
+		return plazas.getAndIncrement();
+	}
+	
+	public int decrementPlaza() {
+		return plazas.getAndDecrement();
+	}
 	
 }
