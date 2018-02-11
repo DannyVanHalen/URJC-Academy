@@ -27,11 +27,8 @@ public class Tutoria {
 	@ManyToOne
 	private Asignatura asignatura;
 	
-	@ManyToOne
-	private Profesor profesor;
-	
-	@ManyToOne
-	private Alumno alumno;
+
+
 	
 	/** Constructores **/
 	
@@ -39,8 +36,7 @@ public class Tutoria {
 		
 	}
 	
-	public Tutoria(LocalDateTime fecha, 
-			Asignatura asignatura, Profesor profesor, Alumno alumno) {
+	public Tutoria(LocalDateTime fecha, Asignatura asignatura) {
 		
 		this.fecha = fecha;
 		this.dayOfMonth = fecha.getDayOfMonth();
@@ -50,8 +46,6 @@ public class Tutoria {
 		this.min = fecha.getMinute();
 		
 		this.asignatura = asignatura;
-		this.profesor = profesor;
-		this.alumno = alumno;
 		
 	}
 	
@@ -91,13 +85,6 @@ public class Tutoria {
 		return asignatura;
 	}
 	
-	public Profesor getProfesor() {
-		return profesor;
-	}
-	
-	public Alumno getAlumno() {
-		return alumno;
-	}
 	
 	
 	// SET
@@ -130,13 +117,6 @@ public class Tutoria {
 		this.asignatura = asignatura;
 	}
 	
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
-	
-	public void setAlumno(Alumno alumno) {
-		this.alumno = alumno;
-	}
 	
 	/** Metodos Funcionales de la Entidad **/
 	

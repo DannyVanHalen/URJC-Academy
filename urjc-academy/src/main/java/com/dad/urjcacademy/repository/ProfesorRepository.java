@@ -11,11 +11,12 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 	/** SELECT **/
 	
 	Profesor findByTlf(String tlf);
+	Profesor findByLogin(String login);
 	List<Profesor> findByNombre(String nombre);
 	List<Profesor> findByApellido(String apellido);
 	Profesor findByNombreAndApellido(String nombre, String apellido);
 	
 	/** DELETE **/
-	
+	Profesor deleteByLogin(String login);
 	
 }

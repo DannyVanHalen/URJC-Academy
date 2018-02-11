@@ -22,6 +22,7 @@ import com.dad.urjcacademy.repository.AlumnoRepository;
 import com.dad.urjcacademy.repository.AsignaturaRepository;
 import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.repository.TitulacionRepository;
+import com.dad.urjcacademy.repository.TutoriaRepository;
 import com.dad.urjcacademy.repository.UsuarioRepository;
 
 
@@ -29,6 +30,7 @@ import com.dad.urjcacademy.repository.UsuarioRepository;
 @Controller
 @RequestMapping("/root")
 public class AdminController extends UsuarioController{
+	
 	
 	@Autowired
 	private TitulacionRepository titulaciones;
@@ -44,6 +46,9 @@ public class AdminController extends UsuarioController{
 	
 	@Autowired
 	private AlumnoRepository alumnos;
+	
+	@Autowired
+	private TutoriaRepository tutorias;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String root(Model model) {
@@ -76,12 +81,18 @@ public class AdminController extends UsuarioController{
 		String login = String.valueOf(initName)+String.valueOf(initLastName)+lastName;
 		
 		Usuario ok = null;
+		Profesor profesor = null;
+		Alumno alumno = null;
 		
-		if(rol.contains("profesor")) 
-			ok = profesores.save(new Profesor(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
-		 else if (rol.contains("alumno")) 
-			ok = alumnos.save(new Alumno(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
-		
+		if(rol.contains("profesor")) {
+			profesor = profesores.save(new Profesor(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
+			profesor.setLogin(login+String.valueOf(profesor.getId()));
+			ok = profesores.save(profesor);
+		} else if (rol.contains("alumno")) { 
+			alumno = alumnos.save(new Alumno(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
+			alumno.setLogin(login+String.valueOf(alumno.getId()));
+			ok = alumnos.save(alumno);
+		}
 		
 		if(ok != null) {
 			
@@ -92,7 +103,10 @@ public class AdminController extends UsuarioController{
 			model.addAttribute("tlf",tlf);
 			model.addAttribute("maiLogin", maiLogin);
 			model.addAttribute("pass", pass);
-			model.addAttribute("login", login);
+			if(ok.getRol().contains("profesor"))
+				model.addAttribute("login", profesor.getLogin());
+			else if(ok.getRol().contains("alumno"))
+				model.addAttribute("login", alumno.getLogin());
 			
 			return "nuevo-usuario";
 			
@@ -100,6 +114,66 @@ public class AdminController extends UsuarioController{
 		
 		return "403";
 	}
+	
+	
+	@RequestMapping(value="/baja-usuario", method=RequestMethod.GET)
+	public String formulario_baja_usuario(Model model) {
+		return "baja-usuario";
+	}
+	
+	@RequestMapping(value="/baja-usuario/elimina", method=RequestMethod.GET)
+	public String elimina_usuario(Model model, @RequestParam String login) {
+		
+			Usuario usuario = usuarios.findByLogin(login);
+			
+			if(usuario != null) {
+				model.addAttribute("encontrado", true);
+				model.addAttribute("encontrado",true);
+				model.addAttribute("login", usuario.getLogin());
+				model.addAttribute("maiLogin", usuario.getMaiLogin());
+				model.addAttribute("rol",usuario.getRol());
+				model.addAttribute("pass", usuario.getPass());	
+				
+				if(usuario.getRol().contains("profesor")) {
+					Profesor profesor = profesores.findByLogin(usuario.getLogin());
+					/** compruebo que no tiene tutorias y asignaturas asociadas **/
+					// asignaturas
+					if(!profesor.getAsignaturas().isEmpty()) {
+						for(Asignatura asignatura: profesor.getAsignaturas()) {
+							if(asignaturas.exists(asignatura.getId())) {
+								if(!asignatura.getTutorias().isEmpty()) {
+									for(Tutoria tutoria: asignatura.getTutorias()) {
+										tutoria.setAsignatura(null);
+										asignatura.getTutorias().remove(tutoria);
+										tutorias.delete(tutoria.getId());
+									}
+								}
+								asignatura.setProfesor(null);
+								asignaturas.save(asignatura);
+								profesor.getAsignaturas().remove(asignatura);
+							}
+						}
+					}
+					
+					profesores.delete(profesor.getId());
+				} else if(usuario.getRol().contains("alumno")) {
+					Alumno alumno = alumnos.findByLogin(usuario.getLogin());
+					alumnos.delete(alumno.getId());
+				}
+					
+				
+				usuarios.delete(usuario.getId());
+				
+				return "baja-usuario";
+				
+			}
+		
+		return "403";
+	
+	}
+	
+	
+	
 	
 	
 }

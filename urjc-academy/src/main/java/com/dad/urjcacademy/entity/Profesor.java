@@ -2,9 +2,10 @@ package com.dad.urjcacademy.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import org.springframework.web.context.annotation.SessionScope;
+//import org.springframework.web.context.annotation.SessionScope;
 
 @Entity
 public class Profesor extends Usuario {
@@ -15,7 +16,7 @@ public class Profesor extends Usuario {
 	private String apellido;
 	private String tlf;
 	
-	@OneToMany(mappedBy="profesor")
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Tutoria> tutorias;
 	
 	@OneToMany(mappedBy="profesor")
@@ -143,6 +144,15 @@ public class Profesor extends Usuario {
 	
 	/** Métodos Funcionales de la Entidad **/
 	// PÚBLICOS
+	
+	public boolean asignarTutoria(Tutoria tutoria) {
+		return tutorias.add(tutoria);
+	}
+	
+	public boolean eliminarTutoria(Tutoria tutoria) {
+		return tutorias.remove(tutoria);
+	}
+	
 	
 	// PROTEGÍDOS || PRIVADOS
 	

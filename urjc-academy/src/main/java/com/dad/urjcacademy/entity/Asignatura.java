@@ -136,4 +136,28 @@ public class Asignatura {
 		return plazas.getAndDecrement();
 	}
 	
+	public boolean matricularAlumno(Alumno alumno) {
+		if(plazas.get() > 0) {
+			alumnos.add(alumno);
+			plazas.getAndDecrement();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean desmatricularAlumno(Alumno alumno) {
+		plazas.getAndIncrement();
+		return alumnos.remove(alumno);
+	}
+	
+	public boolean agregarTutoria(Tutoria tutoria) {
+		return tutorias.add(tutoria);
+	}
+	
+	public boolean tutoriaRealizadaAnulada(Tutoria tutoria) {
+		return tutorias.remove(tutoria);
+	}
+	
+	
+	
 }

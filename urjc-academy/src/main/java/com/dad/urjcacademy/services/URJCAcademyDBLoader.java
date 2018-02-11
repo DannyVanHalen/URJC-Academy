@@ -1,5 +1,7 @@
 package com.dad.urjcacademy.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -14,9 +16,12 @@ import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.entity.Titulacion;
 import com.dad.urjcacademy.entity.Tutoria;
+import com.dad.urjcacademy.repository.AlumnoRepository;
 //import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.repository.AsignaturaRepository;
+import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.repository.TitulacionRepository;
+import com.dad.urjcacademy.repository.TutoriaRepository;
 import com.dad.urjcacademy.repository.UsuarioRepository;
 
 @Component
@@ -31,25 +36,44 @@ public class URJCAcademyDBLoader {
 	@Autowired
 	private TitulacionRepository titulaciones;
 	
+	
+	@Autowired
+	private TutoriaRepository tutorias;
+	
+	@Autowired
+	private ProfesorRepository profesores;
+	
+	@Autowired
+	private AlumnoRepository alumnos;
+	
 	@PostConstruct
 	public void initdDB() {
 		
-		Profesor profesor = null;
 		
 		if(usuarios.findByLogin("root") == null) 
 			usuarios.save(new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador"));
 		
-		if(usuarios.findAll().size() <= 1) {
-			profesor = usuarios.save(new Profesor("acasado","andres190294@gmail.com","12345","profesor","Andrés","Casado","111 111 111",new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
-			usuarios.save(new Alumno("dvanhalen","danny.van.halen.87@gmail.com","12345","alumno","Danny","Van Halen","316 316 316",new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
+		if(titulaciones.findAll().size() == 0) {
+			Titulacion titulacion = titulaciones.save(new Titulacion("Ingeniería de Computadores", "Informática",new ArrayList<Asignatura>()));
+			Alumno alumno = alumnos.save(new Alumno("dvanhalen","danny.van.halen.87@gmail.com","12345","alumno","Daniel","Van Halen","51501984316", new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
+			Profesor profesor = (Profesor) usuarios.findByLogin("acasado47");
+			Asignatura asignatura = new Asignatura("DAD",10,profesor,titulacion,new ArrayList<Alumno>(),new ArrayList<Apuntes>(),new ArrayList<Tutoria>());
+			if(asignatura.matricularAlumno(alumno)) {
+				asignaturas.save(asignatura);
+			}
+			Tutoria tutoria = tutorias.save(new Tutoria(LocalDateTime.now(),asignatura));
+			if(asignatura.agregarTutoria(tutoria)) {
+				profesor.setTutorias(new ArrayList<Tutoria>());
+				profesor.asignarTutoria(tutoria);
+				alumno.setTutorias(new ArrayList<Tutoria>());
+				alumno.asignarTutoria(tutoria);
+				usuarios.save(profesor);
+				usuarios.save(alumno);
+				asignaturas.save(asignatura);
+			}
+			
 		}
 		
-		if(titulaciones.findAll().size() == 0) {
-			Titulacion titulacion = titulaciones.save(new Titulacion("Ingeniería de Computadores","Informática",new ArrayList<Asignatura>()));
-			Asignatura pc = asignaturas.save(new Asignatura("Programación Concurrente",20,profesor,titulacion,new ArrayList<Alumno>(),new ArrayList<Apuntes>(),new ArrayList<Tutoria>()));
-			titulacion.getAsignaturas().add(pc);
-			titulaciones.save(titulacion);
-		}
 	
 	}
 	
