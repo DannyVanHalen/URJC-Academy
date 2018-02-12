@@ -17,19 +17,19 @@
 	<ul>
 		
 		{{#titulaciones}}
-		<li><a href="titulaciones/{{id}}">{{nombre}}</a></li>
+		<li><a href="/root/titulacion/{{id}}">{{nombre}}</a></li>
 		{{/titulaciones}}
 	
 	</ul>
 	
-	<a href="">Dar de Alta Titulación</a>
+	<a href="/root/titulacion/alta-titulacion">Dar de Alta Titulación</a>
 	<br>
-	<a href="">Dar de Baja Titulacion</a>
+	<!-- <a href="">Dar de Baja Titulacion</a> -->
 	
 	<h3 style="color:red">Profesores</h3>
 
 	<ul>
-	
+		
 		{{#profesores}}
 		<li><a href="">{{nombre}} {{apellido}}</a></li>
 		{{/profesores}}
@@ -49,7 +49,7 @@
 	<br>
 	<a href="/root/alta-usuario">Dar de alta usuario</a>
 	<br>
-	<a href="/root/baja-usuario">Dar de baja usuario</a>
+	<!-- <a href="/root/baja-usuario">Dar de baja usuario</a> -->
 	
 	
 </body>

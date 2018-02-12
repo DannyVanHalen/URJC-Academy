@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h1 style="color:green">Titulacion: {{nombre}}</h1>
+	<h2 style="color:green">Rama: {{rama}}</h2>
+	<h3 style="color:green">Agregar asignatura</h3>
+
+	<form action="/root/titulaciones/alta-asignatura/nueva-asignatura" method="post">
+	
+		<p>Asignatura:</p>
+		<input type="text" name="nombre">
+		<p>Plazas Vacantes:</p>
+		<input type="number" name="plazas"><br>
+		<!--<p>Seleccionar Profesor:</p>
+		<ul>
+			{{#profesores}}
+			<li><input type="radio" name="profesor" value="{{id}}">{{nombre}} {{apellido}}</li>
+			{{/profesores}}
+		</ul> -->		
+		<input type="submit" value="Agregar Asignatura">
+	</form>
+
+</body>
+
+</html>

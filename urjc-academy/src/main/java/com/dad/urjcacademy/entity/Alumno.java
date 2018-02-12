@@ -21,7 +21,7 @@ public class Alumno extends Usuario {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Tutoria> tutorias;
 	
-	@ManyToMany(mappedBy="alumnos")
+	@ManyToMany
 	private List<Asignatura> asignaturas;
 	
 	/** Constructores **/

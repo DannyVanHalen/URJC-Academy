@@ -15,10 +15,8 @@ public class Apuntes {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	private String tema;
 	private String linkApuntes;
-	
-	@ManyToOne
-	private Asignatura asignatura;
 	
 	/** Construcor **/
 	
@@ -26,10 +24,10 @@ public class Apuntes {
 		
 	}
 	
-	public Apuntes(String linkApuntes, Asignatura asignatura) {
+	public Apuntes(String tema, String linkApuntes) {
 		
+		this.tema = tema;
 		this.linkApuntes = linkApuntes;
-		this.asignatura = asignatura;
 		
 	}
 	
@@ -41,24 +39,26 @@ public class Apuntes {
 		return id;
 	}
 	
+	public String getTema() {
+		return tema;
+	}
+	
 	public String getLinkApuntes() {
 		return linkApuntes;
 	}
 	
-	public Asignatura getAsignatura() {
-		return asignatura;
-	}
 	
 	// SET
 	
 	/** Métodos Funcionales de la Entidad **/
 	
+	public void setTema(String tema) {
+		this.tema = tema;
+	}
+	
 	public void setLinkApuntes(String linkApuntes) {
 		this.linkApuntes = linkApuntes;
 	}
 	
-	public void setAsignatura(Asignatura asignatura) {
-		this.asignatura = asignatura;
-	}
 	
 }

@@ -17,25 +17,6 @@ public class AsignaturaController {
 
 	@Autowired
 	private AsignaturaRepository repository;
-	
-	@RequestMapping(value="/{id}" ,method=RequestMethod.GET)
-	public String asignatura(Model model, @PathVariable long id) {
-		
-		Asignatura asignatura = repository.findOne(id);
-		
-		model.addAttribute("nombre", asignatura.getNombre());
-		model.addAttribute("plazas", asignatura.getPlazas());
-		model.addAttribute("profesorNombre",asignatura.getProfesor().getNombre());
-		model.addAttribute("profesorApellido", asignatura.getProfesor().getApellido());
-		
-		if(asignatura.getAlumnos().size() > 0) {
-			model.addAttribute("hayAlumnos", true);
-			model.addAttribute("alumnos", asignatura.getAlumnos());
-		} else {
-			model.addAttribute("noHayAlumnos", true);
-		}
-		
-		return "asignatura";
-	}
+
 	
 }

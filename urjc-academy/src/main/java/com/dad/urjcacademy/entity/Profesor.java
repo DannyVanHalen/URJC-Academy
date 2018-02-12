@@ -19,7 +19,7 @@ public class Profesor extends Usuario {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Tutoria> tutorias;
 	
-	@OneToMany(mappedBy="profesor")
+	@OneToMany
 	private List<Asignatura> asignaturas;
 	
 	
@@ -152,6 +152,7 @@ public class Profesor extends Usuario {
 	public boolean eliminarTutoria(Tutoria tutoria) {
 		return tutorias.remove(tutoria);
 	}
+	
 	
 	
 	// PROTEGÍDOS || PRIVADOS

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.dad.urjcacademy.entity.Alumno;
 import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.entity.Titulacion;
-import com.dad.urjcacademy.entity.Tutoria;
 import com.dad.urjcacademy.entity.Usuario;
+import com.dad.urjcacademy.entity.Tutoria;
 import com.dad.urjcacademy.entity.Asignatura;
-
+import com.dad.urjcacademy.entity.Apuntes;
+import com.dad.urjcacademy.generator.PassGenerator;
 import com.dad.urjcacademy.repository.AlumnoRepository;
 import com.dad.urjcacademy.repository.AsignaturaRepository;
-import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.repository.TitulacionRepository;
-import com.dad.urjcacademy.repository.TutoriaRepository;
 import com.dad.urjcacademy.repository.UsuarioRepository;
+import com.dad.urjcacademy.repository.ProfesorRepository;
 
 
 
@@ -36,10 +37,10 @@ public class AdminController extends UsuarioController{
 	private TitulacionRepository titulaciones;
 	
 	@Autowired
-	private UsuarioRepository usuarios;
+	private AsignaturaRepository asignaturas;
 	
 	@Autowired
-	private AsignaturaRepository asignaturas;
+	private UsuarioRepository usuarios;
 	
 	@Autowired
 	private ProfesorRepository profesores;
@@ -47,22 +48,24 @@ public class AdminController extends UsuarioController{
 	@Autowired
 	private AlumnoRepository alumnos;
 	
-	@Autowired
-	private TutoriaRepository tutorias;
+	Titulacion titulacion = null;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String root(Model model) {
-		List<Titulacion> titulaciones = this.titulaciones.findAll();
 		List<Profesor> profesores = this.profesores.findAll();
 		List<Alumno> alumnos = this.alumnos.findAll();
+		List<Titulacion> titulaciones = this.titulaciones.findAll();
 		
-		model.addAttribute("titulaciones", titulaciones);
+		/** Model **/
 		model.addAttribute("profesores", profesores);
 		model.addAttribute("alumnos", alumnos);
+		model.addAttribute("titulaciones",titulaciones);
+		
 		
 		return "root";
 	}
 	
+	/** Altas Usuarios **/
 	
 	@RequestMapping(value="/alta-usuario", method=RequestMethod.GET)
 	public String alta_usuario(Model model) {
@@ -72,49 +75,110 @@ public class AdminController extends UsuarioController{
 	@RequestMapping(value="/nuevo-usuario", method=RequestMethod.POST)
 	public String nuevo_usuario(Model model,
 			@RequestParam String nombre, @RequestParam String apellido, @RequestParam String tlf,
-			@RequestParam String maiLogin, @RequestParam String pass, @RequestParam String rol) {
+			@RequestParam String maiLogin, @RequestParam String rol) {
 		
-		/** generamos automaticamente el login de usuario concatenando la primera inicial del nombre con el apellido del usuario **/
+		Usuario usuario = null;
+		Alumno alumno = null;
+		Profesor profesor = null;
+		boolean esProfesor = rol.contains("profesor");
+
+		
+		/** creamos parcialmente el login a falta de tener el id de usuario registrado en la tabla **/
+
 		char initName = Character.toLowerCase(nombre.charAt(0));
 		char initLastName = Character.toLowerCase(apellido.charAt(0));
 		String lastName = apellido.substring(1);
 		String login = String.valueOf(initName)+String.valueOf(initLastName)+lastName;
 		
-		Usuario ok = null;
-		Profesor profesor = null;
-		Alumno alumno = null;
+		/** Creamos una contraseña de forma aleatoria **/
+		String pass = new PassGenerator().getPassword(); 
 		
-		if(rol.contains("profesor")) {
-			profesor = profesores.save(new Profesor(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
-			profesor.setLogin(login+String.valueOf(profesor.getId()));
-			ok = profesores.save(profesor);
-		} else if (rol.contains("alumno")) { 
-			alumno = alumnos.save(new Alumno(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
-			alumno.setLogin(login+String.valueOf(alumno.getId()));
-			ok = alumnos.save(alumno);
+		/** Registro de nuevo Usuario **/
+		
+		if(esProfesor) {
+			usuario = usuarios.save(new Profesor(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
+			profesor = (Profesor) usuarios.findByLogin(login);
+			if(profesor != null) {
+				profesor.setLogin(login+String.valueOf(profesor.getId()));
+				usuario = usuarios.save(profesor);
+				profesores.save(profesor);
+			} else {
+				return "403";
+			}
+		} else {
+			usuario = usuarios.save(new Alumno(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<Tutoria>(),new ArrayList<Asignatura>()));
+			alumno = (Alumno) usuarios.findByLogin(login);
+			if(alumno != null) {
+				alumno.setLogin(login+String.valueOf(alumno.getId()));
+				usuario = usuarios.save(alumno);
+				alumnos.save(alumno);
+			} else {
+				return "403";
+			}
 		}
 		
-		if(ok != null) {
-			
-			usuarios.save(ok);
-			model.addAttribute("rol", rol);
-			model.addAttribute("nombre", nombre);
-			model.addAttribute("apellido", apellido);
-			model.addAttribute("tlf",tlf);
-			model.addAttribute("maiLogin", maiLogin);
-			model.addAttribute("pass", pass);
-			if(ok.getRol().contains("profesor"))
-				model.addAttribute("login", profesor.getLogin());
-			else if(ok.getRol().contains("alumno"))
-				model.addAttribute("login", alumno.getLogin());
-			
-			return "nuevo-usuario";
-			
+		/** Mostramos los datos creados **/
+		
+		if(usuario != null) {
+			model.addAttribute("rol", usuario.getRol());
+			model.addAttribute("login", usuario.getLogin());
+			model.addAttribute("maiLogin", usuario.getMaiLogin());
+			model.addAttribute("pass", usuario.getPass());
+			if(esProfesor) {
+				model.addAttribute("nombre", profesor.getNombre());
+				model.addAttribute("apellido", profesor.getApellido());
+				model.addAttribute("tlf",profesor.getTlf());
+			} else {
+				model.addAttribute("nombre", alumno.getNombre());
+				model.addAttribute("apellido", alumno.getApellido());
+				model.addAttribute("tlf", alumno.getTlf());
+			}
+		} else {
+			return "403";
 		}
 		
-		return "403";
+		
+		return "nuevo-usuario";
 	}
 	
+	/** Hay que meter esto en el controlador de asignaturas **/
+	
+	@RequestMapping(value="/titulaciones/alta-asignatura/nueva-asignatura", method=RequestMethod.POST)
+	public String nueva_asignatura(Model model,
+			@RequestParam String nombre, @RequestParam int plazas) {
+		
+		
+		if(titulacion != null) {
+			Asignatura asignatura = new Asignatura(nombre,new ArrayList<Alumno>(),new ArrayList<Apuntes>());
+			if(asignatura != null) {
+				if(titulacion.getAsignaturas().add(asignatura)) {
+					asignaturas.save(asignatura);
+					titulaciones.save(titulacion);
+					
+					model.addAttribute("nombre", nombre);
+					model.addAttribute("plazasDisponibles", plazas);
+					
+					return "nueva-asignatura";
+				}
+			}
+		}
+		
+		return "";
+	}
+	
+	
+	@RequestMapping(value="/titulacion/{id}/{idAsignatura}", method=RequestMethod.GET)
+	public String asignatura(Model model, @PathVariable long id, @PathVariable long idAsignatura) {
+		
+		Asignatura asignatura = asignaturas.findOne(idAsignatura);
+		if(asignatura != null) {
+			
+		}
+		
+		return "asignatura";
+	}
+
+	/** Hay que meter esto de arriba en el controlador de asitnaturas ^**/
 	
 	@RequestMapping(value="/baja-usuario", method=RequestMethod.GET)
 	public String formulario_baja_usuario(Model model) {
@@ -123,50 +187,7 @@ public class AdminController extends UsuarioController{
 	
 	@RequestMapping(value="/baja-usuario/elimina", method=RequestMethod.GET)
 	public String elimina_usuario(Model model, @RequestParam String login) {
-		
-			Usuario usuario = usuarios.findByLogin(login);
-			
-			if(usuario != null) {
-				model.addAttribute("encontrado", true);
-				model.addAttribute("encontrado",true);
-				model.addAttribute("login", usuario.getLogin());
-				model.addAttribute("maiLogin", usuario.getMaiLogin());
-				model.addAttribute("rol",usuario.getRol());
-				model.addAttribute("pass", usuario.getPass());	
-				
-				if(usuario.getRol().contains("profesor")) {
-					Profesor profesor = profesores.findByLogin(usuario.getLogin());
-					/** compruebo que no tiene tutorias y asignaturas asociadas **/
-					// asignaturas
-					if(!profesor.getAsignaturas().isEmpty()) {
-						for(Asignatura asignatura: profesor.getAsignaturas()) {
-							if(asignaturas.exists(asignatura.getId())) {
-								if(!asignatura.getTutorias().isEmpty()) {
-									for(Tutoria tutoria: asignatura.getTutorias()) {
-										tutoria.setAsignatura(null);
-										asignatura.getTutorias().remove(tutoria);
-										tutorias.delete(tutoria.getId());
-									}
-								}
-								asignatura.setProfesor(null);
-								asignaturas.save(asignatura);
-								profesor.getAsignaturas().remove(asignatura);
-							}
-						}
-					}
-					
-					profesores.delete(profesor.getId());
-				} else if(usuario.getRol().contains("alumno")) {
-					Alumno alumno = alumnos.findByLogin(usuario.getLogin());
-					alumnos.delete(alumno.getId());
-				}
-					
-				
-				usuarios.delete(usuario.getId());
-				
-				return "baja-usuario";
-				
-			}
+
 		
 		return "403";
 	

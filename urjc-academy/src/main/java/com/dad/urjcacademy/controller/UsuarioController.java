@@ -7,8 +7,5 @@ import com.dad.urjcacademy.repository.UsuarioRepository;
 
 @Controller
 public class UsuarioController {
-
-	@Autowired
-	public UsuarioRepository repository;
 	
 }

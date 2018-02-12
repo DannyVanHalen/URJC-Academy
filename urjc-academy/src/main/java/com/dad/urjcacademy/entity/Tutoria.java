@@ -1,6 +1,7 @@
 package com.dad.urjcacademy.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,37 +18,33 @@ public class Tutoria {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	private LocalDateTime fecha;
 	private int dayOfMonth;
 	private int month;
 	private int year;
 	private int hour;
 	private int min;
 	
-	@ManyToOne
-	private Asignatura asignatura;
-	
-
-
-	
+	private boolean validate;
+	private String fecha;
 	/** Constructores **/
 	
 	public Tutoria() {
 		
 	}
 	
-	public Tutoria(LocalDateTime fecha, Asignatura asignatura) {
-		
-		this.fecha = fecha;
-		this.dayOfMonth = fecha.getDayOfMonth();
-		this.month = fecha.getMonthValue();
-		this.year = fecha.getYear();
-		this.hour = fecha.getHour();
-		this.min = fecha.getMinute();
-		
-		this.asignatura = asignatura;
+	public Tutoria(int dayOfMonth, int month, int year, int hour, int min,boolean validate) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime dateTime = LocalDateTime.of(year,month,dayOfMonth,hour,min);
+		this.fecha = dateTime.format(formatter);
+		this.dayOfMonth = dateTime.getDayOfMonth();
+		this.month = dateTime.getMonthValue();
+		this.year = dateTime.getYear();
+		this.hour = dateTime.getHour();
+		this.min = dateTime.getMinute();
+		this.validate = validate;
 		
 	}
+	
 	
 	/** Métodos de Acceso **/
 	
@@ -55,10 +52,6 @@ public class Tutoria {
 	
 	public long getId() {
 		return id;
-	}
-	
-	public LocalDateTime getFecha() {
-		return fecha;
 	}
 	
 	public int getDayOfMonth() {
@@ -81,17 +74,18 @@ public class Tutoria {
 		return min;
 	}
 	
-	public Asignatura getAsignatura() {
-		return asignatura;
+	public boolean getValidate() {
+		return validate;
 	}
 	
+	public String getFecha() {
+		return fecha;
+	}
+
 	
 	
 	// SET
 	
-	public void setFecha(LocalDateTime fecha) {
-		this.fecha = fecha;
-	}
 	
 	public void setDayOfMonth(int dayOfMonth) {
 		this.dayOfMonth = dayOfMonth;
@@ -113,13 +107,28 @@ public class Tutoria {
 		this.min = min;
 	}
 	
-	public void setAsignatura(Asignatura asignatura) {
-		this.asignatura = asignatura;
+	public void setValidate(boolean validate) {
+		this.validate = validate;
 	}
 	
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
 	
 	/** Metodos Funcionales de la Entidad **/
 	
+	
+	public void cambiarTutoria(int dayOfMonth, int month, int year, int hour, int min, boolean validate) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime dateTime = LocalDateTime.of(year,month,dayOfMonth,hour,min);
+		this.fecha = dateTime.format(formatter);
+		this.dayOfMonth = dayOfMonth;
+		this.month = month;
+		this.year = year;
+		this.hour = hour;
+		this.min = min;
+		this.validate = validate;
+	}
 	
 	
 	

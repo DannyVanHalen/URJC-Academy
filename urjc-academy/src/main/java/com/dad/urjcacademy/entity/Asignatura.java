@@ -22,21 +22,11 @@ public class Asignatura {
 	private long id;
 	
 	private String nombre;
-	private AtomicInteger plazas;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Tutoria> tutorias;
-	
-	@ManyToOne
-	private Profesor profesor;
-	
-	@ManyToOne
-	private Titulacion titulacion;
-	
-	@ManyToMany
+	@ManyToMany(mappedBy="asignaturas")
 	private List<Alumno> alumnos;
 	
-	@OneToMany(mappedBy="asignatura")
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Apuntes> apuntes;
 	
 	/** Constructores **/
@@ -45,16 +35,11 @@ public class Asignatura {
 		
 	}
 	
-	public Asignatura(String nombre,int plazas, 
-			 Profesor profesor, Titulacion titulacion, 
-			 List<Alumno> alumnos, List<Apuntes> apuntes, List<Tutoria> tutorias) {
+	public Asignatura(String nombre, 
+			 List<Alumno> alumnos, List<Apuntes> apuntes) {
 		
 		this.nombre = nombre;
-		this.plazas = new AtomicInteger(plazas);
 		
-		this.tutorias = tutorias;
-		this.profesor = profesor;
-		this.titulacion = titulacion;
 		this.alumnos = alumnos;
 		this.apuntes = apuntes;
 		
@@ -72,22 +57,7 @@ public class Asignatura {
 		return nombre;
 	}
 	
-	public int getPlazas() {
-		return plazas.get();
-	}
-	
-	public List<Tutoria> getTutorias() {
-		return tutorias;
-	}
-	
-	public Profesor getProfesor() {
-		return profesor;
-	}
-	
-	public Titulacion getTitualcion() {
-		return titulacion;
-	}
-	
+		
 	public List<Alumno> getAlumnos() {
 		return alumnos;
 	}
@@ -103,22 +73,6 @@ public class Asignatura {
 		this.nombre = nombre;
 	}
 	
-	public void setPlazas(int plazas) {
-		this.plazas.set(plazas);
-	}
-	
-	public void setTutorias(List<Tutoria> tutorias) {
-		this.tutorias = tutorias;
-	}
-	
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
-	
-	public void setTitulacion(Titulacion titulacion) {
-		this.titulacion = titulacion;
-	}
-	
 	public void setAlumnos(List<Alumno> alumnos) {
 		this.alumnos = alumnos;
 	}
@@ -128,34 +82,25 @@ public class Asignatura {
 	}
 	
 	/** Metodos Funcionales **/
-	public int incrementPlaza() {
-		return plazas.getAndIncrement();
+	
+	// Privados || Protegidos
+	
+	// Públicos 
+	
+	public boolean apuntarAlumno(Alumno alumno) {
+		return alumnos.add(alumno);
 	}
 	
-	public int decrementPlaza() {
-		return plazas.getAndDecrement();
+	public boolean desapuntarAlumno(Alumno alumno) {
+		return alumnos.add(alumno);
 	}
 	
-	public boolean matricularAlumno(Alumno alumno) {
-		if(plazas.get() > 0) {
-			alumnos.add(alumno);
-			plazas.getAndDecrement();
-			return true;
-		}
-		return false;
+	public boolean apuntarAlumnos(List<Alumno> alumnos) {
+		return alumnos.addAll(alumnos);
 	}
 	
-	public boolean desmatricularAlumno(Alumno alumno) {
-		plazas.getAndIncrement();
-		return alumnos.remove(alumno);
-	}
-	
-	public boolean agregarTutoria(Tutoria tutoria) {
-		return tutorias.add(tutoria);
-	}
-	
-	public boolean tutoriaRealizadaAnulada(Tutoria tutoria) {
-		return tutorias.remove(tutoria);
+	public boolean desapuntarAlumnos(List<Alumno> alumnos) {
+		return alumnos.removeAll(alumnos);
 	}
 	
 	

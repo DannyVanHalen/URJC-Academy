@@ -7,6 +7,6 @@ import com.dad.urjcacademy.entity.Asignatura;
 
 public interface AsignaturaRepository extends JpaRepository<Asignatura,Long>{
 
-	Asignatura findByNombre(String nombre);
+	
 	
 }
