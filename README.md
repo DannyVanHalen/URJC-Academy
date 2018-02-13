@@ -15,6 +15,10 @@ La aplicación pretende agilizar las labores de administración, admisión, gest
 -   Asignatura/Clase: Asignatura x de una titulación y. La clase la dara un profesor para un grupo de alumnos, en una fecha establecida.
 -   Tutoria:  Clase personalizada, que previamente será solicitada por un alumno, y validada por un profesor.
 -   Apuntes. 
+# Diagrama de Clases
+Este es el diagrama de clases de nuestra aplicación, siempre sujeto a cambios si fuese necesario.
+
+![](imagenes/Diagrama_de_clases_Fase2.png "Diagrama_de_clases_Fase2")
 
 # Servicio Interno
 -   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
