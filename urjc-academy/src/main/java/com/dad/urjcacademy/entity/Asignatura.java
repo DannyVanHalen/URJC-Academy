@@ -1,8 +1,6 @@
 package com.dad.urjcacademy.entity;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +24,12 @@ public class Asignatura {
 	@ManyToMany(mappedBy="asignaturas")
 	private List<Alumno> alumnos;
 	
+	@ManyToOne
+	private Titulacion titulacion;
+	
+	@ManyToOne
+	private Profesor profesor;
+	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Apuntes> apuntes;
 	
@@ -35,13 +39,15 @@ public class Asignatura {
 		
 	}
 	
-	public Asignatura(String nombre, 
+	public Asignatura(String nombre, Titulacion titulacion, Profesor profesor,
 			 List<Alumno> alumnos, List<Apuntes> apuntes) {
 		
 		this.nombre = nombre;
-		
+		this.titulacion = titulacion;
+		this.profesor = profesor;
 		this.alumnos = alumnos;
 		this.apuntes = apuntes;
+		
 		
 	}
 	
@@ -66,6 +72,13 @@ public class Asignatura {
 		return apuntes;
 	}
 	
+	public Titulacion getTitulacion() {
+		return titulacion;
+	}
+	
+	public Profesor getProfesor() {
+		return profesor;
+	}
 	
 	// SET
 	
@@ -79,6 +92,14 @@ public class Asignatura {
 	
 	public void setApuntes(List<Apuntes> apuntes) {
 		this.apuntes = apuntes;
+	}
+	
+	public void setTitulacion(Titulacion titulacion) {
+		this.titulacion = titulacion;
+	}
+	
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
 	}
 	
 	/** Metodos Funcionales **/

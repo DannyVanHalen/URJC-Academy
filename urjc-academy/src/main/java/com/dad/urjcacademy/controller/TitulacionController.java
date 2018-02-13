@@ -1,7 +1,6 @@
 package com.dad.urjcacademy.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,16 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dad.urjcacademy.entity.Alumno;
+import com.dad.urjcacademy.entity.Apuntes;
 import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Titulacion;
+import com.dad.urjcacademy.repository.AsignaturaRepository;
 import com.dad.urjcacademy.repository.TitulacionRepository;
 
 @Controller
-@RequestMapping("/root/titulacion")
+@RequestMapping("/titulacion")
 public class TitulacionController {
 
 	@Autowired
 	private TitulacionRepository titulaciones;
+	
+	@Autowired
+	private AsignaturaRepository asignaturas;
 	
 	private Titulacion titulacion=null;
 	
@@ -54,6 +59,7 @@ public class TitulacionController {
 			model.addAttribute("nombre", titulacion.getNombre());
 			model.addAttribute("rama", titulacion.getRama());
 			model.addAttribute("asignaturas", titulacion.getAsignaturas());
+			model.addAttribute("soyRoot", true);
 			return "titulacion";
 		}
 		
@@ -70,5 +76,55 @@ public class TitulacionController {
 		titulaciones.delete(id);
 		return "eliminado"; 
 	}
+	
+
+	
+	
+	/**
+	@RequestMapping(value="/{id}/alta-asignatura", method=RequestMethod.GET)
+	public String alta_asignatura(Model model, @PathVariable long id) {
+		titulacion = titulaciones.findOne(id);
+		if(titulacion != null) {
+			model.addAttribute("nombre", titulacion.getNombre());
+			model.addAttribute("rama", titulacion.getNombre());
+			return "alta-asignatura";
+		}
+		
+		return "404";
+	}
+	
+	@RequestMapping(value="/{id}/alta-asignatura/asignatura", method=RequestMethod.POST)
+	public String nueva_asignatura(Model model,
+			@RequestParam String nombre, @PathVariable long id) {
+		
+		titulacion = titulaciones.findOne(id);
+		if(titulacion != null) {
+			Asignatura asignatura = asignaturas.save(new Asignatura(nombre,new ArrayList<Alumno>(),new ArrayList<Apuntes>()));
+			if(titulacion.agregarAsignatura(asignatura)) {
+				titulaciones.save(titulacion);			
+				model.addAttribute("nombre", nombre);
+				model.addAttribute("alumnos",asignatura.getAlumnos().size() >= 1);
+				return "asignatura";
+			}
+		}
+		return "500";
+	}**/
+	
+	/**
+	@RequestMapping(value="/{id}/{idAsignatura}/borrar", method=RequestMethod.GET)
+	public String borrar_asignatura(Model model, @PathVariable long id, @PathVariable long idAsignatura) {
+		titulacion = titulaciones.findOne(id);
+		if(titulacion != null) {
+			Asignatura asignatura = asignaturas.findOne(idAsignatura);
+			if((asignatura != null) && titulacion.quitarAsignatura(asignatura)) {
+				asignaturas.delete(asignatura);
+				titulaciones.save(titulacion);
+				model.addAttribute("nombre", asignatura.getNombre());
+				model.addAttribute("{back}", "/{id}");
+				return "eliminado";
+			}
+		}
+		return "404";
+	}**/
 	
 }

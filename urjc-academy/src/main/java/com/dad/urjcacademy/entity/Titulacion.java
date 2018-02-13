@@ -76,4 +76,20 @@ public class Titulacion {
 		this.asignaturas = asignaturas;
 	}
 	
+	/** Métodos Funcionales **/
+	
+	// Públicos 
+	public boolean agregarAsignatura(Asignatura asignatura) {
+		return asignaturas.add(asignatura);
+	}
+	
+	public boolean quitarAsignatura(Asignatura asignatura) {
+		return asignaturas.remove(asignatura);
+	}
+	
+	public boolean contieneAsignatura(Asignatura asignatura) {
+		return asignaturas.contains(asignatura);
+	}
+	
+	
 }

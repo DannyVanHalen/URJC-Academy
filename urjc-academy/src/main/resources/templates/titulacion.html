@@ -16,12 +16,14 @@
 	
 		{{#asignaturas}}
 		<ul>
-			<li><a href="">{{nombre}}</a></li>
+			<li><a href="/asignatura/{{id}}">{{nombre}}</a></li>
 		</ul>
 		{{/asignaturas}}
 	<br>
-	<a href="/root/titulacion/alta-asignatura">Dar de alta asignatura</a><br>
-	<a href="/root/titulacion/borrar/{{id}}">Borrar titulacion</a><br>
+	{{#soyRoot}}
+	<a href="/asignatura/alta-asignatura">Dar de alta asignatura</a><br>
+	<a href="/titulacion/borrar/{{id}}">Borrar titulacion</a><br>
+	{{/soyRoot}}
 	<a href="/root">Volver</a>
 	
 </body>

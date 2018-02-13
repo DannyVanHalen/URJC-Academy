@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,6 @@ import com.dad.urjcacademy.entity.Titulacion;
 import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.entity.Tutoria;
 import com.dad.urjcacademy.entity.Asignatura;
-import com.dad.urjcacademy.entity.Apuntes;
 import com.dad.urjcacademy.generator.PassGenerator;
 import com.dad.urjcacademy.repository.AlumnoRepository;
 import com.dad.urjcacademy.repository.AsignaturaRepository;
@@ -141,44 +139,6 @@ public class AdminController extends UsuarioController{
 		return "nuevo-usuario";
 	}
 	
-	/** Hay que meter esto en el controlador de asignaturas **/
-	
-	@RequestMapping(value="/titulaciones/alta-asignatura/nueva-asignatura", method=RequestMethod.POST)
-	public String nueva_asignatura(Model model,
-			@RequestParam String nombre, @RequestParam int plazas) {
-		
-		
-		if(titulacion != null) {
-			Asignatura asignatura = new Asignatura(nombre,new ArrayList<Alumno>(),new ArrayList<Apuntes>());
-			if(asignatura != null) {
-				if(titulacion.getAsignaturas().add(asignatura)) {
-					asignaturas.save(asignatura);
-					titulaciones.save(titulacion);
-					
-					model.addAttribute("nombre", nombre);
-					model.addAttribute("plazasDisponibles", plazas);
-					
-					return "nueva-asignatura";
-				}
-			}
-		}
-		
-		return "";
-	}
-	
-	
-	@RequestMapping(value="/titulacion/{id}/{idAsignatura}", method=RequestMethod.GET)
-	public String asignatura(Model model, @PathVariable long id, @PathVariable long idAsignatura) {
-		
-		Asignatura asignatura = asignaturas.findOne(idAsignatura);
-		if(asignatura != null) {
-			
-		}
-		
-		return "asignatura";
-	}
-
-	/** Hay que meter esto de arriba en el controlador de asitnaturas ^**/
 	
 	@RequestMapping(value="/baja-usuario", method=RequestMethod.GET)
 	public String formulario_baja_usuario(Model model) {
