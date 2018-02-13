@@ -20,6 +20,10 @@ Este es el diagrama de clases de nuestra aplicación, siempre sujeto a cambios s
 
 ![](imagenes/Diagrama_de_clases_Fase2.png "Diagrama_de_clases_Fase2")
 
+# Diagrama de transicion pantallas.
+La transicion entre pantallas es sencilla ya que este es el esquema base de nuestra aplicación. A medida que añadamos funcionalidades el número de pantallas puede aumentar.
+![](imagenes/Diagrama_de_pantallas_Fase2.png "Diagrama_de_pantallas_Fase2")
+
 # Servicio Interno
 -   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
 
