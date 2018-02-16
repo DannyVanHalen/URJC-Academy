@@ -9,26 +9,16 @@
 </head>
 <body>
 	
-	<h1 style="color:red">Dar de Baja Usuario</h1>
+	<h1 style="color:green">Sesión de Root</h1>
 	
-	<form action="/root/baja-usuario/elimina" action="get">
-		<p>Buscar:  
-			<input type="text" name="login">
-		 </p>
-		<input type="submit" value="Buscar">
-	</form>
+	{{#profesor}}
+		<h2>El profesor {{nombre}}, ha sido borrado </h2>
+	{{/profesor}}
+	{{#alumno}}
+		<h2>El alumno {{nombre}}, ha sido borrado </h2>
+	{{/alumno}}
 	
-	{{#encontrado}}
-		<form action="" action="get">
-			<h3 style="color:green">Usuario eliminado</h3>
-			<h4 style="color:red">Login: {{login}}</h4>
-			<p>Correo: {{maiLogin}}</p>
-			<p>Rol: {{rol}}</p>
-			<p>Contraseña: {{pass}}</p>
-			<br>
-			<a href="/root">Volver</a>
-		</form>
-	{{/encontrado}}
+	<a hre="/root">Volver</a>
 
 </body>
 </html>

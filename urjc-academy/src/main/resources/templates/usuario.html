@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h1 style="color:green">Sesión de Administrador</h1>
+	
+	<h3 style="color:red">Usuario: {{nombre}} {{apellido}}</h3>
+	<h5 style="color:blue">Asignaturas matriculadas: 
+	
+		<ul>
+			{{#asignaturas}}
+			<li><p>{{nombre}}</p></li>
+			{{/asignaturas}}
+		</ul>
+		
+		{{#alumno}}
+		<a href="">Agreagar asignatura</a>
+		{{/alumno}}
+		
+	</h5>
+	
+	<h5 style="color:blue">Tutorías pendientes: 
+
+		<ul>
+			{{#tutorias}}
+			<li>
+				{{#profesor}}
+				<p>El día {{fecha}} con el alumno {{nombre}} {{apellidos}}, para la asignatura {{asignatura}}</p>
+				{{/profesor}}
+				{{#alumno}}
+				<p>El día {{fecha}} con el profesor {{nombre}} {{apellidos}}, para la asignatura {{asignatura}}</p>
+				{{/alumno}}
+			</li>
+			{{/tutorias}}
+		</ul>
+		
+	</h5>
+	
+	{{#profesor}}
+	<p><a href="/root/profesores/{{id}}/borrar">Borrar Usuario</a></p>	
+	{{/profesor}}
+	
+</body>
+
+</html>

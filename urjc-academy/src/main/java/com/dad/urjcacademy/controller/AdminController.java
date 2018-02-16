@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +47,9 @@ public class AdminController extends UsuarioController{
 	@Autowired
 	private AlumnoRepository alumnos;
 	
-	Titulacion titulacion = null;
+	private Titulacion titulacion = null;
+	private Profesor profesor = null;
+	private Alumno alumno = null;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String root(Model model) {
@@ -140,17 +143,41 @@ public class AdminController extends UsuarioController{
 	}
 	
 	
-	@RequestMapping(value="/baja-usuario", method=RequestMethod.GET)
-	public String formulario_baja_usuario(Model model) {
-		return "baja-usuario";
+	
+	@RequestMapping(value="/profesores/{id}", method=RequestMethod.GET)
+	public String profesor(Model model, @PathVariable long id) {
+		
+		profesor = (Profesor) usuarios.findOne(id);
+		
+		if(profesor != null) {
+			model.addAttribute("profesor", true);
+			model.addAttribute("alumno", false);
+			model.addAttribute("nombre", profesor.getNombre());
+			model.addAttribute("apellido", profesor.getApellido());
+			model.addAttribute("asignaturas", profesor.getAsignaturas());
+			model.addAttribute("tutorias", profesor.getTutorias());
+			return "usuario";
+		}
+		
+		return "404";
 	}
 	
-	@RequestMapping(value="/baja-usuario/elimina", method=RequestMethod.GET)
-	public String elimina_usuario(Model model, @RequestParam String login) {
-
-		
-		return "403";
+	/** Borrados **/
 	
+	@RequestMapping(value="/profesores/{id}/borrar", method=RequestMethod.GET)
+	public String elimina_profesor(Model model, @PathVariable long id) {
+		
+		profesor = (Profesor) usuarios.findOne(id);
+		
+		if(profesor != null) {
+			model.addAttribute("profesor", true);
+			model.addAttribute("alumno", false);
+			model.addAttribute("nombre", profesor.getNombre() + " " + profesor.getApellido());
+			profesores.delete(profesor);
+			usuarios.delete(profesor.getId());
+			return "baja-usuario";
+		}
+		return "404";
 	}
 	
 	
