@@ -154,6 +154,10 @@ public class Alumno extends Usuario {
 		return tutorias.remove(tutoria);
 	}
 	
+	public boolean matricularAsignatura(Asignatura asignatura) {
+		return asignaturas.add(asignatura);
+	}
+	
 	// PROTEGÍDOS || PRIVADOS
 	
 }

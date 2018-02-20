@@ -12,22 +12,17 @@
 	<h1 style="color:blue">URJC-Academy</h1>
 	<h3 style="color:green">Asignatura - {{asignatura}}</h3>
 	<h4 style="color:green">Titulacion - {{titulacion}}</h4>
+	{{#tieneProfesor}}
 	<h4 style="color:green">Profesor   - {{profesor}}</h4>
-	<h4 style="color:red"">Alumnos<br>
-	
+	{{/tieneProfesor}}
+	<h4 style="color:green">Alumnos Matriculados</h4>
+	{{#alumnos}}
 		<ul>
-			{{#alumnos}}
-			<li><a href="/root/alumno/{{id}}">{{nombre}} {{apellido}}</a></li>
-			{{/alumnos}}
+			<li><a>{{nombre}} {{apellido}}</a></li>
 		</ul>
-		<a href="/asignatura/{{id}}/matricular-alumno">Matricular Alumno</a>
-	</h4>
+	{{/alumnos}}
 	
-	<a href="/asignatura/borrar/{{id}}">Borrar Asignatura</a>
-	<a href="/root">Volver</a>
-	
-	
-	
+	<a href="/root">Voler</a>
 	
 
 </body>

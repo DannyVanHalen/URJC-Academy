@@ -180,6 +180,8 @@ public class AdminController extends UsuarioController{
 		return "404";
 	}
 	
+
+	
 	
 	
 	

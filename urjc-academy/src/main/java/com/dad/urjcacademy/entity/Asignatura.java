@@ -108,6 +108,10 @@ public class Asignatura {
 	
 	// Públicos 
 	
+	public boolean tieneProfesor() {
+		return (profesor != null);
+	}
+	
 	public boolean apuntarAlumno(Alumno alumno) {
 		return alumnos.add(alumno);
 	}
