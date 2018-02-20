@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h2 style="color:green">Titulación</h2>
+	<p>Nombre: {{nombre}}</p>
+	<p>Rama: {{rama}}<br><br>
+	<p>Asignaturas:</p>
+	
+		{{#asignaturas}}
+		<ul>
+			<li><a href="/asignatura/{{id}}">{{nombre}}</a></li>
+		</ul>
+		{{/asignaturas}}
+	<br>
+	{{#soyRoot}}
+	<a href="/asignatura/alta-asignatura">Dar de alta asignatura</a><br>
+	<a href="/titulacion/borrar/{{id}}">Borrar titulacion</a><br>
+	{{/soyRoot}}
+	<a href="/root">Volver</a>
+	
+</body>
+
+</html>

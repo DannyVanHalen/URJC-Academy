@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h1 style="color:blue">URJC-Academy</h1>
+	<h3 style="color:green">Asignatura - {{nombre}}</h3>
+	<h4 style="color:green">Titulacion - {{titulacion}}</h4>
+	<h4 style="color:green">Profesor   - {{profesor}}</h4>
+	<h4 style="color:red"">Alumnos<br>
+	
+		<ul>
+			{{#alumnos}}
+			<li>{{nombre}} {{apellidos}}</li>
+			{{/alumnos}}
+		</ul>
+		<a href="">Matricular Alumno</a>
+	</h4>
+	
+	<a href="/asignatura/borrar/{{id}}">Borrar Asignatura</a>
+	<a href="/root">Volver</a>
+	
+	
+	
+	
+
+</body>
+
+</html>

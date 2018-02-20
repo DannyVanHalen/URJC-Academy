@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h1 style="color:blue">URJC-ACADEMY</h1>
+	<h2 style="color:blue">ROOT SESSION</h2>
+	
+	<h3 style="color:green">Titulaciones</h3>
+	
+	<ul>
+		
+		{{#titulaciones}}
+		<li><a href="/titulacion/{{id}}">{{nombre}}</a></li>
+		{{/titulaciones}}
+	
+	</ul>
+	
+	<a href="/titulacion/alta-titulacion">Dar de Alta Titulación</a>
+	<br>
+	<!-- <a href="">Dar de Baja Titulacion</a> -->
+	
+	<h3 style="color:red">Profesores</h3>
+
+	<ul>
+		
+		{{#profesores}}
+		<li><a href="">{{nombre}} {{apellido}}</a></li>
+		{{/profesores}}
+	
+	</ul>	
+	
+		<h3 style="color:red">Alumnos</h3>
+
+	<ul>
+	
+		{{#alumnos}}
+		<li><a href="">{{nombre}} {{apellido}}</a></li>
+		{{/alumnos}}
+	
+	</ul>	
+	
+	<br>
+	<a href="/root/alta-usuario">Dar de alta usuario</a>
+	<br>
+	<!-- <a href="/root/baja-usuario">Dar de baja usuario</a> -->
+	
+	
+</body>
+
+</html>

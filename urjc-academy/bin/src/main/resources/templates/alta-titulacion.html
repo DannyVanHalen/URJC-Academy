@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h2 style="color:green">Crear Nueva Titulacion</h2>
+
+	<form action="/titulacion/nueva-titulacion" method="post">
+		<p>Nombre:</p>
+		<input type="text" name="nombre">
+		<p>Rama: </p>
+		<input type="radio" name="rama" value="Jurídica y Social" checked> Jurídica y Sociale<br>
+		<input type="radio" name="rama" value="Ciencias de la Comunicación"> Ciencias de la Comunicación<br>
+		<input type="radio" name="rama" value="Ciencias de la Salud"> Ciencias de la Salud<br>
+		<input type="radio" name="rama" value="Telecomunicaciones"> Telecomunicaciones<br>
+		<input type="radio" name="rama" value="Informática"> Informática<br>
+		<input type="radio" name="rama" value="Experimentales y Tecnología"> Experimentales y Tecnología<br>
+		<br>
+		<input type="submit" value="Registrar">
+	</form>
+
+</body>
+
+</html>

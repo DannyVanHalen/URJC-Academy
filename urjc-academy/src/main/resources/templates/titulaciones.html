@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h1 style="color:blue">URJC-Academy</h1>
+	<h3 style="color:green">Titulación - {{nombre}}</h3>
+	<h4>Rama: {{rama}}</h4>
+	<h4>Asignaturas<br>
+	
+		<ul>
+		
+			{{#asignaturas}}
+			<li><a href="/asignatura/{{id}}">{{nombre}}</a></li>
+			{{/asignaturas}}
+		
+		</ul>
+	
+	</h4>
+	
+	{{#root}}
+	<a href="">Dar de alta asignatura</a>
+	<br>
+	<a href="">Dar de baja asignatura</a>
+	{{/root}}
+	
+
+</body>
+
+</html>
