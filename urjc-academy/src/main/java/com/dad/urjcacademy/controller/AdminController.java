@@ -47,9 +47,6 @@ public class AdminController extends UsuarioController{
 	@Autowired
 	private AlumnoRepository alumnos;
 	
-	private Titulacion titulacion = null;
-	private Profesor profesor = null;
-	private Alumno alumno = null;
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String root(Model model) {
@@ -147,14 +144,17 @@ public class AdminController extends UsuarioController{
 	@RequestMapping(value="/profesores/{id}", method=RequestMethod.GET)
 	public String profesor(Model model, @PathVariable long id) {
 		
-		profesor = (Profesor) usuarios.findOne(id);
+		Profesor profesor = (Profesor) usuarios.findOne(id);
 		
 		if(profesor != null) {
-			model.addAttribute("profesor", true);
-			model.addAttribute("alumno", false);
-			model.addAttribute("nombre", profesor.getNombre());
-			model.addAttribute("apellido", profesor.getApellido());
-			model.addAttribute("asignaturas", profesor.getAsignaturas());
+			model.addAttribute("rol", "Profesor");
+			model.addAttribute("soyRoot", true);
+			//model.addAttribute("soyUsuario", false);
+			model.addAttribute("esProfesor", true);
+			model.addAttribute("nombre", profesor.getNombre() + " " + profesor.getApellido());
+			model.addAttribute("maiLogin", profesor.getMaiLogin());
+			model.addAttribute("tlf", profesor.getTlf());
+			model.addAttribute("asignaturas",profesor.getAsignaturas());
 			model.addAttribute("tutorias", profesor.getTutorias());
 			return "usuario";
 		}
@@ -167,20 +167,57 @@ public class AdminController extends UsuarioController{
 	@RequestMapping(value="/profesores/{id}/borrar", method=RequestMethod.GET)
 	public String elimina_profesor(Model model, @PathVariable long id) {
 		
-		profesor = (Profesor) usuarios.findOne(id);
+		Profesor profesor = (Profesor) usuarios.findOne(id);
 		
 		if(profesor != null) {
 			model.addAttribute("profesor", true);
 			model.addAttribute("alumno", false);
 			model.addAttribute("nombre", profesor.getNombre() + " " + profesor.getApellido());
-			profesores.delete(profesor);
 			usuarios.delete(profesor.getId());
 			return "baja-usuario";
 		}
 		return "404";
 	}
 	
-
+	@RequestMapping(value="/alumnos/{id}", method=RequestMethod.GET)
+	public String alumno(Model model, @PathVariable long id) {
+		
+		Alumno alumno = (Alumno) usuarios.findOne(id);
+		
+		if(alumno != null) {
+			model.addAttribute("rol", "Alumno");
+			model.addAttribute("soyRoot", true);
+			//model.addAttribute("soyUsuario", false);
+			model.addAttribute("esAlumno", true);
+			model.addAttribute("nombre", alumno.getNombre() + " " + alumno.getApellido());
+			model.addAttribute("maiLogin", alumno.getMaiLogin());
+			model.addAttribute("tlf", alumno.getTlf());
+			model.addAttribute("asignaturas",alumno.getAsignaturas());
+			model.addAttribute("tutorias", alumno.getTutorias());
+			return "usuario";
+		}
+		
+		return "404";
+	}
+	
+	@RequestMapping(value="/alumnos/{id}/borrar", method=RequestMethod.GET)
+	public String elimina_alumno(Model model, @PathVariable long id) {
+		
+		Alumno alumno = (Alumno) usuarios.findOne(id);
+		
+		if(alumno != null ) {
+			
+			//model.addAttribute("profesor", false);
+			model.addAttribute("alumno", true);
+			model.addAttribute("nombre", alumno.getNombre() + " " + alumno.getApellido());
+			usuarios.delete(alumno.getId());
+			return "baja-usuario";
+			
+		}
+		
+		return "404";
+	
+	}
 	
 	
 	
