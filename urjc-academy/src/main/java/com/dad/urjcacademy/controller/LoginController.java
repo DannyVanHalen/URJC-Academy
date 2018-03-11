@@ -13,27 +13,5 @@ import com.dad.urjcacademy.repository.UsuarioRepository;
 @Controller
 public class LoginController {
 
-	@Autowired
-	private UsuarioRepository usuarios;
-	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String login(Model model) {
-		return "login";
-	}
-	
-	@RequestMapping(value="", method=RequestMethod.POST)
-	public String login_access(Model model,
-			@RequestParam String login, @RequestParam String pass) {
-		
-		Usuario usuario = usuarios.findByLoginAndPass(login, pass);
-		
-		if(usuario != null) {
-			if(usuario.getRol().contains("administrador") || usuario.getLogin().contains("root")) {
-				return "root";
-			}
-		}
-		
-		return "";
-	}
 	
 }

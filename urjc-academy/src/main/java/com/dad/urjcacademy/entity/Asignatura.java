@@ -21,17 +21,21 @@ public class Asignatura {
 	
 	private String nombre;
 	
-	@ManyToMany(mappedBy="asignaturas")
+	/*
+	 * Interrelación Asignatura Alumnos N:M Bidireccional
+	 */
+	
+	@ManyToMany(mappedBy="asignaturasAlumno")
 	private List<Alumno> alumnos;
 	
-	@ManyToOne
-	private Titulacion titulacion;
 	
-	@ManyToOne
-	private Profesor profesor;
+	/*
+	 * Interrelación Asignatura Profesores N:M Bidireccional
+	 */
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Apuntes> apuntes;
+	@ManyToMany(mappedBy="asignaturasProfesor")
+	private List<Profesor> profesores;
+	
 	
 	/** Constructores **/
 	
@@ -39,14 +43,12 @@ public class Asignatura {
 		
 	}
 	
-	public Asignatura(String nombre, Titulacion titulacion, Profesor profesor,
-			 List<Alumno> alumnos, List<Apuntes> apuntes) {
+	public Asignatura(String nombre, List<Profesor> profesores,
+			 List<Alumno> alumnos) {
 		
 		this.nombre = nombre;
-		this.titulacion = titulacion;
-		this.profesor = profesor;
+		this.profesores = profesores;
 		this.alumnos = alumnos;
-		this.apuntes = apuntes;
 		
 		
 	}
@@ -68,16 +70,8 @@ public class Asignatura {
 		return alumnos;
 	}
 	
-	public List<Apuntes> getApuntes() {
-		return apuntes;
-	}
-	
-	public Titulacion getTitulacion() {
-		return titulacion;
-	}
-	
-	public Profesor getProfesor() {
-		return profesor;
+	public List<Profesor> getProfesores() {
+		return profesores;
 	}
 	
 	// SET
@@ -90,16 +84,8 @@ public class Asignatura {
 		this.alumnos = alumnos;
 	}
 	
-	public void setApuntes(List<Apuntes> apuntes) {
-		this.apuntes = apuntes;
-	}
-	
-	public void setTitulacion(Titulacion titulacion) {
-		this.titulacion = titulacion;
-	}
-	
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
+	public void setProfesores(List<Profesor> profesores) {
+		this.profesores = profesores;
 	}
 	
 	/** Metodos Funcionales **/
@@ -108,26 +94,51 @@ public class Asignatura {
 	
 	// Públicos 
 	
-	public boolean tieneProfesor() {
-		return (profesor != null);
-	}
+	// matricular alumnos
 	
-	public boolean apuntarAlumno(Alumno alumno) {
+	public boolean matircularAlumno(Alumno alumno) {
 		return alumnos.add(alumno);
 	}
 	
-	public boolean desapuntarAlumno(Alumno alumno) {
+	public boolean desmatricularAlumno(Alumno alumno) {
 		return alumnos.add(alumno);
 	}
 	
-	public boolean apuntarAlumnos(List<Alumno> alumnos) {
+	public boolean matricularAlumnos(List<Alumno> alumnos) {
 		return alumnos.addAll(alumnos);
 	}
 	
-	public boolean desapuntarAlumnos(List<Alumno> alumnos) {
+	public boolean desmatricularAlumnos(List<Alumno> alumnos) {
 		return alumnos.removeAll(alumnos);
 	}
 	
+	public boolean desmatricularATodos() {
+		alumnos.clear();
+		return alumnos.size() == 0;
+	}
+	
+	// asociar profesores 
+	
+	public boolean asociaProfesor(Profesor profesor) {
+		return profesores.add(profesor);
+	}
+	
+	public boolean desasociaProfesor(Profesor profesor) {
+		return profesores.add(profesor);
+	}
+	
+	public boolean asociarProfesores(List<Profesor> profesores) {
+		return profesores.addAll(profesores);
+	}
+	
+	public boolean desasociarProfesores(List<Profesor> profesores) {
+		return profesores.removeAll(profesores);
+	}
+	
+	public boolean desasociarATodos() {
+		profesores.clear();
+		return profesores.size() == 0;
+	}
 	
 	
 }

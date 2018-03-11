@@ -22,7 +22,7 @@ public class Alumno extends Usuario {
 	private List<Tutoria> tutorias;
 	
 	@ManyToMany
-	private List<Asignatura> asignaturas;
+	private List<Asignatura> asignaturasAlumno;
 	
 	/** Constructores **/
 	
@@ -32,7 +32,7 @@ public class Alumno extends Usuario {
 	
 	public Alumno(String login, String maiLogin, String pass, String rol,
 			String nombre, String apellido, String tlf,
-			List<Tutoria> tutorias, List<Asignatura> asignaturas) {
+			List<Tutoria> tutorias, List<Asignatura> asignaturasAlumno) {
 		
 		super(login,maiLogin,pass,rol);
 		this.nombre = nombre;
@@ -40,7 +40,7 @@ public class Alumno extends Usuario {
 		this.tlf = tlf;
 		
 		this.tutorias = tutorias;
-		this.asignaturas = asignaturas;
+		this.asignaturasAlumno = asignaturasAlumno;
 		
 	}
 	
@@ -117,8 +117,8 @@ public class Alumno extends Usuario {
 		return tutorias;
 	}
 	
-	public List<Asignatura> getAsignaturas() {
-		return asignaturas;
+	public List<Asignatura> getAsignaturasAlumno() {
+		return asignaturasAlumno;
 	}
 	
 	// SET
@@ -139,8 +139,8 @@ public class Alumno extends Usuario {
 		this.tutorias = tutorias;
 	}
 	
-	public void setAsignaturas(List<Asignatura> asignaturas) {
-		this.asignaturas = asignaturas;
+	public void setAsignaturasAlumno(List<Asignatura> asignaturas) {
+		this.asignaturasAlumno = asignaturas;
 	}
 	
 	/** Métodos Funcionales de la Entidad **/
@@ -155,7 +155,11 @@ public class Alumno extends Usuario {
 	}
 	
 	public boolean matricularAsignatura(Asignatura asignatura) {
-		return asignaturas.add(asignatura);
+		return asignaturasAlumno.add(asignatura);
+	}
+	
+	public boolean desmatricularAsignatura(Asignatura asignatura) {
+		return asignaturasAlumno.remove(asignatura);
 	}
 	
 	// PROTEGÍDOS || PRIVADOS

@@ -21,6 +21,13 @@ public class Titulacion {
 	private String nombre;
 	private String rama;
 	
+	/* Interrelaciones 
+	 * 
+	 * Titulacion puede tener muchas asignaturas 
+	 * y una asignatura puede pertenecer a varias titulaciones
+	 * 
+	 * */
+	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Asignatura> asignaturas;
 	

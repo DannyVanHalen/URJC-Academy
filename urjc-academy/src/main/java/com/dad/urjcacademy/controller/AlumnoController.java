@@ -16,29 +16,6 @@ import com.dad.urjcacademy.repository.UsuarioRepository;
 @RequestMapping("/alumno")
 public class AlumnoController extends UsuarioController {
 
-	@Autowired
-	private UsuarioRepository usuarios;
-	
-	@Autowired
-	private AlumnoRepository alumnos;
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public String alumno(Model model, @PathVariable long id) {
-		
-		Alumno alumno = (Alumno) usuarios.findOne(id);
-		
-		if(alumno != null) {
-			
-			model.addAttribute("nombre", alumno.getNombre() + " " + alumno.getApellido());
-			model.addAttribute("asignaturas", alumno.getAsignaturas());
-			model.addAttribute("tutorias", alumno.getTutorias());
-			
-			return "alumno";
-			
-		}
-		
-		return "404";
-	
-	}
+
 	
 }

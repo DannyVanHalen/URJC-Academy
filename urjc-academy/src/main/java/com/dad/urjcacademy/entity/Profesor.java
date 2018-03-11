@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 //import org.springframework.web.context.annotation.SessionScope;
 
@@ -16,11 +17,9 @@ public class Profesor extends Usuario {
 	private String apellido;
 	private String tlf;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	private List<Tutoria> tutorias;
 	
-	@OneToMany(mappedBy="profesor")
-	private List<Asignatura> asignaturas;
+	@ManyToMany
+	private List<Asignatura> asignaturasProfesor;
 	
 	
 	/** Constructores **/
@@ -31,15 +30,14 @@ public class Profesor extends Usuario {
 	
 	public Profesor(String login, String maiLogin, String pass,  String rol,
 			String nombre, String apellido, String tlf
-			,List<Tutoria> tutorias, List<Asignatura> asignaturas) {
+			, List<Asignatura> asignaturasProfesor) {
 		
 		super(login,maiLogin,pass,rol);
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tlf = tlf;
-		
-		this.tutorias = tutorias;
-		this.asignaturas = asignaturas;
+
+		this.asignaturasProfesor = asignaturasProfesor;
 		
 	}
 	
@@ -112,12 +110,8 @@ public class Profesor extends Usuario {
 		return tlf;
 	}
 	
-	public List<Tutoria> getTutorias() {
-		return tutorias;
-	}
-	
 	public List<Asignatura> getAsignaturas() {
-		return asignaturas;
+		return asignaturasProfesor;
 	}
 	
 	// SET
@@ -134,31 +128,19 @@ public class Profesor extends Usuario {
 		this.tlf = tlf;
 	}
 	
-	public void setTutorias(List<Tutoria> tutorias) {
-		this.tutorias = tutorias;
-	}
-	
 	public void setAsignaturas(List<Asignatura> asignaturas) {
-		this.asignaturas = asignaturas;
+		this.asignaturasProfesor = asignaturas;
 	}
 	
 	/** Métodos Funcionales de la Entidad **/
 	// PÚBLICOS
 	
-	public boolean asignarTutoria(Tutoria tutoria) {
-		return tutorias.add(tutoria);
-	}
-	
-	public boolean eliminarTutoria(Tutoria tutoria) {
-		return tutorias.remove(tutoria);
-	}
-	
 	public boolean asignarAsignatura(Asignatura asignatura) {
-		return asignaturas.add(asignatura);
+		return asignaturasProfesor.add(asignatura);
 	}
 	
 	public boolean quitarAsignatura(Asignatura asignatura) {
-		return asignaturas.remove(asignatura);
+		return asignaturasProfesor.remove(asignatura);
 	}
 	
 	// PROTEGÍDOS || PRIVADOS
