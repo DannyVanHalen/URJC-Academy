@@ -28,6 +28,10 @@ public class TitulacionService {
 		return repository.findByRama(rama);
 	}
 	
+	public List<Titulacion> findAll() {
+		return repository.findAll();
+	}
+	
 	/*Insert*/
 	
 	public Titulacion save(Titulacion titulacion) {
@@ -42,6 +46,12 @@ public class TitulacionService {
 	
 	public void delete(Titulacion titulacion) {
 		repository.delete(titulacion);
+	}
+	
+	/*Exists*/
+	
+	public boolean exists(long id) {
+		return repository.exists(id);
 	}
 	
 }
