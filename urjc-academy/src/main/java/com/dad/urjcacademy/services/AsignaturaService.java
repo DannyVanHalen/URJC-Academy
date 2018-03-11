@@ -33,7 +33,7 @@ public class AsignaturaService {
 		repository.delete(asignatura);
 	}
 	
-	/*Profesores*/
+	/*Profesores -> Operaciones para usar con AdminController*/
 	
 	public boolean asociarProfesorAsignatura(Asignatura asignatura, Profesor profesor) {
 		if(asignatura.asociaProfesor(profesor)) {

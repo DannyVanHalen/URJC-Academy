@@ -45,12 +45,12 @@ public class ProfesorService extends UsuarioService {
 		return repository.findByApellido(apellido);
 	}
 	
-	/*Insert*/
+	/*Insert -> Operaciones para usar con AdminController*/
 	public Profesor save(Profesor profesor) {
 		return repository.save(profesor);
 	}
 	
-	/*Delete*/
+	/*Delete -> Operaciones para usar con AdminController*/
 	
 	public void delete(long id) {
 		repository.delete(id);
@@ -64,7 +64,7 @@ public class ProfesorService extends UsuarioService {
 		return repository.deleteByLogin(login);
 	}
 	
-	/*Asignatura*/
+	/*Asignatura -> Operaciones para Usar con AdminController*/
 	
 	public boolean asociarAsignaturaProfesor(Profesor profesor, Asignatura asignatura) {
 		if(profesor.asignarAsignatura(asignatura)) {

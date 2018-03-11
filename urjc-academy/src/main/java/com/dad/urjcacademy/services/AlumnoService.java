@@ -47,13 +47,13 @@ public class AlumnoService extends UsuarioService {
 		return repository.findByApellido(apellido);
 	}
 	
-	/*Insert*/
+	/*Insert -> Operaciones para usar con AdminController*/
 	
 	public Alumno save(Alumno alumno) {
 		return repository.save(alumno);
 	}
 	
-	/*Delete*/
+	/*Delete -> Operaciones para usar con AdminController*/
 	
 	public void delete(long id) {
 		repository.delete(id);
@@ -63,7 +63,7 @@ public class AlumnoService extends UsuarioService {
 		repository.delete(alumno);
 	}
 	
-	/*Asignatura*/
+	/*Asignatura -> Operaciones para usar con AdminController*/
 	
 	public boolean matricularAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
 		if(alumno.matricularAsignatura(asignatura)) {
