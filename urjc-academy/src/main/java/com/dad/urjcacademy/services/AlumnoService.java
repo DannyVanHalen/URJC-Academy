@@ -11,7 +11,7 @@ import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.repository.AlumnoRepository;
 
 @Component
-public class AlumnoService extends UsuarioService {
+public class AlumnoService  {
 
 	@Autowired
 	private AlumnoRepository repository;
@@ -22,21 +22,14 @@ public class AlumnoService extends UsuarioService {
 		return repository.findOne(id);
 	}
 	
-	public Alumno findByLogin(String login) {
-		return (Alumno) super.findByLogin(login);
-	}
-	
-	public Alumno findByMaiLogin(String maiLogin) {
-		return (Alumno) super.findByMaiLogin(maiLogin);
-	}
 	
 	public Alumno findByTlf(String tlf) {
 		return repository.findByTlf(tlf);
 	}
 	
 	
-	public List<Usuario> findAll() {
-		return  super.findByRol("alumno");
+	public List<Alumno> findAll() {
+		return  repository.findAll();
 	}
 	
 	public List<Alumno> findAllByNombre(String nombre) {

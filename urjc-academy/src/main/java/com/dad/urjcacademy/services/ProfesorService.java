@@ -11,7 +11,7 @@ import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.repository.ProfesorRepository;
 
 @Component
-public class ProfesorService extends UsuarioService {
+public class ProfesorService {
 
 	@Autowired
 	private ProfesorRepository repository;
@@ -21,19 +21,11 @@ public class ProfesorService extends UsuarioService {
 		return repository.findOne(id);
 	}
 	
-	public Profesor findByLogin(String login) {
-		return (Profesor) super.findByLogin(login);
-	}
-	
-	public Profesor findByMaiLogin(String maiLogin) {
-		return (Profesor) super.findByMaiLogin(maiLogin);
-	}
-	
 	public Profesor findByTlf(String tlf) {
 		return repository.findByTlf(tlf);
 	}
 	
-	public List<Profesor> getAll() {
+	public List<Profesor> findAll() {
 		return repository.findAll();
 	}
 	
