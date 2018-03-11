@@ -19,7 +19,7 @@ public class Alumno extends Usuario {
 	private String tlf;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	private List<Tutoria> tutorias;
+	private List<Tutoria> tutoriasAlumno;
 	
 	@ManyToMany
 	private List<Asignatura> asignaturasAlumno;
@@ -39,7 +39,7 @@ public class Alumno extends Usuario {
 		this.apellido = apellido;
 		this.tlf = tlf;
 		
-		this.tutorias = tutorias;
+		this.tutoriasAlumno = tutorias;
 		this.asignaturasAlumno = asignaturasAlumno;
 		
 	}
@@ -113,8 +113,8 @@ public class Alumno extends Usuario {
 		return tlf;
 	}
 	
-	public List<Tutoria> getTutorias() {
-		return tutorias;
+	public List<Tutoria> getTutoriasAlumno() {
+		return tutoriasAlumno;
 	}
 	
 	public List<Asignatura> getAsignaturasAlumno() {
@@ -135,8 +135,8 @@ public class Alumno extends Usuario {
 		this.tlf = tlf;
 	}
 	
-	public void setTutorias(List<Tutoria> tutorias) {
-		this.tutorias = tutorias;
+	public void setTutoriasAlumno(List<Tutoria> tutorias) {
+		this.tutoriasAlumno = tutorias;
 	}
 	
 	public void setAsignaturasAlumno(List<Asignatura> asignaturas) {
@@ -147,11 +147,11 @@ public class Alumno extends Usuario {
 	// PÚBLICOS
 	
 	public boolean asignarTutoria(Tutoria tutoria) {
-		return tutorias.add(tutoria);
+		return tutoriasAlumno.add(tutoria);
 	}
 	
 	public boolean eliminarTutoria(Tutoria tutoria) {
-		return tutorias.remove(tutoria);
+		return tutoriasAlumno.remove(tutoria);
 	}
 	
 	public boolean matricularAsignatura(Asignatura asignatura) {

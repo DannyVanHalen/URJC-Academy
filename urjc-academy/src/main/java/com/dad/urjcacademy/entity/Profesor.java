@@ -21,6 +21,8 @@ public class Profesor extends Usuario {
 	@ManyToMany
 	private List<Asignatura> asignaturasProfesor;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Tutoria> tutoriasProfesor;
 	
 	/** Constructores **/
 	

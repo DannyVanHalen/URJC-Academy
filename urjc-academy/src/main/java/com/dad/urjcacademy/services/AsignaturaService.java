@@ -1,13 +1,16 @@
 package com.dad.urjcacademy.services;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.dad.urjcacademy.entity.Alumno;
+import com.dad.urjcacademy.entity.Apuntes;
 import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Profesor;
+import com.dad.urjcacademy.entity.Tutoria;
 import com.dad.urjcacademy.repository.AsignaturaRepository;
 
 @Component
@@ -71,7 +74,7 @@ public class AsignaturaService {
 	}
 	
 	
-	/*Alumnos*/
+	/*Alumnos -> Operaciones para usar con AdminController*/
 	
 	public boolean matircularAlumnoAsignatura(Asignatura asignatura, Alumno alumno) {
 		if(asignatura.matircularAlumno(alumno)) {
@@ -103,6 +106,54 @@ public class AsignaturaService {
 	
 	public boolean desmatricularTodosAlumnos(Asignatura asignatura) {
 		if(asignatura.desasociarATodos()) {
+			return this.save(asignatura) != null;
+		}
+		return false;
+	}
+	
+	/*Tutorias -> Operaciones usadas por ProfesorController (verifica) y AdminController (borrado). 
+	 * Sería conveniente intentar automatizar los borrados después que cada tutoría haya tenido lugar
+	 * en la fecha y hora indicada.*/
+	
+	public boolean verificaTutoria(Asignatura asignatura, Tutoria tutoria) {
+		if(asignatura.agregarTutoria(tutoria)) {
+			return this.save(asignatura) != null;
+		}
+		return false;
+	}
+	
+	public boolean borraTutoria(Asignatura asignatura, Tutoria tutoria) {
+		if(asignatura.borrarTutoria(tutoria)) {
+			return this.save(asignatura) != null;
+		}
+		return false;
+	}
+	
+	public boolean borraTodasTutoriasAsociadas(Asignatura asignatura) {
+		if(asignatura.borrarTodasTutorias()) {
+			return this.save(asignatura) != null;
+		}
+		return false;
+	}
+	
+	/*Apuntes -> Operaciones usadas por ProfesorController*/
+	
+	public boolean subirApuntesAsignatura(Asignatura asignatura, Apuntes apuntes) {
+		if(asignatura.subirApuntes(apuntes)) {
+			return this.save(asignatura) != null;
+		}
+		return false;
+	}
+	
+	public boolean borraApuntesAsignatura(Asignatura asignatura, Apuntes apuntes) {
+		if(asignatura.eliminarApuntes(apuntes)) {
+			return this.save(asignatura) != null;
+		}
+		return false;
+	}
+	
+	public boolean borraTodosApuntesAsignatura(Asignatura asignatura) {
+		if(asignatura.borrarTodosApuntes()) {
 			return this.save(asignatura) != null;
 		}
 		return false;

@@ -27,14 +27,6 @@ public class Tutoria {
 	private boolean validate;
 	private String fecha;
 	
-	@ManyToOne
-	private Asignatura asignatura;
-	
-	@ManyToOne
-	private Profesor profesor;
-	
-	@ManyToOne
-	private Alumno alumno;
 	
 	/** Constructores **/
 	
@@ -43,7 +35,7 @@ public class Tutoria {
 	}
 	
 	public Tutoria(int dayOfMonth, int month, int year, int hour, int min,boolean validate,
-			Asignatura asignatura, Profesor profesor, Alumno alumno) {
+			Asignatura asignaturaTutoria) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime dateTime = LocalDateTime.of(year,month,dayOfMonth,hour,min);
 		this.fecha = dateTime.format(formatter);
@@ -53,10 +45,7 @@ public class Tutoria {
 		this.hour = dateTime.getHour();
 		this.min = dateTime.getMinute();
 		this.validate = validate;
-		
-		this.asignatura = asignatura;
-		this.profesor = profesor;
-		this.alumno = alumno;
+
 		
 	}
 	
@@ -97,18 +86,6 @@ public class Tutoria {
 		return fecha;
 	}
 
-	public Asignatura getAsignatura() {
-		return asignatura;
-	}
-	
-	public Profesor getProfesor() {
-		return profesor;
-	}
-	
-	public Alumno getAlumno() {
-		return alumno;
-	}
-	
 	
 	// SET
 	
@@ -141,17 +118,6 @@ public class Tutoria {
 		this.fecha = fecha;
 	}
 	
-	public void setAsignatura(Asignatura asignatura) {
-		this.asignatura = asignatura;
-	}
-	
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
-	
-	public void setAlumno(Alumno alumno) {
-		this.alumno = alumno;
-	}
 	
 	/** Metodos Funcionales de la Entidad **/
 	

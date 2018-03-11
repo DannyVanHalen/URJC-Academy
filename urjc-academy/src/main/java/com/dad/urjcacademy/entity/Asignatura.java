@@ -36,6 +36,11 @@ public class Asignatura {
 	@ManyToMany(mappedBy="asignaturasProfesor")
 	private List<Profesor> profesores;
 	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Tutoria> tutoriasAsociadas;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="asignatura")
+	private List<Apuntes> apuntesAsignatura;
 	
 	/** Constructores **/
 	
@@ -44,12 +49,15 @@ public class Asignatura {
 	}
 	
 	public Asignatura(String nombre, List<Profesor> profesores,
-			 List<Alumno> alumnos) {
+			 List<Alumno> alumnos, List<Tutoria> tutoriasAsociadas,
+			 List<Apuntes> apuntesAsignatura) {
 		
 		this.nombre = nombre;
 		this.profesores = profesores;
 		this.alumnos = alumnos;
 		
+		this.tutoriasAsociadas = tutoriasAsociadas;
+		this.apuntesAsignatura = apuntesAsignatura;
 		
 	}
 	
@@ -74,6 +82,14 @@ public class Asignatura {
 		return profesores;
 	}
 	
+	public List<Tutoria> getTutoriasAsociadas() {
+		return tutoriasAsociadas;
+	}
+	
+	public List<Apuntes> getApuntesAsignatura() {
+		return apuntesAsignatura;
+	}
+	
 	// SET
 	
 	public void setNombre(String nombre) {
@@ -86,6 +102,14 @@ public class Asignatura {
 	
 	public void setProfesores(List<Profesor> profesores) {
 		this.profesores = profesores;
+	}
+	
+	public void setTutoriasAsociadas(List<Tutoria> tutoriasAsociadas) {
+		this.tutoriasAsociadas = tutoriasAsociadas;
+	}
+	
+	public void setApuntesAsignatura(List<Apuntes> apuntesAsignatura) {
+		this.apuntesAsignatura = apuntesAsignatura;
 	}
 	
 	/** Metodos Funcionales **/
@@ -138,6 +162,36 @@ public class Asignatura {
 	public boolean desasociarATodos() {
 		profesores.clear();
 		return profesores.size() == 0;
+	}
+	
+	/*Tutorias*/
+	
+	public boolean agregarTutoria(Tutoria tutoria) {
+		return tutoriasAsociadas.add(tutoria);
+	}
+	
+	public boolean borrarTutoria(Tutoria tutoria) {
+		return tutoriasAsociadas.remove(tutoria);
+	}
+	
+	public boolean borrarTodasTutorias() {
+		tutoriasAsociadas.clear();
+		return tutoriasAsociadas.size() == 0;
+	}
+	
+	/*Apuntes*/
+	
+	public boolean subirApuntes(Apuntes apuntes) {
+		return apuntesAsignatura.add(apuntes);
+	}
+	
+	public boolean eliminarApuntes(Apuntes apuntes) {
+		return apuntesAsignatura.remove(apuntes);
+	}
+	
+	public boolean borrarTodosApuntes() {
+		apuntesAsignatura.clear();
+		return apuntesAsignatura.size() == 0;
 	}
 	
 	
