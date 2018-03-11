@@ -8,21 +8,12 @@
 
 </head>
 <body>
-
+	<h1 style="color:red">Titulacion: {{nombre}}</h1>
 	<h2 style="color:green">Nueva Asignatura</h2>
 	
-	<form action="/asignatura/alta-asignatura/nueva-asignatura" method="post">
+	<form action="/root/titulacion/{{id}}/alta-asignatura/nueva-asignatura" method="post">
 		<p>Asignatura:</p>
 		<input type="text" name="nombre"><br><br>
-		<p>Titulacion:</p>
-		{{#titulaciones}}
-			<input type="radio" name="titulacion" value="{{nombre}}">{{nombre}}<br>
-		{{/titulaciones}}
-		<p>Asignar profesor:</p>
-		{{#profesores}}
-			<input type="radio" name="profesor" value="{{id}}">{{nombre}}<br>
-		{{/profesores}}
-		<br>
 		<input type="submit" value="Agregar Asignatura">
 	</form>
 

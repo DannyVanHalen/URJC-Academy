@@ -25,7 +25,7 @@ public class AsignaturaService {
 	}
 	
 	public Asignatura save(Asignatura asignatura) {
-		return this.save(asignatura);
+		return repository.save(asignatura);
 	}
 	
 	public void deleteId(long id) {
