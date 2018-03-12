@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.dad.urjcacademy.entity.Alumno;
 import com.dad.urjcacademy.entity.Asignatura;
+import com.dad.urjcacademy.entity.Tutoria;
 import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.repository.AlumnoRepository;
 
@@ -67,6 +68,29 @@ public class AlumnoService  {
 	
 	public boolean desmatricularAlumnoAsignatura(Alumno alumno, Asignatura asignatura) {
 		if(alumno.desmatricularAsignatura(asignatura)) {
+			return this.save(alumno) != null;
+		}
+		return false;
+	}
+	
+	/*Tutoria -> Operaciones para usar por AdminController y AlumnoController*/
+	
+	public boolean asociarTutoriaAlumno(Alumno alumno, Tutoria tutoria) {
+		if(alumno.asignarTutoria(tutoria)) {
+			return this.save(alumno) != null;
+		}
+		return false;
+	}
+	
+	public boolean eliminarTutoriaAlumno(Alumno alumno, Tutoria tutoria) {
+		if(alumno.eliminarTutoria(tutoria)) {
+			return this.save(alumno) != null;
+		}
+		return false;
+	}
+	
+	public boolean eliminarTodasTutoriasAlumno(Alumno alumno) {
+		if(alumno.eliminarTodasTutorias()) {
 			return this.save(alumno) != null;
 		}
 		return false;

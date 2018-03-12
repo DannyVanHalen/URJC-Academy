@@ -36,6 +36,11 @@ public class AsignaturaService {
 		repository.delete(asignatura);
 	}
 	
+	/*Exists*/
+	public boolean exists(long id) {
+		return repository.exists(id);
+	}
+	
 	/*Profesores -> Operaciones para usar con AdminController*/
 	
 	public boolean asociarProfesorAsignatura(Asignatura asignatura, Profesor profesor) {

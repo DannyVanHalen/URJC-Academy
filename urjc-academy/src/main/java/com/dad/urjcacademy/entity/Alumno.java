@@ -32,14 +32,14 @@ public class Alumno extends Usuario {
 	
 	public Alumno(String login, String maiLogin, String pass, String rol,
 			String nombre, String apellido, String tlf,
-			List<Tutoria> tutorias, List<Asignatura> asignaturasAlumno) {
+		    List<Asignatura> asignaturasAlumno, List<Tutoria> tutoriasAlumno) {
 		
 		super(login,maiLogin,pass,rol);
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tlf = tlf;
 		
-		this.tutoriasAlumno = tutorias;
+		this.tutoriasAlumno = tutoriasAlumno;
 		this.asignaturasAlumno = asignaturasAlumno;
 		
 	}
@@ -152,6 +152,11 @@ public class Alumno extends Usuario {
 	
 	public boolean eliminarTutoria(Tutoria tutoria) {
 		return tutoriasAlumno.remove(tutoria);
+	}
+	
+	public boolean eliminarTodasTutorias() {
+		tutoriasAlumno.clear();
+		return tutoriasAlumno.size() == 0;
 	}
 	
 	public boolean matricularAsignatura(Asignatura asignatura) {

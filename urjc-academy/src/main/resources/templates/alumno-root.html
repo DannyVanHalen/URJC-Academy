@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<h2 style="color:green">Profesor</h2>
+	<h2 style="color:green">Alumno</h2>
 	<p>Nombre: {{nombre}}</p>
 	<p>Asignaturas:</p>
 	
@@ -26,17 +26,13 @@
 	
 		<ul>
 			{{#tutorias}}
-			<li><a href="">{{alumno}}</a></li>
+			<li><a href="">{{profesor}}</a></li>
 			{{/tutorias}}
 		</ul>	
 		
 	<br>
-	<!--  
-	<a href="/root/titulacion/alta-asignatura">Dar de alta asignatura</a><br>
-	<a href="/root/borrar/titulacion/{{id}}">Borrar titulacion</a><br>
-	-->
+	<a href="/root/alumno/{{id}}/borrar">Borrar</a>
 	<a href="/root">Volver</a>
-	
 </body>
 
 </html>

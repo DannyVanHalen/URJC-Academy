@@ -55,5 +55,11 @@ public class UsuarioService {
 		repository.delete(usuario);
 	}
 	
+	/*Exists*/
+	
+	public boolean exists(long id) {
+		return repository.exists(id);
+	}
+	
 	
 }
