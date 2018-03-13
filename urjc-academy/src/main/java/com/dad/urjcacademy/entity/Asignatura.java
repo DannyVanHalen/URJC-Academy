@@ -27,7 +27,7 @@ public class Asignatura {
 	@ManyToOne
 	private Titulacion titulacion;
 	
-	@ManyToOne
+	@ManyToOne()
 	private Profesor profesor;
 	
 	@OneToMany(cascade=CascadeType.ALL)
