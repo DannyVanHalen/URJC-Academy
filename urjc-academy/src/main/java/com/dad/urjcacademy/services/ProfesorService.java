@@ -78,6 +78,22 @@ public class ProfesorService {
 		return false;
 	}
 	
+	public boolean quitarTodasAsignaturas(Profesor profesor) {
+		if(profesor.quitarTodasTutorias()) {
+			return this.save(profesor) != null;
+		}
+		return false;
+	}
+	
+	public boolean eliminarProfesoresAsignatura(Asignatura asignatura) {
+		for(Profesor profesor: repository.findAll()) {
+			if(profesor.getAsignaturas().contains(asignatura)) {
+				this.quitarAsignaturaProfesor(profesor, asignatura);
+			}
+		}
+		return true;
+	}
+	
 	/*Tutorias -> Operaciones para Usar con AdminController*/
 	public boolean validarTutoriaProfesor(Profesor profesor, Tutoria tutoria) {
 		if(profesor.agregarTutoria(tutoria)) {
@@ -99,6 +115,8 @@ public class ProfesorService {
 		}
 		return false;
 	}
+	
+
 	
 	
 }

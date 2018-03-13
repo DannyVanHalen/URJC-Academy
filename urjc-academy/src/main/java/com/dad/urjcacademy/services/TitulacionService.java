@@ -71,4 +71,11 @@ public class TitulacionService {
 		return false;
 	}
 	
+	public boolean borrarAsignaturasTitulacion(Titulacion titulacion) {
+		if(titulacion.borrarTodasAsignaturas()) {
+			return this.save(titulacion) != null;
+		}
+		return false;
+	}
+	
 }

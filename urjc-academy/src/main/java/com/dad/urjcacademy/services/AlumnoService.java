@@ -73,6 +73,21 @@ public class AlumnoService  {
 		return false;
 	}
 	
+	public boolean desmatricularAlumnosAsignatura(Asignatura asignatura) {
+		for(Alumno alumno: repository.findAll()) {
+			if(alumno.getAsignaturasAlumno().contains(asignatura))
+				this.desmatricularAlumnoAsignatura(alumno, asignatura);
+		}
+		return true;
+	}
+	
+	public boolean desmatricularAlumnosTodasAsignaturas(Alumno alumno) {
+		if(alumno.desmatircularTodasAsignaturas()) {
+			return this.save(alumno) != null;
+		}
+		return false;
+	}
+	
 	/*Tutoria -> Operaciones para usar por AdminController y AlumnoController*/
 	
 	public boolean asociarTutoriaAlumno(Alumno alumno, Tutoria tutoria) {

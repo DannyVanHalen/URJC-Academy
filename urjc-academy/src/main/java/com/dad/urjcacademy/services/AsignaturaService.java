@@ -24,6 +24,10 @@ public class AsignaturaService {
 		return repository.findOne(id);
 	}
 	
+	public List<Asignatura> findAll() {
+		return repository.findAll();
+	}
+	
 	public Asignatura save(Asignatura asignatura) {
 		return repository.save(asignatura);
 	}

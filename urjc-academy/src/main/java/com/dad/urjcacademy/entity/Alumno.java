@@ -167,6 +167,11 @@ public class Alumno extends Usuario {
 		return asignaturasAlumno.remove(asignatura);
 	}
 	
+	public boolean desmatircularTodasAsignaturas() {
+		asignaturasAlumno.clear();
+		return asignaturasAlumno.size() == 0;
+	}
+	
 	// PROTEGÍDOS || PRIVADOS
 	
 }

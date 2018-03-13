@@ -17,6 +17,7 @@ import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.entity.Titulacion;
 import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.generator.PassGenerator;
+import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.services.AlumnoService;
 import com.dad.urjcacademy.services.AsignaturaService;
 import com.dad.urjcacademy.services.ProfesorService;
@@ -33,6 +34,12 @@ public class AdminController extends UsuarioController{
 	
 	@Autowired
 	private AsignaturaService asignaturas;
+	
+	@Autowired
+	private ProfesorService profesores;
+	
+	@Autowired
+	private AlumnoService alumnos;
 	
 	@Autowired
 	private TutoriaService tutorias;
@@ -110,6 +117,9 @@ public class AdminController extends UsuarioController{
 		Titulacion titulacion = titulaciones.findById(id);
 		
 		if(titulacion != null) {
+			//Borramos todas las asignaturas que tenga relacionadas esta titulacion
+			titulaciones.borrarAsignaturasTitulacion(titulacion);
+			//Borramos la titulación
 			titulaciones.delete(id);
 			if(!titulaciones.exists(id)) {
 				model.addAttribute("nombre", titulacion.getNombre());
@@ -146,6 +156,42 @@ public class AdminController extends UsuarioController{
 	
 	}
 	
+	// Agregar Asignatura
+	// formulario
+	@RequestMapping(value="/titulacion/{id}/agregar-asignatura", method=RequestMethod.GET)
+	public String formularioAgregarAsignatura(Model model, @PathVariable long id) {
+		
+		Titulacion titulacion = titulaciones.findById(id);
+		
+		if(titulacion != null) {
+			model.addAttribute("titulacion", titulacion.getNombre());
+			model.addAttribute("asignaturas",asignaturas.findAll());
+			return "agregar-asignatura";
+		}
+		
+		return "404";
+	}
+	
+	// Agregar Asignatura existente
+	@RequestMapping(value="/titulacion/{id}/agregar-asignatura/nueva-asignatura")
+	public String agregarAsignatura(Model model, @PathVariable long id,
+			@RequestParam Asignatura asignatura) {
+		
+		Titulacion titulacion = titulaciones.findById(id);
+		
+		if(titulacion != null) {
+			if(asignaturas.exists(asignatura.getId())) {
+				titulaciones.asignarAsignaturaTitulacion(titulacion, asignatura);
+				model.addAttribute("verbo", "agregado");
+				model.addAttribute("nombre",asignatura.getNombre());
+				model.addAttribute("titulacion", titulacion.getNombre());
+				return "nueva-asignatura";
+			}
+		}
+		
+		return "500";
+	}
+	
 	//Alta Asignatura
 	@RequestMapping(value="/titulacion/{id}/alta-asignatura", method=RequestMethod.GET)
 	public String formularioAltaAsignatura(Model model, @PathVariable long id) {
@@ -171,6 +217,7 @@ public class AdminController extends UsuarioController{
 			if(asignatura != null) {
 				titulacion.agregarAsignatura(asignatura);
 				titulaciones.save(titulacion);
+				model.addAttribute("verbo", "creado");
 				model.addAttribute("nombre",asignatura.getNombre());
 				model.addAttribute("titulacion", titulacion.getNombre());
 				return "nueva-asignatura";
@@ -194,11 +241,14 @@ public class AdminController extends UsuarioController{
 			if(this.titulacion != null) {
 				Titulacion titulacion = titulaciones.findById(this.titulacion.getId());
 				if(titulacion.getAsignaturas().contains(asignatura)) {
-					if(titulaciones.desasignarAsignaturaTitulacion(titulacion, asignatura)) {
-						asignaturas.deleteId(id);
+						asignaturas.desasociarTodosProfesores(asignatura);
+						asignaturas.desmatricularTodosAlumnos(asignatura);
+						profesores.eliminarProfesoresAsignatura(asignatura);
+						alumnos.desmatricularAlumnosAsignatura(asignatura);
+						asignaturas.deleteId(asignatura.getId());
+						titulaciones.desasignarAsignaturaTitulacion(titulacion, asignatura);
 						model.addAttribute("nombre", asignatura.getNombre());
 						return "eliminado";
-					}
 				}
 			}
 		} else {
@@ -294,10 +344,15 @@ public class AdminController extends UsuarioController{
 			model.addAttribute("nombre", profesor.getNombre() + " " + profesor.getApellido());
 			model.addAttribute("asignaturas", profesor.getAsignaturas());
 			model.addAttribute("tutorias",profesor.getTutoriasProfesor());
+			
 			return "profesor-root";
 		}
 		return "404";
 	}
+	
+	
+
+	
 	
 	@RequestMapping(value="/alumno/{id}", method=RequestMethod.GET)
 	public String selectAlumno(Model model, @PathVariable long id) {
@@ -313,42 +368,39 @@ public class AdminController extends UsuarioController{
 	
 	// Borrado Usuarios
 	
-	// Profesor
+	// baja profesor
 	@RequestMapping(value="/profesor/{id}/borrar", method=RequestMethod.GET)
-	public String borrarProfesor(Model model, @PathVariable long id) {
+	public String bajaProfesor(Model model, @PathVariable long id) {
 		
 		if(usuarios.exists(id)) {
-			
-			profesor = (Profesor) usuarios.findById(id);
+			Profesor profesor = (Profesor)usuarios.findById(id);
+			profesores.quitarTodasAsignaturas(profesor);
+			profesores.eliminarTodasTutoriasProfesor(profesor);
 			usuarios.delete(id);
-			if(!usuarios.exists(id)) {
-				model.addAttribute("nombre", "Profesor: " + profesor.getNombre() + " " + profesor.getApellido());
-				return "eliminado";
-			}
-			
+			return "200";
 		}
 		
-		return "404";
+		return "500";
 	}
+	
+	
 	
 	@RequestMapping(value="/alumno/{id}/borrar", method=RequestMethod.GET)
 	public String borraAlumno(Model model, @PathVariable long id) {
 		
 		if(usuarios.exists(id)) {
-			
-			usuario = (Alumno) usuarios.findById(id);
+			Alumno alumno = (Alumno) usuarios.findById(id);
+			alumnos.desmatricularAlumnosTodasAsignaturas(alumno);
+			alumnos.eliminarTodasTutoriasAlumno(alumno);
 			usuarios.delete(id);
-			if(!usuarios.exists(id)) {
-				model.addAttribute("nombre", "Alumno: " + alumno.getNombre() + " " + alumno.getApellido());
-				return "eliminado";
-			}
-			
+			return "200";
 		}
 		
 		return "404";
 	}
 	
 	/*Agregar Profesor a Asignatura*/
+	// formulario
 	@RequestMapping(value="/asignatura/{id}/agregar-profesor", method=RequestMethod.GET)
 	public String fomularioProfesorAsignatura(Model model, @PathVariable long id) {
 		
@@ -365,6 +417,7 @@ public class AdminController extends UsuarioController{
 		return "404";
 	}
 	
+	// insert
 	@RequestMapping(value="/asignatura/{id}/agregar-profesor/nuevo", method=RequestMethod.POST)
 	public String insertProfesorAsignatura(Model model, @PathVariable long id,
 			@RequestParam Profesor usuario) {
@@ -372,7 +425,11 @@ public class AdminController extends UsuarioController{
 		if(titulaciones.exists(titulacion.getId())) {
 			if(asignaturas.exists(asignatura.getId())) {
 				if(usuarios.exists(usuario.getId())) {
-					return "200";
+						Asignatura auxAsignatura = asignaturas.findById(asignatura.getId());
+						usuario.asignarAsignatura(auxAsignatura);
+						usuarios.save(usuario);
+						asignaturas.asociarProfesorAsignatura(auxAsignatura, usuario);
+						return "200";
 				}
 			}
 		}
@@ -380,6 +437,13 @@ public class AdminController extends UsuarioController{
 		return "500";
 	}
 	
+	
+
+	
+	
+	/*Matricular Alumno Asignatura*/
+	
+	// formulario
 	@RequestMapping(value="/asignatura/{id}/matricular-alumno", method=RequestMethod.GET)
 	public String formAlumnoAsignatura(Model model, @PathVariable long id) {
 		
@@ -395,6 +459,8 @@ public class AdminController extends UsuarioController{
 		
 		return "404";
 	}
+	
+	// insert
 	@RequestMapping(value="/asignatura/{id}/matricular-alumno/nuevo", method=RequestMethod.POST)
 	public String insertAlumnoAsignatura(Model model, @PathVariable long id,
 			@RequestParam Alumno usuario) {
@@ -402,6 +468,10 @@ public class AdminController extends UsuarioController{
 		if(titulaciones.exists(titulacion.getId())) {
 			if(asignaturas.exists(asignatura.getId())) {
 				if(usuarios.exists(usuario.getId())) {
+					Asignatura auxAsignatura = asignaturas.findById(asignatura.getId());
+					usuario.matricularAsignatura(auxAsignatura);
+					usuarios.save(usuario);
+					asignaturas.matircularAlumnoAsignatura(auxAsignatura, usuario);
 					return "200";
 				}
 			}
