@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,11 +19,13 @@ import com.dad.urjcacademy.entity.Profesor;
 
 
 @RestController
-@RequestMapping("/profesores")
+@RequestMapping("/teachers")
 public class ProfesorController extends UsuarioController {
 	
 	@Autowired
 	private ProfesorService profesores;
+	
+	
 	
 		
 	//Obtener todos los profesores registrados
@@ -32,7 +35,7 @@ public class ProfesorController extends UsuarioController {
 	}
 	
 	// Obtener Profesor
-	@GetMapping(value="{id}")
+	@GetMapping(value="/{id}")
 	public ResponseEntity<Profesor> getProfesor(@PathVariable long id) {
 		
 		if(profesores.exists(id)) {
@@ -45,6 +48,7 @@ public class ProfesorController extends UsuarioController {
 	
 	
 	//Modificar Alumno
+	@PutMapping(value="/{id}")
 	public ResponseEntity<Profesor> updateProfesor(@PathVariable long id,
 			@RequestBody Profesor update) {
 		

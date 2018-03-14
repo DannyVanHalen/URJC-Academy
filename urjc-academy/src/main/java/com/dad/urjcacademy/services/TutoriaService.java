@@ -47,8 +47,10 @@ public class TutoriaService {
 		repository.delete(tutoria);
 	}
 	
+	/*Exists*/
+	public boolean exists(long id) {
+		return repository.exists(id);
+	}
 	
-	
-
 	
 }

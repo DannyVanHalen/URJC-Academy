@@ -25,7 +25,7 @@ import com.dad.urjcacademy.services.AlumnoService;
 //import com.dad.urjcacademy.repository.UsuarioRepository;
 
 @RestController
-@RequestMapping("/alumnos")
+@RequestMapping("/students")
 public class AlumnoController extends UsuarioController {
 
 	@Autowired

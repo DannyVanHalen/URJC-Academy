@@ -51,24 +51,24 @@ public class AdminController extends UsuarioController{
 	/*Gestión de usuarios*/
 	
 	// Nuevo Profesor
-	@PostMapping(value="/nuevo-usuario/profesor")
+	@PostMapping(value="/add-teacher")
 	public ResponseEntity<Usuario> newProfesor(@RequestBody Profesor profesor) {
 		return new ResponseEntity<>(usuarios.save(profesor),HttpStatus.CREATED);
 	}
 	
-	@PostMapping(value="/nuevo-usuario/alumno")
+	@PostMapping(value="/add-student")
 	public ResponseEntity<Usuario> newAlumno(@RequestBody Alumno alumno) {
 		return new ResponseEntity<>(usuarios.save(alumno),HttpStatus.CREATED);
 	}
 	
 	// Todos los usuarios registrados
-	@GetMapping(value="/usuarios")
+	@GetMapping(value="/users")
 	public ResponseEntity<List<Usuario>> getAllUsuarios() {
 		return new ResponseEntity<>(usuarios.findAll(),HttpStatus.OK);
 	}
 	
 	//Buscar Usuario
-	@GetMapping(value="/usuarios/{id}")
+	@GetMapping(value="/users/{id}")
 	public ResponseEntity<Usuario> getUsuario(@PathVariable long id) {
 		
 		if(usuarios.exists(id)) {
@@ -79,7 +79,7 @@ public class AdminController extends UsuarioController{
 	}
 	
 	// Modificar Usuario
-	@PutMapping(value="/usuarios/{id}")
+	@PutMapping(value="/user/{id}/update")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable long id,
 			@RequestBody Usuario update) {
 		
@@ -96,7 +96,7 @@ public class AdminController extends UsuarioController{
 	}
 	
 	// Borrado Usuarios
-	@DeleteMapping(value="/usuarios/{id}")
+	@DeleteMapping(value="/user/{id}/delete")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable long id) {
 		
 		if(usuarios.exists(id)) {
