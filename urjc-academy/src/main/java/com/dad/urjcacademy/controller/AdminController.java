@@ -52,15 +52,13 @@ public class AdminController extends UsuarioController{
 	
 	// Nuevo Profesor
 	@PostMapping(value="/nuevo-usuario/profesor")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario newProfesor(@RequestBody Profesor profesor) {
-		return usuarios.save(profesor);
+	public ResponseEntity<Usuario> newProfesor(@RequestBody Profesor profesor) {
+		return new ResponseEntity<>(usuarios.save(profesor),HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/nuevo-usuario/alumno")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario newAlumno(@RequestBody Alumno alumno) {
-		return usuarios.save(alumno);
+	public ResponseEntity<Usuario> newAlumno(@RequestBody Alumno alumno) {
+		return new ResponseEntity<>(usuarios.save(alumno),HttpStatus.CREATED);
 	}
 	
 	// Todos los usuarios registrados

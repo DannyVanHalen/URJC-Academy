@@ -21,7 +21,7 @@ import com.dad.urjcacademy.services.TitulacionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/titulacion")
+@RequestMapping("/titulaciones")
 public class TitulacionController {
 
 	@Autowired
