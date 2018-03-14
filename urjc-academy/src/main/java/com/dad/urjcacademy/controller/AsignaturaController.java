@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dad.urjcacademy.entity.Alumno;
 import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Profesor;
-import com.dad.urjcacademy.entity.Tutoria;
 import com.dad.urjcacademy.services.AsignaturaService;
 import com.dad.urjcacademy.services.UsuarioService;
 

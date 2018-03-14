@@ -44,4 +44,9 @@ public class ApuntesService {
 	}
 	
 	
+	/*Exists*/
+	public boolean exists(long id) {
+		return repository.exists(id);
+	}
+	
 }
