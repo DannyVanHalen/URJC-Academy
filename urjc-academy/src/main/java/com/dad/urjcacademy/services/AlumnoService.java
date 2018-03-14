@@ -41,6 +41,11 @@ public class AlumnoService  {
 		return repository.findByApellido(apellido);
 	}
 	
+	/*Exists*/
+	public boolean exists(long id) {
+		return repository.exists(id);
+	}
+	
 	/*Insert -> Operaciones para usar con AdminController*/
 	
 	public Alumno save(Alumno alumno) {

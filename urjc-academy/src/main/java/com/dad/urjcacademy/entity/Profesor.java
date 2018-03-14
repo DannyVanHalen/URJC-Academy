@@ -139,6 +139,10 @@ public class Profesor extends Usuario {
 		this.asignaturasProfesor = asignaturas;
 	}
 	
+	public void setTutoriasProfesor(List<Tutoria> tutoriasProfesor) {
+		this.tutoriasProfesor = tutoriasProfesor;
+	}
+	
 	/** Métodos Funcionales de la Entidad **/
 	// PÚBLICOS
 	
