@@ -167,6 +167,10 @@ public class Profesor extends Usuario {
 		return tutoriasProfesor.size() == 0;
 	}
 	
+	public boolean estaAsignadaAsignatura(Asignatura asignatura) {
+		return asignaturasProfesor.contains(asignatura);
+	}
+	
 	// PROTEGÍDOS || PRIVADOS
 	
 	
