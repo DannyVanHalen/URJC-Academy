@@ -94,9 +94,15 @@ public class Titulacion {
 		return asignaturas.remove(asignatura);
 	}
 	
+	public boolean borrarTodasAsignaturas() {
+		asignaturas.clear();
+		return asignaturas.size() == 0;
+	}
+	
 	public boolean contieneAsignatura(Asignatura asignatura) {
 		return asignaturas.contains(asignatura);
 	}
+	
 	
 	
 }

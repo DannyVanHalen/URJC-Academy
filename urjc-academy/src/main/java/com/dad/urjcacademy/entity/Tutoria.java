@@ -121,7 +121,7 @@ public class Tutoria {
 	
 	/** Metodos Funcionales de la Entidad **/
 	
-	
+	/**
 	public void cambiarFechaTutoria(int dayOfMonth, int month, int year, int hour, int min, boolean validate) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime dateTime = LocalDateTime.of(year,month,dayOfMonth,hour,min);
@@ -132,7 +132,7 @@ public class Tutoria {
 		this.hour = hour;
 		this.min = min;
 		this.validate = validate;
-	}
+	}**/
 	
 	
 	

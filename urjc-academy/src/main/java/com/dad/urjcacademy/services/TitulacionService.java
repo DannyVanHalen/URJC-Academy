@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Titulacion;
 import com.dad.urjcacademy.repository.TitulacionRepository;
 
@@ -28,6 +29,10 @@ public class TitulacionService {
 		return repository.findByRama(rama);
 	}
 	
+	public List<Titulacion> findAll() {
+		return repository.findAll();
+	}
+	
 	/*Insert*/
 	
 	public Titulacion save(Titulacion titulacion) {
@@ -42,6 +47,35 @@ public class TitulacionService {
 	
 	public void delete(Titulacion titulacion) {
 		repository.delete(titulacion);
+	}
+	
+	/*Exists*/
+	
+	public boolean exists(long id) {
+		return repository.exists(id);
+	}
+	
+	/*Asignatura*/
+	
+	public boolean asignarAsignaturaTitulacion(Titulacion titulacion, Asignatura asignatura) {
+		if(titulacion.agregarAsignatura(asignatura)) {
+			return this.save(titulacion) != null;
+ 		}
+		return false;
+	}
+	
+	public boolean desasignarAsignaturaTitulacion(Titulacion titulacion, Asignatura asignatura) {
+		if(titulacion.quitarAsignatura(asignatura)) {
+			return this.save(titulacion) != null;
+		}
+		return false;
+	}
+	
+	public boolean borrarAsignaturasTitulacion(Titulacion titulacion) {
+		if(titulacion.borrarTodasAsignaturas()) {
+			return this.save(titulacion) != null;
+		}
+		return false;
 	}
 	
 }

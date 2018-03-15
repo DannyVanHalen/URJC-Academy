@@ -1,5 +1,6 @@
 package com.dad.urjcacademy.repository;
 
+
 import com.dad.urjcacademy.entity.Profesor;
 
 import java.util.List;

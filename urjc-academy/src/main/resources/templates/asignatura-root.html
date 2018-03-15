@@ -10,32 +10,31 @@
 <body>
 
 	<h1 style="color:blue">URJC-Academy</h1>
+	<h2 style="color:green">Titulación - {{titulacion}}</h2>
 	<h3 style="color:green">Asignatura - {{asignatura}}</h3>
-	<h4 style="color:green">Titulacion - {{titulacion}}</h4>
-	<!--<h4 style="color:green">Profesor   - {{profesor}}</h4>-->
 	<h4 style="color:red">Profesores<br>
 	
 		<ul>
 		
 			{{#profesores}}
-				<li><a href="/root/profesor/{{id}}">{{nombre}} {{apellido}}</a></li>>
+				<li><a href="/root/profesor/{{id}}">{{nombre}} {{apellido}}</a></li>
 			{{/profesores}}
 		
 		</ul>
-	
+		<a href="/root/asignatura/{{id}}/agregar-profesor">Agregar Profesor</a>
 	</h4>
 	
-	<h4 style="color:red"">Alumnos<br>
+	<h4 style="color:red">Alumnos<br>
 	
 		<ul>
 			{{#alumnos}}
 			<li><a href="/root/alumno/{{id}}">{{nombre}} {{apellido}}</a></li>
 			{{/alumnos}}
 		</ul>
-		<a href="/asignatura/{{id}}/matricular-alumno">Matricular Alumno</a>
+		<a href="/root/asignatura/{{id}}/matricular-alumno">Matricular Alumno</a>
 	</h4>
 	
-	<a href="/asignatura/borrar/{{id}}">Borrar Asignatura</a>
+	<a href="/root/titulacion/asignatura/borrar/{{id}}">Borrar Asignatura</a>
 	<a href="/root">Volver</a>
 	
 	

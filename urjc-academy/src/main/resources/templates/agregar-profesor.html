@@ -13,14 +13,14 @@
 	<h3 style="color:green">Asignatura - {{asignatura}}</h3>
 	<h4 style="color:green">Titulacion - {{titulacion}}</h4>
 	
-	<h4 style="color:red">Alumnos a matricular:</h4>
-	<form action="/root/asignatura/{{id}}/matricular-alumno/nuevo" method="post">
-		{{#alumnos}}
+	<h4 style="color:red">Profesores:</h4>
+	<form action="/root/asignatura/{{id}}/agregar-profesor/nuevo" method="post">
+		{{#profesores}}
 		<!--  <input type="checkbox" name="alumnos" value="{{id}}">{{nombre}} {{apellido}}<br> -->
 		<input type="radio" name="usuario" value="{{id}}">{{nombre}} {{apellido}}<br>
-		{{/alumnos}}
+		{{/profesores}}
 		<br>
-		<input type="submit" value="Matricular Alumnos">
+		<input type="submit" value="Agregar Profesor">
 	</form>
 	
 

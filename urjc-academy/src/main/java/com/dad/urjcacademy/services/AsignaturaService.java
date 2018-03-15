@@ -24,8 +24,12 @@ public class AsignaturaService {
 		return repository.findOne(id);
 	}
 	
+	public List<Asignatura> findAll() {
+		return repository.findAll();
+	}
+	
 	public Asignatura save(Asignatura asignatura) {
-		return this.save(asignatura);
+		return repository.save(asignatura);
 	}
 	
 	public void deleteId(long id) {
@@ -34,6 +38,11 @@ public class AsignaturaService {
 	
 	public void delete(Asignatura asignatura) {
 		repository.delete(asignatura);
+	}
+	
+	/*Exists*/
+	public boolean exists(long id) {
+		return repository.exists(id);
 	}
 	
 	/*Profesores -> Operaciones para usar con AdminController*/

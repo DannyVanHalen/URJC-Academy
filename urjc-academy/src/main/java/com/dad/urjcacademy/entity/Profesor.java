@@ -32,7 +32,7 @@ public class Profesor extends Usuario {
 	
 	public Profesor(String login, String maiLogin, String pass,  String rol,
 			String nombre, String apellido, String tlf
-			, List<Asignatura> asignaturasProfesor) {
+			, List<Asignatura> asignaturasProfesor, List<Tutoria> tutoriasProfesor) {
 		
 		super(login,maiLogin,pass,rol);
 		this.nombre = nombre;
@@ -40,6 +40,7 @@ public class Profesor extends Usuario {
 		this.tlf = tlf;
 
 		this.asignaturasProfesor = asignaturasProfesor;
+		this.tutoriasProfesor = tutoriasProfesor;
 		
 	}
 	
@@ -116,6 +117,10 @@ public class Profesor extends Usuario {
 		return asignaturasProfesor;
 	}
 	
+	public List<Tutoria> getTutoriasProfesor() {
+		return tutoriasProfesor;
+	}
+	
 	// SET
 	
 	public void setNombre(String nombre) {
@@ -134,6 +139,10 @@ public class Profesor extends Usuario {
 		this.asignaturasProfesor = asignaturas;
 	}
 	
+	public void setTutoriasProfesor(List<Tutoria> tutoriasProfesor) {
+		this.tutoriasProfesor = tutoriasProfesor;
+	}
+	
 	/** Métodos Funcionales de la Entidad **/
 	// PÚBLICOS
 	
@@ -143,6 +152,23 @@ public class Profesor extends Usuario {
 	
 	public boolean quitarAsignatura(Asignatura asignatura) {
 		return asignaturasProfesor.remove(asignatura);
+	}
+	
+	public boolean agregarTutoria(Tutoria tutoria) {
+		return tutoriasProfesor.add(tutoria);
+	}
+	
+	public boolean quitarTutoria(Tutoria tutoria) {
+		return tutoriasProfesor.remove(tutoria);
+	}
+	
+	public boolean quitarTodasTutorias() {
+		tutoriasProfesor.clear();
+		return tutoriasProfesor.size() == 0;
+	}
+	
+	public boolean estaAsignadaAsignatura(Asignatura asignatura) {
+		return asignaturasProfesor.contains(asignatura);
 	}
 	
 	// PROTEGÍDOS || PRIVADOS
