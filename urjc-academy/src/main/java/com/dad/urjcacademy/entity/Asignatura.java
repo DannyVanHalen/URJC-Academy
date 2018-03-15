@@ -29,9 +29,8 @@ public class Asignatura {
 	private List<Alumno> alumnos;
 	
 	
-	/*
-	 * Interrelación Asignatura Profesores N:M Bidireccional
-	 */
+	@ManyToOne()
+	private Profesor profesor;
 	
 	@ManyToMany(mappedBy="asignaturasProfesor")
 	private List<Profesor> profesores;
