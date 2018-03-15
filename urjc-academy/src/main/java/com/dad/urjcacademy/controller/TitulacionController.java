@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import com.dad.urjcacademy.services.TitulacionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/titulaciones")
+@RequestMapping("/degree")
 public class TitulacionController {
 
 	@Autowired
@@ -46,6 +47,11 @@ public class TitulacionController {
 		
 	}
 	
+	@PostMapping(value="add")
+	public ResponseEntity<Titulacion> addTitulacion(@RequestBody Titulacion titulacion) {
+		return new ResponseEntity<>(titulaciones.save(titulacion),HttpStatus.CREATED);
+	}
+	
 	// Modificar 
 	@PutMapping(value="{id}")
 	public ResponseEntity<Titulacion> updateTitulacion(@PathVariable long id,
@@ -62,7 +68,7 @@ public class TitulacionController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
 	}
-	@PutMapping(value="{id}/agregar-asignatura")
+	@PutMapping(value="{id}/add-subject")
 	public ResponseEntity<Titulacion> addAsignatura(@PathVariable long id,
 			@RequestBody Asignatura asignatura) {
 		if(titulaciones.exists(id)) {

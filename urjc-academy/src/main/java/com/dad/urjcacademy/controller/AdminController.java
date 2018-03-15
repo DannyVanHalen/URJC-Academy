@@ -105,10 +105,7 @@ public class AdminController extends UsuarioController{
 	
 	}
 	
-	/*Gestión Asignaturas*/
-	
-	
-	
+
 	
 	
 }

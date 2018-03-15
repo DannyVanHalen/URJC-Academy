@@ -47,7 +47,7 @@ public class AlumnoController extends UsuarioController {
 	}
 	
 	//Modificar Alumno
-	@PutMapping(value="/{id}")
+	@PutMapping(value="/{id}/update")
 	public ResponseEntity<Alumno> updateAlumno(@PathVariable long id, 
 			@RequestBody Alumno update) {
 		
