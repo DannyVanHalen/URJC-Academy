@@ -61,5 +61,9 @@ public class UsuarioService {
 		return repository.exists(id);
 	}
 	
+	public boolean exists(String login, String pass) {
+		return this.findByLoginAndPass(login, pass) != null;
+	}
+	
 	
 }
