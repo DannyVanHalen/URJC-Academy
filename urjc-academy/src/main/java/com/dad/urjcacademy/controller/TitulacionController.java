@@ -1,96 +1,51 @@
 package com.dad.urjcacademy.controller;
 
-
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.web.bind.annotation.RestController;
-
+import com.dad.urjcacademy.entity.Alumno;
+import com.dad.urjcacademy.entity.Apuntes;
 import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Titulacion;
+import com.dad.urjcacademy.repository.AsignaturaRepository;
+import com.dad.urjcacademy.repository.TitulacionRepository;
 import com.dad.urjcacademy.services.TitulacionService;
-import java.util.List;
 
-@RestController
-@RequestMapping("/degree")
+@Controller
+@RequestMapping("/titulacion")
 public class TitulacionController {
 
 	@Autowired
 	private TitulacionService titulaciones;
 	
 	
-	// Obtener todas las titulaciones
-	@GetMapping(value="")
-	public ResponseEntity<List<Titulacion>> getAllTitulaciones() {
-		return new ResponseEntity<>(titulaciones.findAll(),HttpStatus.OK);
-	}
-	
-	// Obtener una titulacion 
-	@GetMapping(value="{id}")
-	public ResponseEntity<Titulacion> getTitulacion(@PathVariable long id) {
+	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	public String titulacion(Model model,
+			@PathVariable long id) {
 		
-		if(titulaciones.exists(id)) {
-			return new ResponseEntity<>(titulaciones.findById(id),HttpStatus.OK);
+		Titulacion titulacion = titulaciones.findById(id);
+		
+		if(titulacion != null) {
+	
+			model.addAttribute("nombre",titulacion.getNombre());
+			model.addAttribute("rama", titulacion.getRama());
+			model.addAttribute("asignaturas", titulacion.getAsignaturas());
+			model.addAttribute("soyRoot", false);
+			model.addAttribute("usuarioFinal", true);
+			return "titulacion";
+			
 		}
 		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return "404";
 		
 	}
-	
-	@PostMapping(value="add")
-	public ResponseEntity<Titulacion> addTitulacion(@RequestBody Titulacion titulacion) {
-		return new ResponseEntity<>(titulaciones.save(titulacion),HttpStatus.CREATED);
-	}
-	
-	// Modificar 
-	@PutMapping(value="{id}")
-	public ResponseEntity<Titulacion> updateTitulacion(@PathVariable long id,
-			@RequestBody Titulacion update) {
-		
-		if(titulaciones.exists(id)) {
-			Titulacion titulacion = titulaciones.findById(id);
-			titulacion.setNombre(update.getNombre());
-			titulacion.setRama(update.getRama());
-			titulacion.setAsignaturas(update.getAsignaturas());
-			return new ResponseEntity<>(titulaciones.save(titulacion),HttpStatus.OK);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
-	}
-	@PutMapping(value="{id}/add-subject")
-	public ResponseEntity<Titulacion> addAsignatura(@PathVariable long id,
-			@RequestBody Asignatura asignatura) {
-		if(titulaciones.exists(id)) {
-			Titulacion titulacion = titulaciones.findById(id);
-			if(titulaciones.asignarAsignaturaTitulacion(titulacion, asignatura))
-				return new ResponseEntity<>(titulacion,HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-	
-	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Titulacion> deleteTitulacion(@PathVariable long id) {
-		
-		if(titulaciones.exists(id)) {
-			titulaciones.delete(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-	}
-	
 	
 	
 

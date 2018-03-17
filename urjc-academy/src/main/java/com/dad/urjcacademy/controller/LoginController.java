@@ -11,13 +11,7 @@ import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.repository.UsuarioRepository;
 
 @Controller
-@RequestMapping("/login")
 public class LoginController {
 
-	
-	@RequestMapping(value="", method=RequestMethod.GET)
-	public String login(Model model) {
-		return "login";
-	}
 	
 }
