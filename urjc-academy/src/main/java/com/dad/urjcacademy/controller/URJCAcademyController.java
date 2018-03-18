@@ -23,24 +23,17 @@ public class URJCAcademyController {
 	
 	@RequestMapping(value= "/", method=RequestMethod.GET)
 	public String urjc_academy_index(Model model) {
-		return "index-login";
+		return "index";
 	}
 	
-	@PostMapping("/login")
-	public String urjc_academy_login(Model model,
-			@RequestParam String login, @RequestParam String pass) {
-		
-		if(usuarios.exists(login, pass)) {
-			Usuario usuario = usuarios.findByLoginAndPass(login, pass);
-			if (usuario.getRol().contains("administrador"))
-				return "root";
-			if (usuario.getRol().contains("profesor"))
-				return "profesor";
-			if(usuario.getRol().contains("alumno"))
-				return "alumno";
-		}
-		
-		return "404";
+	@GetMapping("/login")
+	public String urjc_academy_login(Model model) {
+		return "login";
+	}
+	
+	@RequestMapping("/home")
+	public String urjc_academy_home(Model model) {
+		return "home";
 	}
 	
 	@GetMapping("/loginError")

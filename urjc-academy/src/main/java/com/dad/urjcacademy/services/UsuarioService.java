@@ -32,12 +32,17 @@ public class UsuarioService {
 	}
 	
 	public List<Usuario> findAll() {
-		return repository.findAll();
+		return (List<Usuario>) repository.findAll();
 	}
 	
 	public List<Usuario> findByRol(String rol) {
 		return repository.findByRol(rol);
 	}
+	
+	/**
+	public List<Usuario> findByRoles(String string) {
+		return repository.findByRoles(string);
+	}**/
 	
 	/*Insert*/
 	

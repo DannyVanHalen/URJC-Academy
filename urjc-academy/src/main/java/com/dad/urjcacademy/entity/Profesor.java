@@ -30,11 +30,12 @@ public class Profesor extends Usuario {
 		super();
 	}
 	
-	public Profesor(String login, String maiLogin, String pass,  String rol,
+	public Profesor(String login, String maiLogin, String pass, String rol,
 			String nombre, String apellido, String tlf
-			, List<Asignatura> asignaturasProfesor, List<Tutoria> tutoriasProfesor) {
+			, List<Asignatura> asignaturasProfesor, List<Tutoria> tutoriasProfesor,
+			String...roles) {
 		
-		super(login,maiLogin,pass,rol);
+		super(login,maiLogin,pass,rol,roles);
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.tlf = tlf;
@@ -66,13 +67,19 @@ public class Profesor extends Usuario {
 	}
 	
 	@Override
+	public String getPass() {
+		return super.getPass();
+	}
+	
+	@Override
 	public String getRol() {
 		return super.getRol();
 	}
 	
+	/*Parte de Seguridad*/
 	@Override
-	public String getPass() {
-		return super.getPass();
+	public List<String> getRoles() {
+		return super.getRoles();
 	}
 	
 	// SET
@@ -95,6 +102,12 @@ public class Profesor extends Usuario {
 	@Override
 	public void setPass(String pass) {
 		super.setPass(pass);
+	}
+	
+	/*Parte de Seguridad*/
+	@Override
+	public void setRoles(List<String> roles) {
+		super.setRoles(roles);
 	}
 	
 	// Métodos nativos de la clase Profesor
