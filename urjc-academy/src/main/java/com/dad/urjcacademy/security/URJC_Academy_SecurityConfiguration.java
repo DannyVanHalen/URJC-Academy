@@ -24,16 +24,18 @@ public class URJC_Academy_SecurityConfiguration extends WebSecurityConfigurerAda
 		https.authorizeRequests().antMatchers("/logout").permitAll();
 		
 		/*Private Pages*/
-		https.authorizeRequests().antMatchers("/root").hasAnyRole("administrador");
-		https.authorizeRequests().antMatchers("/alumno").hasAnyRole("alumno");
-		https.authorizeRequests().antMatchers("/profesor").hasAnyRole("profesor");
+		https.authorizeRequests().antMatchers("/alumno").hasAnyRole("USER");
+		https.authorizeRequests().antMatchers("/profesor").hasAnyRole("USER");
+		https.authorizeRequests().antMatchers("/profesor/*").hasAnyRole("USER");
+		https.authorizeRequests().antMatchers("/root").hasAnyRole("ADMIN");
+		https.authorizeRequests().antMatchers("/root/*").hasAnyRole("ADMIN");
 		
 		
 		// Login form 
 		https.formLogin().loginPage("/login");
 		https.formLogin().usernameParameter("login");
 		https.formLogin().passwordParameter("pass");
-		https.formLogin().defaultSuccessUrl("/home");
+		https.formLogin().defaultSuccessUrl("/");
 		https.formLogin().failureUrl("/loginError");
 		
 		// Logout 

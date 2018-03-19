@@ -41,12 +41,4 @@ public class URJCAcademyController {
 		return "loginError";
 	}
 	
-	
-	
-	
-	
-	
-
-
-	
 }

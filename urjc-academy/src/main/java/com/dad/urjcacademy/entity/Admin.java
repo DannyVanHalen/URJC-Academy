@@ -14,7 +14,7 @@ public class Admin extends Usuario {
 		super();
 	}
 	
-	public Admin(String login, String maiLogin, String pass, String rol, String...roles) {
+	public Admin(String login, String maiLogin, String pass, String rol, String... roles) {
 		super(login,maiLogin,pass,rol,roles);
 	}
 	
