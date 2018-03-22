@@ -97,3 +97,20 @@ java.io.FileNotFoundException: /home/dani/dani/proyectoDad/URJC-Academy/.metadat
 	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:142)
 	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:232)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+
+!ENTRY org.eclipse.core.resources 4 566 2018-03-22 18:36:20.574
+!MESSAGE Could not save master table to file '/home/dani/dani/proyectoDad/URJC-Academy/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources'.
+!STACK 0
+java.io.FileNotFoundException: /home/dani/dani/proyectoDad/URJC-Academy/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources (No existe el archivo o el directorio)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:133)
+	at org.eclipse.core.internal.localstore.SafeChunkyOutputStream.<init>(SafeChunkyOutputStream.java:45)
+	at org.eclipse.core.internal.localstore.SafeChunkyOutputStream.<init>(SafeChunkyOutputStream.java:41)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1286)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1277)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1254)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1165)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:52)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
