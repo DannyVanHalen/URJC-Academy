@@ -1,8 +1,9 @@
 package com.dad.urjcacademy.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 
-import org.springframework.web.context.annotation.SessionScope;
 
 @Entity
 public class Admin extends Usuario {
@@ -13,8 +14,8 @@ public class Admin extends Usuario {
 		super();
 	}
 	
-	public Admin(String login, String maiLogin, String pass, String rol) {
-		super(login,maiLogin,pass,rol);
+	public Admin(String login, String maiLogin, String pass, String rol, String... roles) {
+		super(login,maiLogin,pass,rol,roles);
 	}
 	
 	
@@ -37,7 +38,6 @@ public class Admin extends Usuario {
 		return super.getMaiLogin();
 	}
 	
-	
 	@Override
 	public String getPass() {
 		return super.getPass();
@@ -48,6 +48,10 @@ public class Admin extends Usuario {
 		return super.getRol();
 	}
 	
+	@Override
+	public List<String> getRoles() {
+		return super.getRoles();
+	}
 	
 	// SET 
 	
@@ -69,6 +73,11 @@ public class Admin extends Usuario {
 	@Override
 	public void setRol(String rol) {
 		super.setRol(rol);
+	}
+	
+	@Override
+	public void setRoles(List<String> roles) {
+		super.setRoles(roles);
 	}
 	
 	

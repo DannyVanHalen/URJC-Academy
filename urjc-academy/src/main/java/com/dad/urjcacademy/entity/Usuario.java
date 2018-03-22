@@ -1,9 +1,17 @@
 package com.dad.urjcacademy.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
@@ -18,17 +26,23 @@ public class Usuario {
 	private String pass;
 	private String rol;
 	
+	/*Parte de seguridad*/
+	@ElementCollection(fetch=FetchType.EAGER)
+	private List<String> roles;
+	
 	/** Constuctores de Entidad **/
 	
 	public Usuario() {
 		
 	}
 	
-	public Usuario(String login,String maiLogin, String pass, String rol) {
+	public Usuario(String login,String maiLogin, String pass,String rol, String... roles) {
 		this.login = login;
 		this.maiLogin = maiLogin;
-		this.pass = pass;
+		//this.pass = pass;
+		this.pass = new BCryptPasswordEncoder().encode(pass);
 		this.rol = rol;
+		this.roles = new ArrayList<>(Arrays.asList(roles));
 	}
 	
 	/** Métodos de acceso a atributos de Usuario**/
@@ -63,18 +77,25 @@ public class Usuario {
 		this.pass = pass;
 	}
 	
-	
 	public String getRol() {
 		return rol;
 	}
-	
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
 	
+	public List<String> getRoles() {
+		return roles;
+	}
+	
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "Usuario: " + id +" [login: " + login + ", correo: " + maiLogin +", roll: " + rol + ", pass: " + pass +"]";
+		return "Usuario: " + id +" [login: " + login + ", correo: " + maiLogin +", roles: " + Arrays.toString(roles.toArray()) + ", pass: " + pass +"]";
 	}
 	
 	/** Operaciones de Usuario **/

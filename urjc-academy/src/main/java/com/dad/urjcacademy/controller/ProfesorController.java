@@ -10,13 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.repository.UsuarioRepository;
+import com.dad.urjcacademy.services.ProfesorService;
+import com.dad.urjcacademy.services.UsuarioService;
 
 @Controller
 @RequestMapping("/profesor")
 public class ProfesorController extends UsuarioController {
 
-
+	@Autowired
+	private UsuarioService usuarios;
 	
+	@Autowired
+	private ProfesorService profesores;
 	
 		
+	
 }

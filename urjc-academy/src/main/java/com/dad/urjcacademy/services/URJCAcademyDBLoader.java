@@ -1,5 +1,6 @@
 package com.dad.urjcacademy.services;
 
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,17 @@ public class URJCAcademyDBLoader {
 	
 	@PostConstruct
 	public void initdDB() {
-		
+		/**
 		if(usuarios.findByLogin("root") == null) {
 			usuarios.save(new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador"));
-		}
+		}**/
 		
-	
+		if(usuarios.findByLogin("root") == null) {
+			//usuarios.save(new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador","ADMIN"));
+			Admin admin = new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador","ADMIN");
+			usuarios.save(admin);
+		}
+			
 	}
 	
 }

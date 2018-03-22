@@ -21,6 +21,7 @@ import com.dad.urjcacademy.generator.PassGenerator;
 import com.dad.urjcacademy.services.AlumnoService;
 import com.dad.urjcacademy.services.AsignaturaService;
 import com.dad.urjcacademy.services.ProfesorService;
+import com.dad.urjcacademy.services.SesionService;
 import com.dad.urjcacademy.services.TitulacionService;
 //import com.dad.urjcacademy.services.TutoriaService;
 import com.dad.urjcacademy.services.UsuarioService;
@@ -28,6 +29,9 @@ import com.dad.urjcacademy.services.UsuarioService;
 @Controller
 @RequestMapping("/root")
 public class AdminController extends UsuarioController{
+	
+	@Autowired
+	private SesionService sesion;
 	
 	@Autowired
 	private UsuarioService usuarios;
@@ -61,11 +65,13 @@ public class AdminController extends UsuarioController{
 		
 		//Lectura de datos
 		//titulación
-		model.addAttribute("titulaciones", titulaciones.findAll());
-		model.addAttribute("profesores", usuarios.findByRol("profesor"));
-		model.addAttribute("alumnos", usuarios.findByRol("alumno"));
+			model.addAttribute("titulaciones", titulaciones.findAll());
+			model.addAttribute("profesores", usuarios.findByRol("profesor"));
+			model.addAttribute("alumnos", usuarios.findByRol("alumno"));
+			
+			return "root";
 		
-		return "root";
+		
 	}
 	
 	/*Administración de Titulaciones*/
@@ -293,7 +299,7 @@ public class AdminController extends UsuarioController{
 		String pass = new PassGenerator().getPassword();
 		
 		if(esProfesor) {
-			this.usuario = usuarios.save(new Profesor(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<>(),new ArrayList<>()));
+			this.usuario = usuarios.save(new Profesor(login,maiLogin,pass,"profesor",nombre,apellido,tlf,new ArrayList<>(),new ArrayList<>(),"USER"));
 			profesor = (Profesor) usuarios.findById(usuario.getId());
 			if(profesor != null) {
 				profesor.setLogin(login+String.valueOf(profesor.getId()));
@@ -302,7 +308,7 @@ public class AdminController extends UsuarioController{
 				return "404";
 			}
 		} else {
-			this.usuario = usuarios.save(new Alumno(login,maiLogin,pass,rol,nombre,apellido,tlf,new ArrayList<>(), new ArrayList<>()));
+			this.usuario = usuarios.save(new Alumno(login,maiLogin,pass,"alumno",nombre,apellido,tlf,new ArrayList<>(), new ArrayList<>(),"USER"));
 			alumno = (Alumno) usuarios.findById(usuario.getId());
 			if(alumno != null) {
 				alumno.setLogin(login+String.valueOf(alumno.getId()));
@@ -313,7 +319,7 @@ public class AdminController extends UsuarioController{
 		}
 		
 		if(usuario != null) {
-			model.addAttribute("rol", usuario.getRol());
+			model.addAttribute("rol", usuario.getRoles());
 			model.addAttribute("login", usuario.getLogin());
 			model.addAttribute("maiLogin", usuario.getMaiLogin());
 			model.addAttribute("pass", usuario.getPass());
