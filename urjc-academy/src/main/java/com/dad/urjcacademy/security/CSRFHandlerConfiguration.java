@@ -25,10 +25,6 @@ public class CSRFHandlerConfiguration extends WebMvcConfigurerAdapter {
 
 class CSRFHandlerInterceptor extends HandlerInterceptorAdapter {
 	
-	final AntPathRequestMatcher [] matchers = {
-		new AntPathRequestMatcher("/login"),
-		new AntPathRequestMatcher("/root")
-	};
 	
 	@Override
 	public void postHandle(final HttpServletRequest request,
@@ -36,21 +32,8 @@ class CSRFHandlerInterceptor extends HandlerInterceptorAdapter {
 			final ModelAndView modelAndView) throws Exception {
 		
 		CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-		if(isRequestMatchers(request)) {
-			System.out.println("ACCESS OK");
-			modelAndView.addObject("token", token.getToken());
-		}
+		modelAndView.addObject("token", token.getToken());
 		
-		
-	}
-	
-	public boolean isRequestMatchers(HttpServletRequest request) {
-		for(AntPathRequestMatcher matcher: matchers) {
-			if(matcher.matches(request)) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 }

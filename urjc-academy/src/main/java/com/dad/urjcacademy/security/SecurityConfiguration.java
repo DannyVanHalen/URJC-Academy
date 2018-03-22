@@ -3,25 +3,24 @@ package com.dad.urjcacademy.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 
 
 @Configuration
-public class URJC_Academy_SecurityConfiguration extends WebSecurityConfigurerAdapter{
+@EnableGlobalMethodSecurity(securedEnabled = true)
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	public UserRepositoryAuthenticationProvider authenticationProvider;
+	public UsuarioRepositoryAuthenticationProvider authenticationProvider;
 	
 	@Override
 	protected void configure (HttpSecurity https) throws Exception {
 		
 		/*Public Pages*/
-		https.authorizeRequests().antMatchers("/").permitAll();
-		https.authorizeRequests().antMatchers("/login").permitAll();
-		https.authorizeRequests().antMatchers("/loginError").permitAll();
-		https.authorizeRequests().antMatchers("/logout").permitAll();
+		https.authorizeRequests().antMatchers("/","/login","/loginError");
 		
 		/*Private Pages*/
 		https.authorizeRequests().antMatchers("/alumno").hasAnyRole("USER");
@@ -35,7 +34,7 @@ public class URJC_Academy_SecurityConfiguration extends WebSecurityConfigurerAda
 		https.formLogin().loginPage("/login");
 		https.formLogin().usernameParameter("login");
 		https.formLogin().passwordParameter("pass");
-		https.formLogin().defaultSuccessUrl("/");
+		https.formLogin().defaultSuccessUrl("/logged");
 		https.formLogin().failureUrl("/loginError");
 		
 		// Logout 

@@ -18,27 +18,11 @@ import com.dad.urjcacademy.services.UsuarioService;
 @Controller
 public class URJCAcademyController {
 	
-	@Autowired
-	private UsuarioService usuarios;
-	
 	@RequestMapping(value= "/", method=RequestMethod.GET)
 	public String urjc_academy_index(Model model) {
 		return "index";
 	}
 	
-	@GetMapping("/login")
-	public String urjc_academy_login(Model model) {
-		return "login";
-	}
 	
-	@RequestMapping("/home")
-	public String urjc_academy_home(Model model) {
-		return "home";
-	}
-	
-	@GetMapping("/loginError")
-	public String urjc_academy_loginError() {
-		return "loginError";
-	}
 	
 }

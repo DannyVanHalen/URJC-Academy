@@ -19,7 +19,7 @@ import com.dad.urjcacademy.services.UsuarioService;
 
 
 @Component
-public class UserRepositoryAuthenticationProvider implements AuthenticationProvider {
+public class UsuarioRepositoryAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
 	private UsuarioService userService;

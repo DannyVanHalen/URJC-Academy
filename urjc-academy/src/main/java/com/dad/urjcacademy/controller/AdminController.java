@@ -21,6 +21,7 @@ import com.dad.urjcacademy.generator.PassGenerator;
 import com.dad.urjcacademy.services.AlumnoService;
 import com.dad.urjcacademy.services.AsignaturaService;
 import com.dad.urjcacademy.services.ProfesorService;
+import com.dad.urjcacademy.services.SesionService;
 import com.dad.urjcacademy.services.TitulacionService;
 //import com.dad.urjcacademy.services.TutoriaService;
 import com.dad.urjcacademy.services.UsuarioService;
@@ -28,6 +29,9 @@ import com.dad.urjcacademy.services.UsuarioService;
 @Controller
 @RequestMapping("/root")
 public class AdminController extends UsuarioController{
+	
+	@Autowired
+	private SesionService sesion;
 	
 	@Autowired
 	private UsuarioService usuarios;
@@ -61,11 +65,13 @@ public class AdminController extends UsuarioController{
 		
 		//Lectura de datos
 		//titulación
-		model.addAttribute("titulaciones", titulaciones.findAll());
-		model.addAttribute("profesores", usuarios.findByRol("profesor"));
-		model.addAttribute("alumnos", usuarios.findByRol("alumno"));
+			model.addAttribute("titulaciones", titulaciones.findAll());
+			model.addAttribute("profesores", usuarios.findByRol("profesor"));
+			model.addAttribute("alumnos", usuarios.findByRol("alumno"));
+			
+			return "root";
 		
-		return "root";
+		
 	}
 	
 	/*Administración de Titulaciones*/
