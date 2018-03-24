@@ -299,7 +299,8 @@ public class AdminController extends UsuarioController{
 		String pass = new PassGenerator().getPassword();
 		
 		if(esProfesor) {
-			this.usuario = usuarios.save(new Profesor(login,maiLogin,pass,"profesor",nombre,apellido,tlf,new ArrayList<>(),new ArrayList<>(),"USER"));
+			String [] roles = {"ROLE_USER","ROLE_TEACHER"}; // Fase 3 seguridad
+			this.usuario = usuarios.save(new Profesor(login,maiLogin,pass,"profesor",nombre,apellido,tlf,new ArrayList<>(),new ArrayList<>(),roles));
 			profesor = (Profesor) usuarios.findById(usuario.getId());
 			if(profesor != null) {
 				profesor.setLogin(login+String.valueOf(profesor.getId()));
@@ -308,7 +309,8 @@ public class AdminController extends UsuarioController{
 				return "404";
 			}
 		} else {
-			this.usuario = usuarios.save(new Alumno(login,maiLogin,pass,"alumno",nombre,apellido,tlf,new ArrayList<>(), new ArrayList<>(),"USER"));
+			String [] roles = {"ROLE_USER","ROLE_STUDENT"}; // Fase 3 seguridad
+			this.usuario = usuarios.save(new Alumno(login,maiLogin,pass,"alumno",nombre,apellido,tlf,new ArrayList<>(), new ArrayList<>(),roles));
 			alumno = (Alumno) usuarios.findById(usuario.getId());
 			if(alumno != null) {
 				alumno.setLogin(login+String.valueOf(alumno.getId()));
@@ -319,10 +321,10 @@ public class AdminController extends UsuarioController{
 		}
 		
 		if(usuario != null) {
-			model.addAttribute("rol", usuario.getRoles());
+			model.addAttribute("rol", usuario.getRol());
 			model.addAttribute("login", usuario.getLogin());
 			model.addAttribute("maiLogin", usuario.getMaiLogin());
-			model.addAttribute("pass", usuario.getPass());
+			model.addAttribute("pass", pass);
 			if(esProfesor) {
 				model.addAttribute("nombre", profesor.getNombre());
 				model.addAttribute("apellido", profesor.getApellido());

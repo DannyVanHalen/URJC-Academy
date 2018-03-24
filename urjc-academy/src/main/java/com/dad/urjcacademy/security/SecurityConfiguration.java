@@ -17,29 +17,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public UsuarioRepositoryAuthenticationProvider authenticationProvider;
 	
 	@Override
-	protected void configure (HttpSecurity https) throws Exception {
+	protected void configure (HttpSecurity http) throws Exception {
 		
 		/*Public Pages*/
-		https.authorizeRequests().antMatchers("/","/login","/loginError");
-		
+		http.authorizeRequests().antMatchers("/","/login","/loginError").permitAll();
+
 		/*Private Pages*/
-		https.authorizeRequests().antMatchers("/alumno").hasAnyRole("USER");
-		https.authorizeRequests().antMatchers("/profesor").hasAnyRole("USER");
-		https.authorizeRequests().antMatchers("/profesor/*").hasAnyRole("USER");
-		https.authorizeRequests().antMatchers("/root").hasAnyRole("ADMIN");
-		https.authorizeRequests().antMatchers("/root/*").hasAnyRole("ADMIN");
-		
+		http.authorizeRequests().anyRequest().authenticated();
 		
 		// Login form 
-		https.formLogin().loginPage("/login");
-		https.formLogin().usernameParameter("login");
-		https.formLogin().passwordParameter("pass");
-		https.formLogin().defaultSuccessUrl("/logged");
-		https.formLogin().failureUrl("/loginError");
+		http.formLogin().loginPage("/login");
+		http.formLogin().usernameParameter("login");
+		http.formLogin().passwordParameter("pass");
+		http.formLogin().defaultSuccessUrl("/logged");
+		http.formLogin().failureUrl("/loginError");
 		
 		// Logout 
-		https.logout().logoutUrl("/logout");
-		https.logout().logoutSuccessUrl("/");
+		http.logout().logoutUrl("/logout");
+		http.logout().logoutSuccessUrl("/");
 		
 		// Deshabilito momentaneamente el CSRF
 		//https.csrf().disable();

@@ -1,6 +1,8 @@
 package com.dad.urjcacademy.services;
 
 
+
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,8 @@ public class URJCAcademyDBLoader {
 		}**/
 		
 		if(usuarios.findByLogin("root") == null) {
-			//usuarios.save(new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador","ADMIN"));
-			Admin admin = new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador","ADMIN");
+			String [] roles = {"ROLE_USER","ROLE_ADMIN"};
+			Admin admin = new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador",roles);
 			usuarios.save(admin);
 		}
 			

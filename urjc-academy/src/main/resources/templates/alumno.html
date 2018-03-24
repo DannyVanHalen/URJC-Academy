@@ -9,9 +9,10 @@
 </head>
 <body>
 
-	<h2 style="color:green">Profesor: {{nombre}}</h2>
+	<h2 style="color:green">Alumno: {{nombre}}</h2>
 	<p>Asignaturas:</p>
 	
+		
 		<ul>
 			{{#asignaturas}}
 			<li><a href="">{{nombre}}</a></li>
@@ -24,14 +25,12 @@
 	
 		<ul>
 			{{#tutorias}}
-			<li><a href="">{{alumno}}</a></li>
+			<li><a href="">{{profesor}}</a></li>
 			{{/tutorias}}
 		</ul>	
 		
 	<br>
-
 	<a href="/logout">Cerrar Sesión</a>
-	
 </body>
 
 </html>
