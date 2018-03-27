@@ -3,56 +3,47 @@ package com.dad.servicio_interno.mail;
 public class Mail {
 
 	
-	private String loginUsuario;
-	private String passUsuario;
-	private String maiLoginUsuario;
-	private String asuntoMail;
+	private String from;
+	private String to;
+	//private String [] to; // para mandar el mismo correo a varias direcciones
+	//private String [] cc; // para mandar copia a varias direcciones
+	private String subject;
+	private String body;
+	
 	
 	public Mail() {}
 	
-	public Mail(String loginUsuario, String passUsuario, 
-			String maiLoginUsuario, String asuntoMail) {
-		this.loginUsuario = loginUsuario;
-		this.passUsuario = passUsuario;
-		this.maiLoginUsuario = maiLoginUsuario;
-		this.asuntoMail = asuntoMail;
+	public Mail(String from, String to, String subject, String body) {
+		this.from = from;
+		this.to = to;
+		this.subject = subject;
+		this.body = body;
 	}
 	
-	public String getLoginUsuario() {
-		return loginUsuario;
-	}
+	/*Métodos de acceso*/
+	//GET
+	public String getFrom() { return from; }
 	
-	public void setLoginUsuario(String loginUsuario) {
-		this.loginUsuario = loginUsuario;
-	}
+	public String getTo() { return to; }
 	
-	public String getPassUsuario() {
-		return passUsuario;
-	}
+	public String getSubject() { return subject; }
 	
-	public void setPassUsuario(String passUsuario) {
-		this.passUsuario = passUsuario;
-	}
+	public String getBody() { return body; }
 	
-	public String getMaiLoginUsuario() {
-		return maiLoginUsuario;
-	}
+	//SET
+	public void setFrom(String from) { this.from = from; }
 	
-	public void setMaiLoginUsuario(String maiLoginUsuario) {
-		this.maiLoginUsuario = maiLoginUsuario;
-	}
+	public void setTo(String to) { this.to = to; }
 	
-	public String getAsuntoMail() {
-		return asuntoMail;
-	}
+	public void setSubject(String subject ) { this.subject = subject; }
+
+	public void setBody (String body) { this.body = body; }
 	
-	public void setAsuntoMail(String asuntoMail) {
-		this.asuntoMail = asuntoMail;
-	}
 	
+	/*Métodos heredados de Object*/
 	@Override
 	public String toString() {
-		return "Correo[desinatario = " + loginUsuario + "<" + maiLoginUsuario + ">|n" + " asunto = " + asuntoMail;
+		return "Email[\nFrom: " + from + "\nTo: " + to + "\nSubject: " + subject + "\nMessage:\n" + body +"\n]\n";
 	}
 	
 	
