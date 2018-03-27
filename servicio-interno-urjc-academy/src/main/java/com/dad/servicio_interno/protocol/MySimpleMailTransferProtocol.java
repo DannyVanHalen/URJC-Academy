@@ -16,7 +16,7 @@ public class MySimpleMailTransferProtocol {
 	
 	/**
 	 * 
-	 * @param postalParametres
+	 * @param emailParameters
 	 * 0 -> source address
 	 * 1 -> destination address
 	 * 2 -> subject 
