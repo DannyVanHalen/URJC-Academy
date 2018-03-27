@@ -28,8 +28,8 @@ public class InternalServiceController {
 	public ResponseEntity<Mail> sendEmailTest() {
 		
 		Mail email1 = new Mail("urjc.academy.root@gmail.com","danny.van.halen.87@gmail.com","email test URJC Academy", "Hello World :-D!!!");
-		String [] parameters = {email1.getFrom(),email1.getTo(),email1.getSubject(),email1.getBody()};
-		if(smtp.send(parameters)) {
+		//String [] parameters = {email1.getFrom(),email1.getTo(),email1.getSubject(),email1.getBody()};
+		if(smtp.send(email1.getParametersArray())) {
 			return new ResponseEntity<Mail>(email1,HttpStatus.OK);
 		}
 		

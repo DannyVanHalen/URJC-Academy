@@ -46,6 +46,12 @@ public class Mail {
 		return "Email[\nFrom: " + from + "\nTo: " + to + "\nSubject: " + subject + "\nMessage:\n" + body +"\n]\n";
 	}
 	
+	/*Métodos nativos*/
+	public String [] getParametersArray() {
+		String [] parameters = {from,to,subject,body};
+		return parameters;
+	}
+	
 	
 	
 	
