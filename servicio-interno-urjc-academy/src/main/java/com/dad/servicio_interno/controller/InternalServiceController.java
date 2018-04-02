@@ -5,6 +5,9 @@ package com.dad.servicio_interno.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,11 +22,8 @@ public class InternalServiceController {
 	@Autowired
 	private MySimpleMailTransferProtocol smtp;
 	
-	/*
-	public ResponseEntity<Mail> sendEmail(Model model, @RequestBody Mail email) {
-		return new ResponseEntity<>(email,HttpStatus.OK);
-	}*/
 	
+	/**
 	@RequestMapping(value="/send", method=RequestMethod.GET)
 	public ResponseEntity<Mail> sendEmailTest() {
 		
@@ -34,6 +34,17 @@ public class InternalServiceController {
 		}
 		
 		return new ResponseEntity<Mail>(email1,HttpStatus.BAD_REQUEST);
+		
+	}**/
+	
+	@PostMapping("/send")
+	public void sendEmail(Model model, @RequestBody Mail mail) {
+		
+		if(smtp.send(mail.getParametersArray())) {
+			System.out.println("[SERVICIO REST INTERNO]: Enviado Email -> " + mail);
+		} else {
+			System.out.println("[SERVICIO REST INTERNO]: No se pudo enviar el Email a " + mail.getTo());
+		}
 		
 	}
 	

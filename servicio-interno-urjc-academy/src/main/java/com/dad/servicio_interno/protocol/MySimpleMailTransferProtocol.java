@@ -32,10 +32,11 @@ public class MySimpleMailTransferProtocol {
 			
 			MimeMessageHelper helper = new MimeMessageHelper(email,true);
 			
-			helper.setFrom(emailParameters[0]);
-			helper.setTo(emailParameters[1]);
-			helper.setSubject(emailParameters[2]);
-			helper.setText(emailParameters[3], true);
+			//añado los campos que necesito para poder enviar el correo
+			helper.setFrom(emailParameters[0]); // dirección origen
+			helper.setTo(emailParameters[1]); // dirección destino
+			helper.setSubject(emailParameters[2]); // asunto del correo
+			helper.setText(emailParameters[3], true); // cuerpo del mensaje
 			
 			sender.send(email);
 			
