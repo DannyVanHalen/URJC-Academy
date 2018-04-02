@@ -21,6 +21,7 @@ public class Titulacion {
 	private String nombre;
 	private String rama;
 	
+<<<<<<< HEAD
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Asignatura> asignaturas;
 	
@@ -90,6 +91,90 @@ public class Titulacion {
 	public boolean contieneAsignatura(Asignatura asignatura) {
 		return asignaturas.contains(asignatura);
 	}
+=======
+	/* Interrelaciones 
+	 * 
+	 * Titulacion puede tener muchas asignaturas 
+	 * y una asignatura puede pertenecer a varias titulaciones
+	 * 
+	 * */
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Asignatura> asignaturas;
+	
+	
+	
+	/** Constructores **/
+	
+	public Titulacion() {
+		
+	}
+	
+	public Titulacion(String nombre, String rama, List<Asignatura> asignaturas) {
+		
+		this.nombre = nombre;
+		this.rama = rama;
+		
+		this.asignaturas = asignaturas;
+		
+	}
+	
+	
+	/** Metodos de Acceso **/
+	
+	// GET
+	
+	public long getId() {
+		return id;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public String getRama() {
+		return rama;
+	}
+	
+	public List<Asignatura> getAsignaturas() {
+		return asignaturas;
+	}
+	
+	// SET
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	public void setRama(String rama) {
+		this.rama = rama;
+	}
+	
+	public void setAsignaturas(List<Asignatura> asignaturas) {
+		this.asignaturas = asignaturas;
+	}
+	
+	/** Métodos Funcionales **/
+	
+	// Públicos 
+	public boolean agregarAsignatura(Asignatura asignatura) {
+		return asignaturas.add(asignatura);
+	}
+	
+	public boolean quitarAsignatura(Asignatura asignatura) {
+		return asignaturas.remove(asignatura);
+	}
+	
+	public boolean borrarTodasAsignaturas() {
+		asignaturas.clear();
+		return asignaturas.size() == 0;
+	}
+	
+	public boolean contieneAsignatura(Asignatura asignatura) {
+		return asignaturas.contains(asignatura);
+	}
+	
+>>>>>>> refs/remotes/origin/develop
 	
 	
 }

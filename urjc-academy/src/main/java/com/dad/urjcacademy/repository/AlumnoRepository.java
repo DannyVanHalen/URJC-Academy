@@ -12,7 +12,10 @@ public interface AlumnoRepository extends JpaRepository<Alumno,Long>{
 	/** SELECT **/
 	
 	Alumno findByTlf(String tlf);
+<<<<<<< HEAD
 	Alumno findByLogin(String login);
+=======
+>>>>>>> refs/remotes/origin/develop
 	List<Alumno> findByNombre(String nombre);
 	List<Alumno> findByApellido(String apellido);
 	Alumno findByNombreAndApellido(String nombre, String apellido);

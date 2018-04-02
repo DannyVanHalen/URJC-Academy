@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h2 style="color:green">Alumno</h2>
+	<p>Nombre: {{nombre}}</p>
+	<p>Asignaturas:</p>
+	
+		
+		<ul>
+			{{#asignaturas}}
+			<li><a href="">{{nombre}}</a></li>
+			{{/asignaturas}}
+		
+		</ul>
+		
+		
+	<p>Tutorias Pendientes:</p>
+	
+		<ul>
+			{{#tutorias}}
+			<li><a href="">{{profesor}}</a></li>
+			{{/tutorias}}
+		</ul>	
+		
+	<br>
+	<a href="/root/alumno/{{id}}/borrar">Borrar</a>
+	<a href="/root">Volver</a>
+</body>
+
+</html>

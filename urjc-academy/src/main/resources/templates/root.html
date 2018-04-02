@@ -17,6 +17,7 @@
 	<ul>
 		
 		{{#titulaciones}}
+<<<<<<< HEAD
 		<li><a href="/titulacion/{{id}}">{{nombre}}</a></li>
 		{{/titulaciones}}
 	
@@ -42,6 +43,33 @@
 	
 		{{#alumnos}}
 		<li><a href="">{{nombre}} {{apellido}}</a></li>
+=======
+		<li><a href="/root/titulacion/{{id}}">{{nombre}}</a></li>
+		{{/titulaciones}}
+	
+	</ul>
+	
+	<a href="/root/alta-titulacion">Dar de Alta Titulación</a>
+	<br>
+	<!-- <a href="">Dar de Baja Titulacion</a> -->
+	
+	<h3 style="color:red">Profesores</h3>
+
+	<ul>
+		
+		{{#profesores}}
+		<li><a href="/root/profesor/{{id}}">{{nombre}} {{apellido}}</a></li>
+		{{/profesores}}
+	
+	</ul>	
+	
+		<h3 style="color:red">Alumnos</h3>
+
+	<ul>
+	
+		{{#alumnos}}
+		<li><a href="/root/alumno/{{id}}">{{nombre}} {{apellido}}</a></li>
+>>>>>>> refs/remotes/origin/develop
 		{{/alumnos}}
 	
 	</ul>	

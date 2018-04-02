@@ -9,6 +9,7 @@
 </head>
 <body>
 	
+<<<<<<< HEAD
 	<h1 style="color:red">Dar de Baja Usuario</h1>
 	
 	<form action="/root/baja-usuario/elimina" action="get">
@@ -29,6 +30,18 @@
 			<a href="/root">Volver</a>
 		</form>
 	{{/encontrado}}
+=======
+	<h1 style="color:green">Sesión de Root</h1>
+	
+	{{#profesor}}
+		<h2>El profesor {{nombre}}, ha sido borrado </h2>
+	{{/profesor}}
+	{{#alumno}}
+		<h2>El alumno {{nombre}}, ha sido borrado </h2>
+	{{/alumno}}
+	
+	<a hre="/root">Volver</a>
+>>>>>>> refs/remotes/origin/develop
 
 </body>
 </html>

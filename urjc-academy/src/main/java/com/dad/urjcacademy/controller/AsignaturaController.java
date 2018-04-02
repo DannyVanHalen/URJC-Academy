@@ -1,5 +1,6 @@
 package com.dad.urjcacademy.controller;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,6 +120,14 @@ public class AsignaturaController {
 	
 	
 	
+=======
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/asignatura")
+public class AsignaturaController {
+>>>>>>> refs/remotes/origin/develop
 
 
 	

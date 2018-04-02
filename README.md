@@ -35,7 +35,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
 
 # Integrantes
 
--   Andrés Casado García: a.casadoga@alumnos.urjc.es
+-   Andrés Casado García: a.casadoga@alumnos.urjc.es   exp. 759
 -   Daniel Fuerte Álvarez: d.fuerte@alumnos.urjc.es
 -   Alvaro Muñoz Negreles: a.munozn@alumnos.urjc.es
 

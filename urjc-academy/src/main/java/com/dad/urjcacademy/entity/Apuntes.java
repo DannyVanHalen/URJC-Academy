@@ -15,6 +15,12 @@ public class Apuntes {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+<<<<<<< HEAD
+=======
+	@ManyToOne
+	private Asignatura asignatura;
+	
+>>>>>>> refs/remotes/origin/develop
 	private String tema;
 	private String linkApuntes;
 	

@@ -10,6 +10,7 @@
 <body>
 
 	<h2 style="color:green">Profesor</h2>
+<<<<<<< HEAD
 	<p>Nombre: {{nombre}} {{apellido}}</p>
 	<p>Rama: {{rama}}<br><br>
 	<p>Asignaturas:</p>
@@ -23,6 +24,31 @@
 	<a href="/root/titulacion/alta-asignatura">Dar de alta asignatura</a><br>
 	<a href="/root/borrar/titulacion/{{id}}">Borrar titulacion</a><br>
 	<a href="/root">Volver</a>
+=======
+	<p>Nombre: {{nombre}}</p>
+	<p>Asignaturas:</p>
+	
+		
+		<ul>
+			{{#asignaturas}}
+			<li><a href="">{{nombre}}</a></li>
+			{{/asignaturas}}
+		
+		</ul>
+		
+		
+	<p>Tutorias Pendientes:</p>
+	
+		<ul>
+			{{#tutorias}}
+			<li><a href="">{{alumno}}</a></li>
+			{{/tutorias}}
+		</ul>	
+		
+	<br>
+
+	<a href="/">Logout</a>
+>>>>>>> refs/remotes/origin/develop
 	
 </body>
 
