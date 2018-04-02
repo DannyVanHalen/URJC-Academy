@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import com.dad.urjcacademy.entity.Alumno;
 import com.dad.urjcacademy.entity.Asignatura;
@@ -17,6 +18,7 @@ import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.entity.Titulacion;
 import com.dad.urjcacademy.entity.Usuario;
 import com.dad.urjcacademy.generator.PassGenerator;
+import com.dad.urjcacademy.internal_service.Mail;
 //import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.services.AlumnoService;
 import com.dad.urjcacademy.services.AsignaturaService;
@@ -29,6 +31,10 @@ import com.dad.urjcacademy.services.UsuarioService;
 @Controller
 @RequestMapping("/root")
 public class AdminController extends UsuarioController{
+	
+	/*Instancia para el servicio Interno*/
+	private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
+	private static final String SUBJECT = "Alta URJC-Academy";
 	
 	@Autowired
 	private SesionService sesion;
@@ -320,20 +326,37 @@ public class AdminController extends UsuarioController{
 			}
 		}
 		
+		
 		if(usuario != null) {
 			model.addAttribute("rol", usuario.getRol());
 			model.addAttribute("login", usuario.getLogin());
 			model.addAttribute("maiLogin", usuario.getMaiLogin());
 			model.addAttribute("pass", pass);
+			String nombreAux, apellidoAux;
 			if(esProfesor) {
-				model.addAttribute("nombre", profesor.getNombre());
-				model.addAttribute("apellido", profesor.getApellido());
+				nombreAux = profesor.getNombre();
+				apellidoAux = profesor.getApellido();
+				model.addAttribute("nombre", nombreAux);
+				model.addAttribute("apellido", apellidoAux);
 				model.addAttribute("tlf",profesor.getTlf());
 			} else {
-				model.addAttribute("nombre", alumno.getNombre());
-				model.addAttribute("apellido", alumno.getApellido());
+				nombreAux = alumno.getNombre();
+				apellidoAux = alumno.getApellido();
+				model.addAttribute("nombre", nombreAux);
+				model.addAttribute("apellido", apellidoAux);
 				model.addAttribute("tlf", alumno.getTlf());
 			}
+			
+			/* FASE 3 -> Implementación del servicio Interno*/
+			RestTemplate internalService = new RestTemplate();
+			
+			
+			String from = usuarios.findById(1).getMaiLogin(); // dirección de correo remitente -> usuario Administrador
+			String to = usuario.getMaiLogin(); // dirección del correo de destino -> nuevo usuario
+			String body = "Hola " + nombreAux + ", has sido registrado como " + usuario.getRol() + " en URJC-Academy con las siguientes credenciales: \nLogin : " + usuario.getLogin() +"\nContraseña: " +pass+"\nTe recomendamos que cambies tu contraseña de acceso a la mayor brevedad posible.\nUn saludo de URJC-Academy.";
+			
+			// AL INVOCAR ESTE MÉTODO LE PASO COMO PARÁMETROS LA URL DEL CONTROLADOR REST Y EL CORREO QUE QUIERO ENVIAR AL DESTINATARIO
+			internalService.postForLocation(RESTSERVICE, new Mail(from,to,SUBJECT,body));
 			
 			return "nuevo-usuario";
 			
