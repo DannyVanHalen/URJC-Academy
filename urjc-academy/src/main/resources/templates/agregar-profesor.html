@@ -20,7 +20,8 @@
 		<input type="radio" name="usuario" value="{{id}}">{{nombre}} {{apellido}}<br>
 		{{/profesores}}
 		<br>
-		<input type="submit" value="Agregar Profesor">
+		<input type="submit" value="Agregar Profesor"><br>
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 	
 

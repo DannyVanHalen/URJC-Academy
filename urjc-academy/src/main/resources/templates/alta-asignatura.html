@@ -14,7 +14,8 @@
 	<form action="/root/titulacion/{{id}}/alta-asignatura/nueva-asignatura" method="post">
 		<p>Asignatura:</p>
 		<input type="text" name="nombre"><br><br>
-		<input type="submit" value="Agregar Asignatura">
+		<input type="submit" value="Agregar Asignatura"><br>
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 
 </body>

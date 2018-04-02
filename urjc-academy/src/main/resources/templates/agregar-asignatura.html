@@ -16,7 +16,8 @@
 			{{#asignaturas}}
 				<input type="radio" name="asignatura" value="{{id}}">{{nombre}}<br>
 			{{/asignaturas}}
-		<br><input type="submit" value="Agregar Asignatura">
+		<br><input type="submit" value="Agregar Asignatura"><br>
+		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 
 </body>
