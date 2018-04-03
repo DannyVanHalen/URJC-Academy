@@ -30,6 +30,38 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
 
 ![](imagenes/E_R.jpg "E_R")
 
+# Despliegue de la aplicación
+Para el despliegue de la aplicación se necesita un entorno virtualizado con red privada, acceso a internet y java instalado. En nuestro caso usamos Vagrant con ubuntu 14.04 y un repositorio de imagenes, VirtualBox.
+Para instalar VirtualBox y Vagrant:
+Instala Virtualbox descargando .deb
+ https://www.virtualbox.org/wiki/Downloads
+Instala Vagrant descargando .deb
+ https://www.vagrantup.com/downloads.html
+Crear una maquina virtual:
+Ejecutar:
+    mkdir -p ~/vagrant/spring
+    cd ~/vagrant/spring
+    vagrant init ubuntu/trusty32
+Se crea una máquina virtual
+Se genera un fichero Vagrantfile que describe la máquina virtual
+Está basada en la “box” ubuntu/trusty32 que se descarga automáticame
+Arranca la máquina:
+    vagrant up
+Acceso a la maquina virutal por red: descomentar # config.vm.network "private_network", ip: "192.168.33.10”
+Conectar por ssh a la MV:
+    vagrant ssh
+Instalar Java desde dentro de la MV: 
+    vagrant> Sudo apt-get update
+    vagrant> Sudo apt-get install -y openjdk-8-jre
+Instalar MySQL desde dentro de la MV:
+    vagrant> sudo apt-get install mysql-server
+Copiar el ejecutable .jar de nuestra aplicación en ~/vagrant/spring:
+    vagrant ssh
+    vagrant> cd /vagrant
+    vagrant> java -jar <urjc-academy-0.0.1-SNAPSHOT.jar>
+    En un navegador desde el host abrir la url:
+           http://192.168.33.10:8080
+
 # Servicio Interno
 -   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
 
