@@ -73,7 +73,8 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
     -   vagrant> cd /vagrant
     -   vagrant> java -jar <urjc-academy-0.0.1-SNAPSHOT.jar>
     -   En un navegador desde el host abrir la url:
-          -  http://192.168.33.10:8080
+          -  https://192.168.33.10:8443/
+    -   vagrant> java -jar servicio-interno-urjc-academy-0.0.1-SNAPSHOT.jar
 ### Diagrama de clases Fase 3
 
 ![](imagenes/Diagrama_de_clases_Fase3.png "Diagrama_de_clases_Fase3")
