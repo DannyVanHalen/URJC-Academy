@@ -11,18 +11,28 @@ import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.repository.UsuarioRepository;
 import com.dad.urjcacademy.services.ProfesorService;
-import com.dad.urjcacademy.services.UsuarioService;
 
 @Controller
 @RequestMapping("/profesor")
 public class ProfesorController extends UsuarioController {
 
 	@Autowired
-	private UsuarioService usuarios;
+	private ProfesorService profesores;
 	
 	@Autowired
 	private ProfesorService profesores;
 	
+	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	public String profesor(Model model, @PathVariable long id){
+		Profesor profesor = profesores.findById(id);
+		if(profesor != null) {
+			model.addAttribute("nombre",profesor.getNombre());
+			model.addAttribute("apellido",profesor.getApellido());
+			model.addAttribute("asignaturas",profesor.getAsignaturas());
+			model.addAttribute("nombre",profesor.getNombre());
+		}
+		return null;
 		
-	
+	}
+		
 }
