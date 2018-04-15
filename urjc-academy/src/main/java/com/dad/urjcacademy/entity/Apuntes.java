@@ -27,10 +27,11 @@ public class Apuntes {
 		
 	}
 	
-	public Apuntes(String tema, String linkApuntes) {
+	public Apuntes(String tema, String linkApuntes, Asignatura asignatura) {
 		
 		this.tema = tema;
 		this.linkApuntes = linkApuntes;
+		this.asignatura = asignatura;
 		
 	}
 	
@@ -48,6 +49,10 @@ public class Apuntes {
 	
 	public String getLinkApuntes() {
 		return linkApuntes;
+	}
+	
+	public Asignatura getAsignatura() {
+		return asignatura;
 	}
 	
 	

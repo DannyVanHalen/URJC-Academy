@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Página Responsive  -->
+
+</head>
+<body>
+
+	<h1 style="color:blue">URJC-Academy</h1>
+	<h2 style="color:green">Asignatura - {{asignatura}}</h2>
+
+
+	<h3 style="color:red">Contenido
+		{{#apuntes}}
+			<ul>
+				<li>
+					<a href="{{linkApuntes}}">{{tema}}</a>
+				</li>
+			</ul>
+		{{/apuntes}}
+	</h3>
+	{{#profesor}}
+			<a href="/asignatura/{{id}}/agregar-contenido">Agregar contenido</a><br>
+	{{/profesor}}
+
+	<a href="/asignatura/volver-atras">Volver</a>
+	
+</body>
+
+</html>

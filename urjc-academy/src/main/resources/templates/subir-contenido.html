@@ -11,11 +11,11 @@
 
 	<h1 style="color:red"><a href="/">URJC ACADEMY</a></h1>
 
-	<form action="/login" method="post">
-		<label>Login:</label><br><input type="text" name="login" /><br />
-		<label>Password:</labe><br><input type="password" name="pass" /><br />
-		<a href="/recuperar-pass">Recuperar Contraseña</a>
-		<input type="submit" value="Sign In" /><br />
+	<form action="/asignatura/{{id}}/subir-contenido" method="post">
+		<label>Tema:</label><br><input type="text" name="tema" /><br/>
+		<label>Enlace:</labe><br><input type="text" name="linkApuntes" /><br/>
+		<!--<a href="/apuntes/volver-atras">Volver</a>-->
+		<input type="submit" value="Subir Contenido"/><br/>
 		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
 

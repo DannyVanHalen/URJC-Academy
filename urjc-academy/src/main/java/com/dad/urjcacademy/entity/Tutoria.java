@@ -43,9 +43,7 @@ public class Tutoria {
 		this.year = dateTime.getYear();
 		this.hour = dateTime.getHour();
 		this.min = dateTime.getMinute();
-		this.validate = validate;
-
-		
+		this.validate = validate;	
 	}
 	
 	

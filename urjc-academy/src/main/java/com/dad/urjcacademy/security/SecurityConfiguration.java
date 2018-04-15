@@ -20,11 +20,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure (HttpSecurity http) throws Exception {
 		
 		/*Public Pages*/
-		http.authorizeRequests().antMatchers("/","/login","/loginError").permitAll();
+		http.authorizeRequests().antMatchers("/").permitAll();
+		http.authorizeRequests().antMatchers("/login").permitAll();
+		http.authorizeRequests().antMatchers("/loginError").permitAll();
+		http.authorizeRequests().antMatchers("/recuperar-pass").permitAll();
 
 		/*Private Pages*/
 		http.authorizeRequests().anyRequest().authenticated();
-		
+		//http.authorizeRequests().antMatchers("/root").hasAnyRole("ROLE_ADMIN");
+		//http.authorizeRequests().antMatchers("/root/*").hasAnyRole("ROLE_ADMIN");
 		// Login form 
 		http.formLogin().loginPage("/login");
 		http.formLogin().usernameParameter("login");
@@ -36,8 +40,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.logout().logoutUrl("/logout");
 		http.logout().logoutSuccessUrl("/");
 		
-		// Deshabilito momentaneamente el CSRF
-		//https.csrf().disable();
+		//http.csrf().disable();
+		
+		//ttp.httpBasic();
 		
 	}
 	

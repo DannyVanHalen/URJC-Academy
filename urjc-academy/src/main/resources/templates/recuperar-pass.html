@@ -11,10 +11,8 @@
 
 	<h1 style="color:red"><a href="/">URJC ACADEMY</a></h1>
 
-	<form action="/login" method="post">
-		<label>Login:</label><br><input type="text" name="login" /><br />
-		<label>Password:</labe><br><input type="password" name="pass" /><br />
-		<a href="/recuperar-pass">Recuperar Contraseña</a>
+	<form action="/recuperar-pass/send-mail" method="post">
+		<label>Email:</label><br><input type="text" name="maiLogin" /><br />
 		<input type="submit" value="Sign In" /><br />
 		<input type="hidden" name="_csrf" value="{{token}}"/>
 	</form>
