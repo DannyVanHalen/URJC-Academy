@@ -1,6 +1,9 @@
 package com.dad.urjcacademy.security;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ public class UsuarioRepositoryAuthenticationProvider implements AuthenticationPr
 	private UsuarioService userService;
 	
 	@Override
+	@Transactional
 	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 		// TODO Auto-generated method stub
 		

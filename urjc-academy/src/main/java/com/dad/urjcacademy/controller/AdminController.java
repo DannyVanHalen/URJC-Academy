@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.dad.urjcacademy.entity.Alumno;
+import com.dad.urjcacademy.entity.Apuntes;
 import com.dad.urjcacademy.entity.Asignatura;
 import com.dad.urjcacademy.entity.Profesor;
 import com.dad.urjcacademy.entity.Titulacion;
@@ -24,6 +28,7 @@ import com.dad.urjcacademy.generator.PassGenerator;
 import com.dad.urjcacademy.internal_service.Mail;
 //import com.dad.urjcacademy.repository.ProfesorRepository;
 import com.dad.urjcacademy.services.AlumnoService;
+import com.dad.urjcacademy.services.ApuntesService;
 import com.dad.urjcacademy.services.AsignaturaService;
 import com.dad.urjcacademy.services.ProfesorService;
 import com.dad.urjcacademy.services.SesionService;
@@ -39,8 +44,6 @@ public class AdminController extends UsuarioController{
 	private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
 	private static final String SUBJECT = "Alta URJC-Academy";
 	
-	@Autowired
-	private SesionService sesion;
 	
 	@Autowired
 	private UsuarioService usuarios;
@@ -49,17 +52,17 @@ public class AdminController extends UsuarioController{
 	private AsignaturaService asignaturas;
 	
 	@Autowired
+	private ApuntesService apuntes;
+	
+	@Autowired
 	private ProfesorService profesores;
 	
 	@Autowired
 	private AlumnoService alumnos;
 	
-	/**
-	@Autowired
-	private TutoriaService tutorias;
-	**/
 	@Autowired
 	private TitulacionService titulaciones;
+	
 	
 	/*Atributos Auxiliares*/
 	private Titulacion titulacion;
@@ -70,7 +73,8 @@ public class AdminController extends UsuarioController{
 	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String root(Model model /**,HttpServletRequest request*/) {
+	//@Cacheable(cacheNames="usuarios", key="#id")
+	public String root(Model model ,HttpServletRequest request) {
 		
 		//Lectura de datos
 		//titulación
@@ -93,6 +97,7 @@ public class AdminController extends UsuarioController{
 	
 	// Alta Titulacion
 	@RequestMapping(value="/nueva-titulacion", method=RequestMethod.POST)
+	@CacheEvict(cacheNames="asignaturas")
 	public String nuevaTitulacion(Model model,
 			@RequestParam String nombre, @RequestParam String rama) {
 		
@@ -110,6 +115,7 @@ public class AdminController extends UsuarioController{
 	
 	//Select Titulacion
 	@RequestMapping(value="/titulacion/{id}", method=RequestMethod.GET)
+	@Cacheable(cacheNames="asignaturas")
 	public String selectTitulacion(Model model, @PathVariable long id) {
 		
 		Titulacion titulacion = titulaciones.findById(id);
@@ -134,6 +140,9 @@ public class AdminController extends UsuarioController{
 		
 		if(titulacion != null) {
 			//Borramos todas las asignaturas que tenga relacionadas esta titulacion
+			for(Asignatura asignatura: titulacion.getAsignaturas()) {
+				this.apuntes.quitarApuntesAsignatura(asignatura);
+			}
 			titulaciones.borrarAsignaturasTitulacion(titulacion);
 			//Borramos la titulación
 			titulaciones.delete(id);
@@ -153,6 +162,7 @@ public class AdminController extends UsuarioController{
 	
 	//Select
 	@RequestMapping(value="/titulacion/asignatura/{id}", method=RequestMethod.GET)
+	@Cacheable(cacheNames="asignaturas")
 	public String selectAsignatura(Model model, @PathVariable long id) {
 		
 		Asignatura asignatura = asignaturas.findById(id);
@@ -189,7 +199,8 @@ public class AdminController extends UsuarioController{
 	}
 	
 	// Agregar Asignatura existente
-	@RequestMapping(value="/titulacion/{id}/agregar-asignatura/nueva-asignatura")
+	@RequestMapping(value="/titulacion/{id}/agregar-asignatura/nueva-asignatura", method=RequestMethod.POST)
+	@CacheEvict(cacheNames="asignaturas")
 	public String agregarAsignatura(Model model, @PathVariable long id,
 			@RequestParam Asignatura asignatura) {
 		
@@ -220,6 +231,7 @@ public class AdminController extends UsuarioController{
 	}
 	
 	@RequestMapping(value="/titulacion/{id}/alta-asignatura/nueva-asignatura", method=RequestMethod.POST)
+	@CacheEvict(cacheNames="asignaturas")
 	public String nuevaAsignatura(Model model, @PathVariable long id,
 			@RequestParam String nombre) {
 		
@@ -257,6 +269,11 @@ public class AdminController extends UsuarioController{
 			if(this.titulacion != null) {
 				Titulacion titulacion = titulaciones.findById(this.titulacion.getId());
 				if(titulacion.getAsignaturas().contains(asignatura)) {
+						if(!asignatura.getApuntesAsignatura().isEmpty()) {
+							this.apuntes.quitarApuntesAsignatura(asignatura);
+							asignatura.borrarTodosApuntes();
+						}
+							
 						asignaturas.desasociarTodosProfesores(asignatura);
 						asignaturas.desmatricularTodosAlumnos(asignatura);
 						profesores.eliminarProfesoresAsignatura(asignatura);
@@ -409,6 +426,7 @@ public class AdminController extends UsuarioController{
 		
 		if(usuarios.exists(id)) {
 			Profesor profesor = (Profesor)usuarios.findById(id);
+			
 			profesores.quitarTodasAsignaturas(profesor);
 			profesores.eliminarTodasTutoriasProfesor(profesor);
 			usuarios.delete(id);
@@ -454,6 +472,7 @@ public class AdminController extends UsuarioController{
 	
 	// insert
 	@RequestMapping(value="/asignatura/{id}/agregar-profesor/nuevo", method=RequestMethod.POST)
+	@CacheEvict(cacheNames="asignaturas")
 	public String insertProfesorAsignatura(Model model, @PathVariable long id,
 			@RequestParam Profesor usuario) {
 		
@@ -497,6 +516,7 @@ public class AdminController extends UsuarioController{
 	
 	// insert
 	@RequestMapping(value="/asignatura/{id}/matricular-alumno/nuevo", method=RequestMethod.POST)
+	@CacheEvict(cacheNames="asignaturas")
 	public String insertAlumnoAsignatura(Model model, @PathVariable long id,
 			@RequestParam Alumno usuario) {
 		

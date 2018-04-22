@@ -9,9 +9,9 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 
-/** Fase 4 -> Invalidacion de caché **/
-@EnableCaching
+
 @SpringBootApplication
+@EnableCaching /** Fase 4 -> Invalidacion de caché **/
 public class UrjcAcademyApplication {
 	
 	private static final Log LOG = LogFactory.getLog(UrjcAcademyApplication.class);
@@ -22,10 +22,11 @@ public class UrjcAcademyApplication {
 	
 	
 	/*Fase 4 -> Invalidación de caché **/
+	
 	@Bean
 	public CacheManager cacheManager() {
 		LOG.info("Activating cache...");
-		return new ConcurrentMapCacheManager("usuarios");
+		return new ConcurrentMapCacheManager("asignaturas");
 	}
 	
 }

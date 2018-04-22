@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 public class Asignatura {
 
@@ -33,6 +36,7 @@ public class Asignatura {
 	 */
 	
 	@ManyToMany(mappedBy="asignaturasProfesor")
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Profesor> profesores;
 	
 	@OneToMany(cascade=CascadeType.ALL)

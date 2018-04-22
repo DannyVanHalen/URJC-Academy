@@ -3,6 +3,8 @@ package com.dad.urjcacademy.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +27,7 @@ public class AsignaturaController {
 	private ApuntesService apuntes;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@Cacheable(cacheNames="asignaturas")
 	public String asignatura(Model model, @PathVariable long id,
 			HttpServletRequest request) {
 		
@@ -71,6 +74,7 @@ public class AsignaturaController {
 	 * 
 	 */
 	@RequestMapping(value="/{id}/subir-contenido", method=RequestMethod.POST)
+	@CacheEvict(cacheNames="asignaturas")
 	public String subir_contenido(Model model, HttpServletRequest request,
 			@RequestParam String tema, @RequestParam String linkApuntes, 
 			@PathVariable long id) {
@@ -80,6 +84,7 @@ public class AsignaturaController {
 		if(asignatura != null) {
 			Apuntes ok = apuntes.save(new Apuntes(tema,linkApuntes,asignatura));
 			if(ok != null) {
+				asignaturas.subirApuntesAsignatura(asignatura, ok);
 				return "redirect:/asignatura/{id}";
 			}
 		}
