@@ -141,6 +141,8 @@ public class AdminController extends UsuarioController{
 		if(titulacion != null) {
 			//Borramos todas las asignaturas que tenga relacionadas esta titulacion
 			for(Asignatura asignatura: titulacion.getAsignaturas()) {
+				this.asignaturas.desasociarTodosProfesores(asignatura);
+				this.asignaturas.desmatricularTodosAlumnos(asignatura);
 				this.apuntes.quitarApuntesAsignatura(asignatura);
 			}
 			titulaciones.borrarAsignaturasTitulacion(titulacion);
