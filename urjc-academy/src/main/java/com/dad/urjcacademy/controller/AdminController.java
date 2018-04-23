@@ -41,8 +41,8 @@ import com.dad.urjcacademy.services.UsuarioService;
 public class AdminController extends UsuarioController{
 	
 	/*Instancia para el servicio Interno*/
-	//private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
-	private static final String RESTSERVICE = "http://10.11.12.103:8070/send"; // URL del controlador Rest 
+	private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
+	//private static final String RESTSERVICE = "http://10.11.12.103:8070/send"; // URL del controlador Rest 
 	private static final String SUBJECT = "Alta URJC-Academy";
 	
 	
@@ -144,7 +144,7 @@ public class AdminController extends UsuarioController{
 			for(Asignatura asignatura: titulacion.getAsignaturas()) {
 				if(!asignatura.getApuntesAsignatura().isEmpty()) {
 					this.asignaturas.borraTodosApuntesAsignatura(asignatura);
-					this.apuntes.quitarApuntesAsignatura(asignatura);
+					//this.apuntes.quitarApuntesAsignatura(asignatura);
 				}
 				this.asignaturas.desasociarTodosProfesores(asignatura);
 				this.profesores.eliminarProfesoresAsignatura(asignatura);
@@ -280,7 +280,9 @@ public class AdminController extends UsuarioController{
 				Titulacion titulacion = titulaciones.findById(this.titulacion.getId());
 				if(titulacion.getAsignaturas().contains(asignatura)) {
 						if(!asignatura.getApuntesAsignatura().isEmpty()) {
-							this.apuntes.quitarApuntesAsignatura(asignatura);
+							for(Apuntes apuntes: asignatura.getApuntesAsignatura()) {
+								this.apuntes.delete(apuntes.getId());
+							}
 							asignaturas.borraTodosApuntesAsignatura(asignatura);
 						}
 						
@@ -289,7 +291,7 @@ public class AdminController extends UsuarioController{
 						profesores.eliminarProfesoresAsignatura(asignatura);
 						alumnos.desmatricularAlumnosAsignatura(asignatura);
 						titulaciones.desasignarAsignaturaTitulacion(titulacion, asignatura);
-						asignaturas.deleteId(asignatura.getId());
+						//asignaturas.deleteId(asignatura.getId());
 						model.addAttribute("nombre", asignatura.getNombre());
 						return "eliminado";
 				}

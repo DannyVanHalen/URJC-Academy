@@ -162,9 +162,7 @@ public class AsignaturaService {
 	}
 	
 	public boolean borraTodosApuntesAsignatura(Asignatura asignatura) {
-		if(asignatura.borrarTodosApuntes()) {
-			return this.save(asignatura) != null;
-		}
+		
 		return false;
 	}
 	

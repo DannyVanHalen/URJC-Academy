@@ -43,12 +43,6 @@ public class ApuntesService {
 		repository.delete(apuntes);
 	}
 	
-	public void quitarApuntesAsignatura(Asignatura asignatura) {
-		for(Apuntes apuntes: asignatura.getApuntesAsignatura()) {
-			repository.delete(apuntes.getId());
-		}
-	}
-	
 	
 	/*Exists*/
 	public boolean exists(long id) {
