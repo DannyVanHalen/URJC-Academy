@@ -92,7 +92,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
     -   Recibe las peticiones, se encarga de montar el correo a la dirección de destino
 ### Diagrama de infraestructura en Vagrant
 
-![](imagenes/DiagramaInfraestructuraVagrant.jpg "DiagramaInfraestructuraVagrant")
+![](imagenes/Diagrama-Infraestructura-Vagrant.jpg "Diagrama-Infraestructura-Vagrant")
 
 
 
