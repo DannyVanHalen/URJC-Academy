@@ -77,7 +77,20 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
     -   vagrant> java -jar servicio-interno-urjc-academy-0.0.1-SNAPSHOT.jar
 ### Diagrama de clases Fase 3
 
-![](imagenes/Diagrama_de_clases_Fase3.png "Diagrama_de_clases_Fase3")
+![](imagenes/Diagrama_de_clases_Fase3.png "Diagrama_de_clases_Fase3"
+
+# Fase 4
+-   Documentación de la interfaz del servicio interno:
+-   El servicio interno se compone de tres clases; Una clase main que contiene cuatro atributos que se corresponden con
+    -   La dirección del correo de origen
+    -   La dirección de correo de destino
+    -   Asunto del correo electronico
+    -   El cuerpo del mensaje
+-   La segunda clase es el protocolo interno (MysimplemailTransferProtocol)
+    -   Lleva implementada toda la lógica y los mecanismos para enviar un mensaje de correo electronico
+-   Pro último, la tercera clase el controlador del servicio interno
+    -   Recibe las peticiones, se encarga de montar el correo a la dirección de destino
+-   
 
 
 
