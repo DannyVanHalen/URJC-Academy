@@ -90,7 +90,9 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
     -   Lleva implementada toda la lógica y los mecanismos para enviar un mensaje de correo electronico
 -   Pro último, la tercera clase el controlador del servicio interno
     -   Recibe las peticiones, se encarga de montar el correo a la dirección de destino
--   
+### Diagrama de infraestructura en Vagrant
+
+![](imagenes/DiagramaInfraestructuraVagrant.jpg "DiagramaInfraestructuraVagrant")
 
 
 
