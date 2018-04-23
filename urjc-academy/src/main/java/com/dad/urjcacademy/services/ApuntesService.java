@@ -45,7 +45,7 @@ public class ApuntesService {
 	
 	public void quitarApuntesAsignatura(Asignatura asignatura) {
 		for(Apuntes apuntes: asignatura.getApuntesAsignatura()) {
-			repository.delete(apuntes);
+			repository.delete(apuntes.getId());
 		}
 	}
 	

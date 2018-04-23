@@ -41,7 +41,8 @@ import com.dad.urjcacademy.services.UsuarioService;
 public class AdminController extends UsuarioController{
 	
 	/*Instancia para el servicio Interno*/
-	private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
+	//private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
+	private static final String RESTSERVICE = "http://10.11.12.103:8070/send"; // URL del controlador Rest 
 	private static final String SUBJECT = "Alta URJC-Academy";
 	
 	
@@ -141,9 +142,16 @@ public class AdminController extends UsuarioController{
 		if(titulacion != null) {
 			//Borramos todas las asignaturas que tenga relacionadas esta titulacion
 			for(Asignatura asignatura: titulacion.getAsignaturas()) {
+				if(!asignatura.getApuntesAsignatura().isEmpty()) {
+					this.asignaturas.borraTodosApuntesAsignatura(asignatura);
+					this.apuntes.quitarApuntesAsignatura(asignatura);
+				}
 				this.asignaturas.desasociarTodosProfesores(asignatura);
+				this.profesores.eliminarProfesoresAsignatura(asignatura);
 				this.asignaturas.desmatricularTodosAlumnos(asignatura);
-				this.apuntes.quitarApuntesAsignatura(asignatura);
+				this.alumnos.desmatricularAlumnosAsignatura(asignatura);
+				this.asignaturas.delete(asignatura);
+				
 			}
 			titulaciones.borrarAsignaturasTitulacion(titulacion);
 			//Borramos la titulación
@@ -273,15 +281,15 @@ public class AdminController extends UsuarioController{
 				if(titulacion.getAsignaturas().contains(asignatura)) {
 						if(!asignatura.getApuntesAsignatura().isEmpty()) {
 							this.apuntes.quitarApuntesAsignatura(asignatura);
-							asignatura.borrarTodosApuntes();
+							asignaturas.borraTodosApuntesAsignatura(asignatura);
 						}
-							
+						
 						asignaturas.desasociarTodosProfesores(asignatura);
 						asignaturas.desmatricularTodosAlumnos(asignatura);
 						profesores.eliminarProfesoresAsignatura(asignatura);
 						alumnos.desmatricularAlumnosAsignatura(asignatura);
-						asignaturas.deleteId(asignatura.getId());
 						titulaciones.desasignarAsignaturaTitulacion(titulacion, asignatura);
+						asignaturas.deleteId(asignatura.getId());
 						model.addAttribute("nombre", asignatura.getNombre());
 						return "eliminado";
 				}

@@ -36,7 +36,6 @@ public class Asignatura {
 	 */
 	
 	@ManyToMany(mappedBy="asignaturasProfesor")
-	@LazyCollection(LazyCollectionOption.TRUE)
 	private List<Profesor> profesores;
 	
 	@OneToMany(cascade=CascadeType.ALL)
