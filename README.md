@@ -77,7 +77,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
     -   vagrant> java -jar servicio-interno-urjc-academy-0.0.1-SNAPSHOT.jar
 ### Diagrama de clases Fase 3
 
-![](imagenes/Diagrama_de_clases_Fase3.png "Diagrama_de_clases_Fase3"
+![](imagenes/Diagrama_de_clases_Fase3.png "Diagrama_de_clases_Fase3")
 
 # Fase 4
 -   Documentación de la interfaz del servicio interno:
