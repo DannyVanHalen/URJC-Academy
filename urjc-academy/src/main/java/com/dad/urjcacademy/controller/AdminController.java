@@ -41,8 +41,8 @@ import com.dad.urjcacademy.services.UsuarioService;
 public class AdminController extends UsuarioController{
 	
 	/*Instancia para el servicio Interno*/
-	private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
-	//private static final String RESTSERVICE = "http://10.11.12.103:8070/send"; // URL del controlador Rest 
+	//private static final String RESTSERVICE = "http://127.0.0.1:8070/send"; // URL del controlador Rest 
+	private static final String RESTSERVICE = "http://10.11.12.103:8070/send"; // URL del controlador Rest 
 	private static final String SUBJECT = "Alta URJC-Academy";
 	
 	

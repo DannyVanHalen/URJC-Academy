@@ -32,8 +32,8 @@ public class UrjcAcademyApplication {
 		Config config = new Config();
 		JoinConfig joinConfig = config.getNetworkConfig().getJoin();
 		joinConfig.getMulticastConfig().setEnabled(false);
-		//joinConfig.getTcpIpConfig().addMember("10.11.12.101").addMember("10.11.12.102").setEnabled(true);
-		joinConfig.getTcpIpConfig().addMember("127.0.0.1").setEnabled(true);
+		joinConfig.getTcpIpConfig().addMember("10.11.12.101").addMember("10.11.12.102").setEnabled(true);
+		//joinConfig.getTcpIpConfig().addMember("127.0.0.1").setEnabled(true);
 		return config;
 	}
 	
