@@ -29,7 +29,7 @@ public class AsignaturaController {
 	private ApuntesService apuntes;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	@Cacheable(cacheNames="asignaturas")
+	//@Cacheable(cacheNames="asignaturas")
 	public String asignatura(Model model, @PathVariable long id,
 			HttpServletRequest request) {
 		
@@ -76,7 +76,7 @@ public class AsignaturaController {
 	 * 
 	 */
 	@RequestMapping(value="/{id}/subir-contenido", method=RequestMethod.POST)
-	@CacheEvict(cacheNames="asignaturas")
+	//@CacheEvict(cacheNames="asignaturas")
 	public String subir_contenido(Model model, HttpServletRequest request,
 			@RequestParam String tema, @RequestParam String linkApuntes, 
 			@PathVariable long id) {

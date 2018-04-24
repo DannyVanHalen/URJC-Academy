@@ -98,7 +98,7 @@ public class AdminController extends UsuarioController{
 	
 	// Alta Titulacion
 	@RequestMapping(value="/nueva-titulacion", method=RequestMethod.POST)
-	@CacheEvict(cacheNames="asignaturas")
+	//@CacheEvict(cacheNames="asignaturas")
 	public String nuevaTitulacion(Model model,
 			@RequestParam String nombre, @RequestParam String rama) {
 		
@@ -116,7 +116,7 @@ public class AdminController extends UsuarioController{
 	
 	//Select Titulacion
 	@RequestMapping(value="/titulacion/{id}", method=RequestMethod.GET)
-	@Cacheable(cacheNames="asignaturas")
+	//@Cacheable(cacheNames="asignaturas")
 	public String selectTitulacion(Model model, @PathVariable long id) {
 		
 		Titulacion titulacion = titulaciones.findById(id);
@@ -172,7 +172,7 @@ public class AdminController extends UsuarioController{
 	
 	//Select
 	@RequestMapping(value="/titulacion/asignatura/{id}", method=RequestMethod.GET)
-	@Cacheable(cacheNames="asignaturas")
+	//@Cacheable(cacheNames="asignaturas")
 	public String selectAsignatura(Model model, @PathVariable long id) {
 		
 		Asignatura asignatura = asignaturas.findById(id);
@@ -210,7 +210,7 @@ public class AdminController extends UsuarioController{
 	
 	// Agregar Asignatura existente
 	@RequestMapping(value="/titulacion/{id}/agregar-asignatura/nueva-asignatura", method=RequestMethod.POST)
-	@CacheEvict(cacheNames="asignaturas")
+	//@CacheEvict(cacheNames="asignaturas")
 	public String agregarAsignatura(Model model, @PathVariable long id,
 			@RequestParam Asignatura asignatura) {
 		
@@ -241,7 +241,7 @@ public class AdminController extends UsuarioController{
 	}
 	
 	@RequestMapping(value="/titulacion/{id}/alta-asignatura/nueva-asignatura", method=RequestMethod.POST)
-	@CacheEvict(cacheNames="asignaturas")
+	//@CacheEvict(cacheNames="asignaturas")
 	public String nuevaAsignatura(Model model, @PathVariable long id,
 			@RequestParam String nombre) {
 		
@@ -484,7 +484,7 @@ public class AdminController extends UsuarioController{
 	
 	// insert
 	@RequestMapping(value="/asignatura/{id}/agregar-profesor/nuevo", method=RequestMethod.POST)
-	@CacheEvict(cacheNames="asignaturas")
+	//@CacheEvict(cacheNames="asignaturas")
 	public String insertProfesorAsignatura(Model model, @PathVariable long id,
 			@RequestParam Profesor usuario) {
 		
@@ -528,7 +528,7 @@ public class AdminController extends UsuarioController{
 	
 	// insert
 	@RequestMapping(value="/asignatura/{id}/matricular-alumno/nuevo", method=RequestMethod.POST)
-	@CacheEvict(cacheNames="asignaturas")
+	//@CacheEvict(cacheNames="asignaturas")
 	public String insertAlumnoAsignatura(Model model, @PathVariable long id,
 			@RequestParam Alumno usuario) {
 		
