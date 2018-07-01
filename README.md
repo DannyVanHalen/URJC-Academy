@@ -156,7 +156,14 @@ public class UrjcAcademyApplication {
 }
 
 
+# Topología
 
+El despliegue de nuestra aplicación estará formado por 5 VM:
+	-	Balanceador de Carga (HAProxy) : IP ->  10.11.12.100
+	-	Servidor 1 : IP ->  10.11.12.101
+	-	Servidor 2 : IP  -> 10.11.12.102
+	-	Servicio Interno: IP -> 10.11.12.103
+	-	MYSQL: IP  -> 10.11.12.104
 
 
 
