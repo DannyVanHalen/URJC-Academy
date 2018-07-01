@@ -115,9 +115,9 @@ public class CacheController {
 		return cache.getNativeCache();
 	}
 	
-}
 
 3- Añadimos contenido a la clase donde tenemos nuestro programa principal
+
 @EnableCaching /** Fase 4 -> Invalidacion de caché **/
 @SpringBootApplication
 @EnableHazelcastHttpSession
