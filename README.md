@@ -186,6 +186,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 	- Servidor N
 	
 	config.vm.define :WebServer1 do |node|
+	
 	      node.vm.box = "ubuntu/trusty64"
 	      node.vm.network :private_network, ip: "10.11.12.101", netmask: "255.255.255.0"
 	      node.vm.network :forwarded_port, guest: 8443, host: 8443
@@ -193,11 +194,13 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 		  vb.customize ["modifyvm", :id, "--memory", 1024, "--cpus", 1, "--name", "WebServer1"]
 	      end
 	      #node.vm.provision "shell", path: "java8.sh"
+	      
 	end
 	
 	- Servicio Interno
 	
 	config.vm.define :InternalService do |node|
+	
 	      node.vm.box = "ubuntu/trusty64"
 	      node.vm.network :private_network, ip: "10.11.12.103", netmask: "255.255.255.0"
 	      node.vm.network :forwarded_port, guest: 8070, host: 8070
@@ -206,11 +209,13 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 		  vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "InternalService"]
 	      end
 	      #node.vm.provision "shell", path: "java8.sh"
+	      
 	end
 	
 	- MYSQL
 	
 	config.vm.define :DataBase do |node|
+	
 	      node.vm.box = "ubuntu/trusty64"
 	      node.vm.network :private_network, ip: "10.11.12.104", netmask: "255.255.255.0"
 	      node.vm.network :forwarded_port, guest: 3306, host: 3306
@@ -218,6 +223,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 		  vb.customize ["modifyvm", :id, "--memory", 1024, "--cpus", 1, "--name", "DataBase"]
 	      end
 	      #node.vm.provision "shell", path: "java8-mysql.sh"
+	      
 	end
 	
 	
