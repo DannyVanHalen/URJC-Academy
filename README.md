@@ -74,6 +74,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
 1-  Titualción repository:
 
 @CacheConfig(cacheNames="titulaciones")
+
 public interface TitulacionRepository extends JpaRepository<Titulacion, Long> {
 
 	/**INSERT**/
