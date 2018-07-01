@@ -34,7 +34,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
 La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
 
 # Servidor Caché 
--   Para implementar la Caché en primer lugar hemos añadido dependencias adicionales en el archivo pom.xml:
+Para implementar la Caché en primer lugar hemos añadido dependencias adicionales en el archivo pom.xml:
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
