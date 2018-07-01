@@ -72,6 +72,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
         
 -  En nuestra aplicación hemos decidido cachear las Titulaciones, para probar que la Caché funciona correctamente. Para ello hemos tenido que modificar el código fuente de nuestra aplicación.
 1-  Titualción repository:
+
 @CacheConfig(cacheNames="titulaciones")
 public interface TitulacionRepository extends JpaRepository<Titulacion, Long> {
 
