@@ -172,6 +172,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 	- HAProxy:
 	
 	config.vm.define :HAProxy do |node|
+	
 		node.vm.box = "ubuntu/trusty64"
 		node.vm.network :private_network, ip: "10.11.12.100", netmask: "255.255.255.0"
 		node.vm.network :forwarded_port, guest: 80, host: 8080	 
@@ -179,6 +180,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 			vb.customize ["modifyvm", :id, "--memory", 512, "--cpus", 1, "--name", "HAProxy"]
 		end
 		node.vm.provision "shell", path: "HAProxy.sh" 
+		
 	end
 	
 	- Servidor N
