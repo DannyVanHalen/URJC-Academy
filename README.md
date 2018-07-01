@@ -31,7 +31,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
 ![](imagenes/E_R.jpg "E_R")
 
 # Servicio Interno
--   La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
+La apliación ha de ser capaz de mantener informados a los usuarios vía correo electrónico, o vía whatsapp (si podemos conseguir implementar este último), de cualquiera de los cambios que se produzcan en la página web, referidos al planning de la propia academía.
 
 # Servidor Caché 
 -   Para implementar la Caché en primer lugar hemos añadido dependencias adicionales en el archivo pom.xml:
@@ -70,7 +70,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
                 <version>3.8.3</version>
         </dependency>
         
--  En nuestra aplicación hemos decidido cachear las Titulaciones, para probar que la Caché funciona correctamente. Para ello hemos tenido que modificar el código fuente de nuestra aplicación.
+En nuestra aplicación hemos decidido cachear las Titulaciones, para probar que la Caché funciona correctamente. Para ello hemos tenido que modificar el código fuente de nuestra aplicación.
 
 1-  Titualción repository:
 
@@ -154,6 +154,8 @@ public class UrjcAcademyApplication {
 	}
 	
 }
+
+
 
 
 
