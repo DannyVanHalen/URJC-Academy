@@ -166,7 +166,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 	-	Servicio Interno: IP -> 10.11.12.103
 	-	MYSQL: IP  -> 10.11.12.104
 
--Esquema
+- Esquema
 
 ![](/home/dani/Descargas/topologia.jpg "Esquema Despliegue Aplicación URJC-Academy")
 
