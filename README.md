@@ -168,7 +168,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 
 - Esquema
 
-![](/home/dani/Descargas/topologia.jpg "Esquema Despliegue Aplicación URJC-Academy")
+![](imagenes/topologia.jpg "Esquema Despliegue Aplicación URJC-Academy")
 
 # Integrantes
 
