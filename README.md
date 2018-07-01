@@ -71,6 +71,7 @@ A continuación se puede observar el diagrama Entidad-Relación de nuestro model
         </dependency>
         
 -  En nuestra aplicación hemos decidido cachear las Titulaciones, para probar que la Caché funciona correctamente. Para ello hemos tenido que modificar el código fuente de nuestra aplicación.
+
 1-  Titualción repository:
 
 @CacheConfig(cacheNames="titulaciones")
@@ -114,6 +115,7 @@ public class CacheController {
 		ConcurrentMapCache cache = (ConcurrentMapCache) manager.getCache("titulaciones");
 		return cache.getNativeCache();
 	}
+}
 	
 
 3- Añadimos contenido a la clase donde tenemos nuestro programa principal
