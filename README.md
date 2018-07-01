@@ -119,8 +119,11 @@ public class CacheController {
 3- Añadimos contenido a la clase donde tenemos nuestro programa principal
 
 @EnableCaching /** Fase 4 -> Invalidacion de caché **/
+
 @SpringBootApplication
+
 @EnableHazelcastHttpSession
+
 public class UrjcAcademyApplication {
 	
 	private static final Log LOG = LogFactory.getLog(UrjcAcademyApplication.class);
