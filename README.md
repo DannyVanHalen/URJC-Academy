@@ -255,7 +255,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 			server WebServer2 10.11.12.102:8443 check ssl verify none
 
 
-
+- Comando para ejecutar el JAR 
 
 # Integrantes
 
