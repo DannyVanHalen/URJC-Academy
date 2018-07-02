@@ -22,7 +22,6 @@ public class URJCAcademyDBLoader /**implements InitializingBean**/{
 	@Autowired
 	private UsuarioRepository usuarios;
 	
-	
 	@PostConstruct
 	public void initdDB() {
 		/**
@@ -38,16 +37,5 @@ public class URJCAcademyDBLoader /**implements InitializingBean**/{
 			
 	}
 
-	/**
-	@Override
-	@Transactional()
-	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
-		if(usuarios.findByLogin("root") == null) {
-			String [] roles = {"ROLE_USER","ROLE_ADMIN"};
-			Admin admin = new Admin("root","urjc.academy.root@gmail.com","sudosu12345@","administrador",roles);
-			usuarios.save(admin);
-		}
-	}**/
 	
 }

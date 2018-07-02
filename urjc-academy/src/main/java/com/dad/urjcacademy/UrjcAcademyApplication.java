@@ -41,7 +41,7 @@ public class UrjcAcademyApplication {
 	@Bean
 	public CacheManager cacheManager() {
 		LOG.info("Activating cache...");
-		return new ConcurrentMapCacheManager("asignaturas");
+		return new ConcurrentMapCacheManager("titulaciones");
 	}
 	
 }

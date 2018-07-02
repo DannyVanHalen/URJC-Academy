@@ -41,7 +41,7 @@ public class Asignatura {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Tutoria> tutoriasAsociadas;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="asignatura")
+	@OneToMany(mappedBy="asignatura")
 	private List<Apuntes> apuntesAsignatura;
 	
 	/** Constructores **/

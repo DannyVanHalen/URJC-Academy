@@ -41,6 +41,8 @@ public class AsignaturaController {
 			model.addAttribute("apuntes", asignatura.getApuntesAsignatura());
 			//El usuario es profesor
 			model.addAttribute("profesor", request.isUserInRole("ROLE_TEACHER"));
+			//El usuario es un alumno
+			model.addAttribute("alumno", request.isUserInRole("ROLE_STUDENT"));
 			
 			return "asignatura";
 		}
