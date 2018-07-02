@@ -167,6 +167,10 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 	-	MYSQL: IP  -> 10.11.12.104
 
 
+- Esquema Inicial de la Infraestructura:
+
+![](imagenes/topologia.jpg "Esquema Despliegue Aplicación URJC-Academy")
+
 - Configuración Vagrant File para crear todo el despliegue de la infraestructura de la aplicación:
 	
 	- HAProxy:
@@ -232,9 +236,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 
 
 
-- Esquema
 
-![](imagenes/topologia.jpg "Esquema Despliegue Aplicación URJC-Academy")
 
 # Integrantes
 
