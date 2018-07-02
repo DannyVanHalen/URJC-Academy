@@ -74,7 +74,6 @@ public class AdminController extends UsuarioController{
 	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	//@Cacheable(cacheNames="usuarios", key="#id")
 	public String root(Model model ,HttpServletRequest request) {
 		
 		//Lectura de datos
@@ -98,7 +97,6 @@ public class AdminController extends UsuarioController{
 	
 	// Alta Titulacion
 	@RequestMapping(value="/nueva-titulacion", method=RequestMethod.POST)
-	//@CacheEvict(cacheNames="asignaturas")
 	public String nuevaTitulacion(Model model,
 			@RequestParam String nombre, @RequestParam String rama) {
 		
@@ -116,7 +114,6 @@ public class AdminController extends UsuarioController{
 	
 	//Select Titulacion
 	@RequestMapping(value="/titulacion/{id}", method=RequestMethod.GET)
-	//@Cacheable(cacheNames="asignaturas")
 	public String selectTitulacion(Model model, @PathVariable long id) {
 		
 		Titulacion titulacion = titulaciones.findById(id);
@@ -141,8 +138,8 @@ public class AdminController extends UsuarioController{
 		
 		if(titulacion != null) {
 			//Borramos todas las asignaturas que tenga relacionadas esta titulacion
-			for(Asignatura asignatura: titulacion.getAsignaturas()) {
-				if(!asignatura.getApuntesAsignatura().isEmpty()) {
+			/**for(Asignatura asignatura: titulacion.getAsignaturas()) {
+				if(asignatura.getApuntesAsignatura() != null) {
 					this.asignaturas.borraTodosApuntesAsignatura(asignatura);
 					//this.apuntes.quitarApuntesAsignatura(asignatura);
 				}
@@ -153,7 +150,7 @@ public class AdminController extends UsuarioController{
 				this.asignaturas.delete(asignatura);
 				
 			}
-			titulaciones.borrarAsignaturasTitulacion(titulacion);
+			titulaciones.borrarAsignaturasTitulacion(titulacion);**/
 			//Borramos la titulación
 			titulaciones.delete(id);
 			if(!titulaciones.exists(id)) {
@@ -172,7 +169,6 @@ public class AdminController extends UsuarioController{
 	
 	//Select
 	@RequestMapping(value="/titulacion/asignatura/{id}", method=RequestMethod.GET)
-	//@Cacheable(cacheNames="asignaturas")
 	public String selectAsignatura(Model model, @PathVariable long id) {
 		
 		Asignatura asignatura = asignaturas.findById(id);
@@ -210,7 +206,6 @@ public class AdminController extends UsuarioController{
 	
 	// Agregar Asignatura existente
 	@RequestMapping(value="/titulacion/{id}/agregar-asignatura/nueva-asignatura", method=RequestMethod.POST)
-	//@CacheEvict(cacheNames="asignaturas")
 	public String agregarAsignatura(Model model, @PathVariable long id,
 			@RequestParam Asignatura asignatura) {
 		
@@ -241,7 +236,6 @@ public class AdminController extends UsuarioController{
 	}
 	
 	@RequestMapping(value="/titulacion/{id}/alta-asignatura/nueva-asignatura", method=RequestMethod.POST)
-	//@CacheEvict(cacheNames="asignaturas")
 	public String nuevaAsignatura(Model model, @PathVariable long id,
 			@RequestParam String nombre) {
 		
@@ -276,31 +270,33 @@ public class AdminController extends UsuarioController{
 		Asignatura asignatura = asignaturas.findById(id);
 		
 		if(asignatura != null) {
-			if(this.titulacion != null) {
-				Titulacion titulacion = titulaciones.findById(this.titulacion.getId());
-				if(titulacion.getAsignaturas().contains(asignatura)) {
-						if(!asignatura.getApuntesAsignatura().isEmpty()) {
-							for(Apuntes apuntes: asignatura.getApuntesAsignatura()) {
-								this.apuntes.delete(apuntes.getId());
-							}
-							asignaturas.borraTodosApuntesAsignatura(asignatura);
-						}
+			//if(this.titulacion != null) {
+				//Titulacion titulacion = titulaciones.findById(this.titulacion.getId());
+				//if(titulacion.getAsignaturas().contains(asignatura)) {
+						//if(!asignatura.getApuntesAsignatura().isEmpty()) {
+							//for(Apuntes apuntes: asignatura.getApuntesAsignatura()) {
+								//this.apuntes.delete(apuntes.getId());
+							//}
+							//asignaturas.borraTodosApuntesAsignatura(asignatura);
+						//}
 						
 						asignaturas.desasociarTodosProfesores(asignatura);
 						asignaturas.desmatricularTodosAlumnos(asignatura);
 						profesores.eliminarProfesoresAsignatura(asignatura);
 						alumnos.desmatricularAlumnosAsignatura(asignatura);
 						titulaciones.desasignarAsignaturaTitulacion(titulacion, asignatura);
-						//asignaturas.deleteId(asignatura.getId());
+						asignaturas.deleteId(asignatura.getId());
 						model.addAttribute("nombre", asignatura.getNombre());
 						return "eliminado";
-				}
+				
+			} else {
+				return "404";
 			}
-		} else {
-			return "404";
-		}
+		//} else {
+			//return "404";
+		//}
 		
-		return "505";
+		//return "505";
 		
 	}
 	
@@ -484,7 +480,6 @@ public class AdminController extends UsuarioController{
 	
 	// insert
 	@RequestMapping(value="/asignatura/{id}/agregar-profesor/nuevo", method=RequestMethod.POST)
-	//@CacheEvict(cacheNames="asignaturas")
 	public String insertProfesorAsignatura(Model model, @PathVariable long id,
 			@RequestParam Profesor usuario) {
 		
@@ -528,7 +523,6 @@ public class AdminController extends UsuarioController{
 	
 	// insert
 	@RequestMapping(value="/asignatura/{id}/matricular-alumno/nuevo", method=RequestMethod.POST)
-	//@CacheEvict(cacheNames="asignaturas")
 	public String insertAlumnoAsignatura(Model model, @PathVariable long id,
 			@RequestParam Alumno usuario) {
 		

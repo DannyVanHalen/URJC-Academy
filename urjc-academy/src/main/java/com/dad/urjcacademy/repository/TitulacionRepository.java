@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-@CacheConfig(cacheNames="asignaturas")
+@CacheConfig(cacheNames="titulaciones")
 public interface TitulacionRepository extends JpaRepository<Titulacion, Long> {
 
 	/**INSERT**/
@@ -19,17 +19,18 @@ public interface TitulacionRepository extends JpaRepository<Titulacion, Long> {
 	
 	/** SELECT **/
 	@Cacheable
+	Titulacion findOne(long id);
+	@Cacheable
 	Titulacion findByNombre(String nombre);
 	@Cacheable
 	List<Titulacion> findAll();
 	
-	@Query("SELECT titulacion FROM Titulacion titulacion ORDER BY titulacion.nombre ASC")
-	List<Titulacion> findByRama(String rama);
+	@Query("SELECT titulacion.nombre FROM Titulacion titulacion WHERE titulacion.rama = ?1 ORDER BY titulacion.nombre ASC")
+	List<Titulacion> findByRamaASC(String rama);
 	
 	/** DELETE **/
 	@CacheEvict(allEntries=true)
 	void delete(long id);
 	@CacheEvict(allEntries=true)
 	void delete(Titulacion titualicon);
-	
 }

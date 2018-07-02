@@ -1,5 +1,6 @@
 package com.dad.urjcacademy.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Apuntes {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Asignatura asignatura;
 	
 	private String tema;

@@ -163,8 +163,13 @@ public class Profesor extends Usuario {
 		return asignaturasProfesor.add(asignatura);
 	}
 	
-	public boolean quitarAsignatura(Asignatura asignatura) {
-		return asignaturasProfesor.remove(asignatura);
+	public void quitarAsignatura(Asignatura asignatura) {
+		asignaturasProfesor.remove(asignatura);
+	}
+	
+	public boolean quitarTodasAsignaturas() {
+		asignaturasProfesor.clear();
+		return asignaturasProfesor.isEmpty();
 	}
 	
 	public boolean agregarTutoria(Tutoria tutoria) {

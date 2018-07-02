@@ -72,14 +72,13 @@ public class ProfesorService {
 	}
 	
 	public boolean quitarAsignaturaProfesor(Profesor profesor, Asignatura asignatura) {
-		if(profesor.quitarAsignatura(asignatura)) {
+		profesor.quitarAsignatura(asignatura);
 			return this.save(profesor) != null;
-		}
-		return false;
+
 	}
 	
 	public boolean quitarTodasAsignaturas(Profesor profesor) {
-		if(profesor.quitarTodasTutorias()) {
+		if(profesor.quitarTodasAsignaturas()) {
 			return this.save(profesor) != null;
 		}
 		return false;
@@ -87,11 +86,11 @@ public class ProfesorService {
 	
 	public boolean eliminarProfesoresAsignatura(Asignatura asignatura) {
 		for(Profesor profesor: repository.findAll()) {
-			if(profesor.getAsignaturas().contains(asignatura)) {
-				this.quitarAsignaturaProfesor(profesor, asignatura);
-			}
+			//if(profesor.getAsignaturas().contains(asignatura.getNombre())) {
+				return this.quitarAsignaturaProfesor(profesor, asignatura);
+			//}
 		}
-		return true;
+		return false;
 	}
 	
 	/*Tutorias -> Operaciones para Usar con AdminController*/

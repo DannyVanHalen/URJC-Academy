@@ -26,7 +26,7 @@ public class TitulacionService {
 	}
 	
 	public List<Titulacion> findByRama(String rama) {
-		return repository.findByRama(rama);
+		return repository.findByRamaASC(rama);
 	}
 	
 	public List<Titulacion> findAll() {
@@ -76,6 +76,10 @@ public class TitulacionService {
 			return this.save(titulacion) != null;
 		}
 		return false;
+	}
+	
+	public List<Titulacion> listarPorRama(String rama) {
+		return repository.findByRamaASC(rama);
 	}
 	
 }
