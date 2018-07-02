@@ -234,7 +234,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 	
 - Configuramos el archivo my.cnf:
 
-	bind-address		= 10.11.12.104
+		bind-address		= 10.11.12.104
 
 
 
