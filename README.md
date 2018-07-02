@@ -257,7 +257,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 
 - Comando para ejecutar el JAR:
 
-	![] (imagenes/jar.png)
+	![](imagenes/jar.png)
 
 # Integrantes
 
