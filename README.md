@@ -258,6 +258,10 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 - Comando para ejecutar el JAR:
 
 	![](imagenes/jar.png)
+	
+- Si accedemos a https://10.11.12.100:/haproxy, nos aparecedrá esto:
+
+	![](imagenes/haproxy.png)
 
 # Integrantes
 
