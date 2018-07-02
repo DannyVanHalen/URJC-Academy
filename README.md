@@ -74,86 +74,86 @@ En nuestra aplicación hemos decidido cachear las Titulaciones, para probar que 
 
 1-  Titualción repository:
 
-@CacheConfig(cacheNames="titulaciones")
+	@CacheConfig(cacheNames="titulaciones")
 
-public interface TitulacionRepository extends JpaRepository<Titulacion, Long> {
+	public interface TitulacionRepository extends JpaRepository<Titulacion, Long> {
 
-	/**INSERT**/
-	@CacheEvict(allEntries=true)
-	Titulacion save(Titulacion titulacion);
-	
-	/** SELECT **/
-	@Cacheable
-	Titulacion findOne(long id);
-	@Cacheable
-	Titulacion findByNombre(String nombre);
-	@Cacheable
-	List<Titulacion> findAll();
-	
-	@Query("SELECT titulacion.nombre FROM Titulacion titulacion WHERE titulacion.rama = ?1 ORDER BY titulacion.nombre ASC")
-	List<Titulacion> findByRamaASC(String rama);
-	
-	/** DELETE **/
-	@CacheEvict(allEntries=true)
-	void delete(long id);
-	@CacheEvict(allEntries=true)
-	void delete(Titulacion titualicon);
-	
-}
+		/**INSERT**/
+		@CacheEvict(allEntries=true)
+		Titulacion save(Titulacion titulacion);
+
+		/** SELECT **/
+		@Cacheable
+		Titulacion findOne(long id);
+		@Cacheable
+		Titulacion findByNombre(String nombre);
+		@Cacheable
+		List<Titulacion> findAll();
+
+		@Query("SELECT titulacion.nombre FROM Titulacion titulacion WHERE titulacion.rama = ?1 ORDER BY titulacion.nombre ASC")
+		List<Titulacion> findByRamaASC(String rama);
+
+		/** DELETE **/
+		@CacheEvict(allEntries=true)
+		void delete(long id);
+		@CacheEvict(allEntries=true)
+		void delete(Titulacion titualicon);
+
+	}
 
 2- Creamos un Controlador Rest llamado "CacheController"
 
-@RestController
-public class CacheController {
+	@RestController
+	public class CacheController {
 
-	@Autowired
-	private CacheManager cacheManager;
-	
-	@RequestMapping(value="/cache", method=RequestMethod.GET)
-	public Map<Object, Object> getCacheContent() {
-		ConcurrentMapCacheManager manager = (ConcurrentMapCacheManager) cacheManager;
-		ConcurrentMapCache cache = (ConcurrentMapCache) manager.getCache("titulaciones");
-		return cache.getNativeCache();
+		@Autowired
+		private CacheManager cacheManager;
+
+		@RequestMapping(value="/cache", method=RequestMethod.GET)
+		public Map<Object, Object> getCacheContent() {
+			ConcurrentMapCacheManager manager = (ConcurrentMapCacheManager) cacheManager;
+			ConcurrentMapCache cache = (ConcurrentMapCache) manager.getCache("titulaciones");
+			return cache.getNativeCache();
+		}
 	}
-}
 	
 
 3- Añadimos contenido a la clase donde tenemos nuestro programa principal
 
-@EnableCaching /** Fase 4 -> Invalidacion de caché **/
+	@EnableCaching /** Fase 4 -> Invalidacion de caché **/
 
-@SpringBootApplication
+	@SpringBootApplication
 
-@EnableHazelcastHttpSession
+	@EnableHazelcastHttpSession
 
-public class UrjcAcademyApplication {
-	
-	private static final Log LOG = LogFactory.getLog(UrjcAcademyApplication.class);
-	
-	public static void main(String[] args) {
-		SpringApplication.run(UrjcAcademyApplication.class, args);
+	public class UrjcAcademyApplication {
+
+		private static final Log LOG = LogFactory.getLog(UrjcAcademyApplication.class);
+
+		public static void main(String[] args) {
+			SpringApplication.run(UrjcAcademyApplication.class, args);
+		}
+
+
+		/*Fase 4 -> Invalidación de caché **/
+		@Bean
+		public Config config() {
+			Config config = new Config();
+			JoinConfig joinConfig = config.getNetworkConfig().getJoin();
+			joinConfig.getMulticastConfig().setEnabled(false);
+			joinConfig.getTcpIpConfig().addMember("10.11.12.101").addMember("10.11.12.102").setEnabled(true);
+			//joinConfig.getTcpIpConfig().addMember("127.0.0.1").setEnabled(true);
+			return config;
+		}
+
+
+		@Bean
+		public CacheManager cacheManager() {
+			LOG.info("Activating cache...");
+			return new ConcurrentMapCacheManager("titulaciones");
+		}
+
 	}
-	
-	
-	/*Fase 4 -> Invalidación de caché **/
-	@Bean
-	public Config config() {
-		Config config = new Config();
-		JoinConfig joinConfig = config.getNetworkConfig().getJoin();
-		joinConfig.getMulticastConfig().setEnabled(false);
-		joinConfig.getTcpIpConfig().addMember("10.11.12.101").addMember("10.11.12.102").setEnabled(true);
-		//joinConfig.getTcpIpConfig().addMember("127.0.0.1").setEnabled(true);
-		return config;
-	}
-	
-	
-	@Bean
-	public CacheManager cacheManager() {
-		LOG.info("Activating cache...");
-		return new ConcurrentMapCacheManager("titulaciones");
-	}
-	
-}
 
 
 # Topología
