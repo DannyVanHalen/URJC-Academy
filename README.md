@@ -233,9 +233,7 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 		end
 	
 - Configuramos el archivo my.cnf:
-	
-	# Instead of skip-networking the default is now to listen only on
-	# localhost which is more compatible and is not less secure.
+
 	bind-address		= 10.11.12.104
 
 
