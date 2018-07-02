@@ -263,6 +263,10 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 
 	![](imagenes/haproxy.png)
 
+# Video de demostración
+
+[![Video](https://img.youtube.com/vi/mI1nTJzCNuE/0.jpg)](https://www.youtube.com/watch?v=mI1nTJzCNuE)
+
 # Integrantes
 
 -   Andrés Casado García: a.casadoga@alumnos.urjc.es
