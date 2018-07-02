@@ -232,12 +232,27 @@ El despliegue de nuestra aplicación estará formado por 5 VM:
 
 		end
 	
-- Configuramos el archivo my.cnf:
+- Modificamos el archivo my.cnf para podernos conectar en remoto a la VM MYQSL :
 
 		bind-address		= 10.11.12.104
 
 
+- Modificamos el fichero haproxy.cfg para configurar la VM del Balanceador de Carga:
 
+		listen haproxy
+			bind 0.0.0.0:443 ssl crt /vagrant/etc/ssl/xip.io/xip.io.pem
+			mode http
+			stats enable
+			stats uri /haproxy?stats
+			balance roundrobin
+			option http-server-close
+			option forwardfor
+			reqadd X-Forwarded-Proto:\ https
+			reqadd X-Forwarded-Port:\ 443
+			option forwardfor if-none
+			option abortonclose
+			server WebServer1 10.11.12.101:8443 check ssl verify none
+			server WebServer2 10.11.12.102:8443 check ssl verify none
 
 
 
